@@ -41,6 +41,12 @@ class App {
         //         res.redirect(301, `http://${req.headers.host}${req.url}`);
         //     }
         // });
+        this.app.get("/", (_req, res) => {
+            res.status(200).send("WebHSV API is running");
+        });
+        this.app.get("/health", (_req, res) => {
+            res.status(200).json({ status: "ok" });
+        });
         this.app.use(PREFIX_API, webRouters);
         this.app.use(express.urlencoded({ extended: true, limit: "50mb" }));
     }
@@ -55,11 +61,10 @@ class App {
     }
 
     run() {
-        connectDatabase(() => {
-            this.server.listen(this.port, () => {
-                logger.info(`Server is running on port ${this.port}`);
-            });
+        this.server.listen(this.port, () => {
+            logger.info(`Server is running on port ${this.port}`);
         });
+        connectDatabase();
     }
 
     private useAPI() {
