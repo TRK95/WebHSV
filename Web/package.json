@@ -13,6 +13,7 @@
     "pre-build-mac": "grep -rl 'distDir: \".next\"' next.config.js | xargs sed -i '' 's#distDir: \".next\"#distDir: \"build\"#g'",
     "pre-run-mac": "grep -rl 'distDir: \"build\"' next.config.js | xargs sed -i '' 's#distDir: \"build\"#distDir: \".next\"#g'",
     "build": "npm run pre-build && next build && npm run pre-run && rm -rf .next && mv build .next",
+    "build:vercel": "next build",
     "build-mac": "npm run pre-build-mac && next build && npm run pre-run-mac && rm -rf .next && mv build .next",
     "start": "next start",
     "postbuild": "next-sitemap --config next-sitemap.config.js"
