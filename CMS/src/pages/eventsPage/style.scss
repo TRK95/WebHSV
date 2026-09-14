@@ -1,0 +1,29 @@
+.event_date--yellow {
+    color: rgb(255, 176, 57);
+    .ant-table-cell{
+        &:first-child{
+            border-left: 1px solid rgb(255, 176, 57);
+            box-shadow: inset 5px 0 5px -7px rgb(255, 176, 57);
+        }
+    }
+}
+
+.event_date--green {
+    color: rgb(116, 188, 96);
+    .ant-table-cell{
+        &:first-child{
+            border-left: 1px solid rgb(116, 188, 96);
+            box-shadow: inset 5px 0 5px -7px rgb(116, 188, 96);
+        }
+    }
+}
+
+.event_date--red {
+    color: rgb(248, 54, 54);
+    .ant-table-cell{
+        &:first-child{
+            border-left: 1px solid rgb(248, 54, 54);
+            box-shadow: inset 5px 0 5px -7px rgb(248, 54, 54);
+        }
+    }
+}

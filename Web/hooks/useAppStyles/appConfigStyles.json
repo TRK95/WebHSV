@@ -1,0 +1,18 @@
+{
+    "light-mode": {
+        "primaryColor": "#CE1628",
+        "secondaryColor": "#20447D",
+        "hoverSecondaryColor": "#20447D",
+        "titleColor": "#0A342F",
+        "textColor": "#505050",
+        "primary-color-main": "#1788CA",
+        "secondary-color-main": "#67C3EC",
+        "tertiary-color-main": "#CE202B",
+        "body-color-main": "#535353",
+        "border-color-main": "#F1F5F6",
+        "info-color-main": "#0D6EFD",
+        "background-color-2": "#F5F5F5",
+        "background-color-3": "#F2F6FF",
+        "button-color-1": "#FF0D33"
+    }
+}

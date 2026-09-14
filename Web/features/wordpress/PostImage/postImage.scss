@@ -1,0 +1,16 @@
+.wp-post-thumb {
+  position: relative;
+  padding-top: 52.5%;
+  overflow: hidden;
+
+  img {
+    vertical-align: middle;
+    position: absolute;
+    max-width: 100%;
+    height: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    object-fit: fill;
+    object-position: center center;
+  }
+}

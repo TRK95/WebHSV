@@ -1,0 +1,37 @@
+@import "../../../../../styles/mixins.scss";
+
+#flash-card-play-game-view {
+  height: 100%;
+  overflow: auto;
+  @include custom-scroll();
+  .flash-card-audio-button {
+    z-index: 1;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #fff;
+    box-shadow: 0px 4px 15px 4px rgb(95, 73, 118, 0.15);
+    &:hover {
+      background: #fff;
+    }
+  }
+  .flash-card-quiz-question {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    .game-object-question-text {
+      font-weight: 600;
+      font-size: 22px;
+      padding-left: 60px;
+
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+  .flash-card-desktop-footer-right {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+  }
+}

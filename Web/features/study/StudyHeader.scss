@@ -1,0 +1,135 @@
+.app-bar-container {
+  display: flex !important;
+  align-items: center;
+  height: 100px;
+  &.tablet {
+    height: 50px;
+  }
+}
+
+.app-bar-header-left {
+  width: 335px;
+  flex-basis: auto;
+  -webkit-flex-basis: auto;
+  &.small-desktop {
+    width: 250px;
+  }
+}
+
+.app-bar-header-mid {
+  flex-basis: auto;
+  -webkit-flex-basis: auto;
+  max-width: none;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-bar-header-right {
+  width: 361px;
+  flex-basis: auto;
+  -webkit-flex-basis: auto;
+  max-width: none;
+  &.small-desktop {
+    width: 256px;
+  }
+  &.tablet {
+    width: auto;
+  }
+  &.hidden {
+    display: none;
+  }
+}
+
+.app-buttons {
+  display: flex;
+  align-items: center;
+  &.hide-on-mobile {
+    display: none;
+  }
+}
+
+.desktop-menu {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  &.hide-on-mobile {
+    display: none;
+  }
+  &-link {
+    cursor: pointer;
+    a {
+      color: #1d1d1d !important;
+      text-decoration: none;
+    }
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    margin-left: 40px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .desktop-user-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 20px;
+  }
+}
+
+.user-avatar-img {
+  &.desktop {
+    border: 1px solid #1d1d1d !important;
+    border-radius: 100%;
+  }
+}
+
+.tablet-nav {
+  display: flex;
+  justify-content: flex-end;
+  &.hide-on-desktop {
+    display: none;
+  }
+  &-icon {
+    cursor: pointer;
+    padding: 0 10px;
+  }
+}
+.tablet-menu-link {
+  padding: 10px 50px;
+  border-bottom: 1px solid #f3f6fa;
+  font-size: 12px;
+  a {
+    color: #2e2e2e;
+  }
+  &.logged-out {
+    margin-top: 40px;
+  }
+}
+.tablet-app-download {
+  padding: 10px 50px;
+}
+.tablet-drawer-wrap {
+  width: 310px;
+  border-bottom-right-radius: 70px;
+  z-index: 1301;
+  .tablet-close-button {
+    position: absolute;
+    right: 10px;
+    top: 16px;
+  }
+}
+.tablet-user-info {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 24px;
+  background: #f2f3f7;
+  &-name {
+    margin-left: 19px;
+  }
+}

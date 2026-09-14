@@ -1,0 +1,159 @@
+@import "../../../../../styles/mixins.scss";
+.word-list-view-wrapper {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding-top: 20px;
+    padding-right: 68px;
+    padding-bottom: 76px;
+    padding-left: 68px;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 20px;
+
+    .word-list-view-header {
+        span {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 36px;
+        }
+    }
+
+    .word-list-view-type-list {
+        margin-top: 20px;
+        margin-bottom: 30px;
+
+        .word-list-view-type-item {
+            min-width: 170px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+
+            .word-type-item-number {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 22px;
+                font-weight: 700;
+                line-height: 33px;
+                color: inherit;
+
+                span {
+                    margin-left: 14px;
+                    color: inherit;
+                }
+            }
+
+            .word-type-item-name {
+                padding-top: 7px;
+                padding-bottom: 7px;
+                padding-right: 14px;
+                padding-left: 14px;
+                margin-top: 14px;
+                border-radius: 10px;
+                font-size: 14px;
+                line-height: 21px;
+                font-weight: 600;
+                text-transform: capitalize;
+            }
+        }
+    }
+
+    .word-type-list-detail {
+        .word-type-detail-wrapper {
+            &:nth-child(n + 2) {
+                margin-top: 45px;
+            }
+
+            .word-type-detail-title {
+                text-align: left;
+                font-size: 16px;
+                line-height: 24px;
+                font-weight: 600;
+                text-transform: capitalize;
+            }
+
+            .word-type-detail-item {
+                display: flex;
+                align-items: center;
+                background-color: #eff2f8;
+                border-radius: 5px;
+                height: 68px;
+                padding-left: 20px;
+                padding-right: 16px;
+                font-style: normal;
+                font-size: 12px;
+                font-weight: 500;
+
+                &:nth-child(n + 2) {
+                    margin-top: 10px;
+                }
+
+                &-name {
+                    line-height: 18px;
+                    width: 160px;
+                    text-align: start;
+                    text-transform: capitalize;
+                    @include ellipsis-text();
+                }
+
+                &-spelling {
+                    font-family: sans-serif;
+                    color: #000000;
+                    width: 120px;
+                    line-height: 18px;
+                    border-right: 2px solid #c1cadc;
+                    border-left: 2px solid #c1cadc;
+                    @include ellipsis-text();
+                }
+
+                &-explain {
+                    line-height: 18px;
+                    min-height: 36px;
+                    width: 90%;
+                    text-align: left;
+                    padding-left: 20px;
+                    @include ellipsis-text();
+                    * {
+                        margin: unset;
+                    }
+                }
+
+                &-volume {
+                    cursor: pointer;
+                    &-btn {
+                        margin-left: 10px;
+                        background-color: #fff;
+                        width: 24px;
+                        height: 24px;
+                    }
+                }
+            }
+
+            .word-type-detail-loadmore-wrapper {
+                text-align: right;
+                .word-type-detail-loadmore-btn {
+                    background-color: transparent;
+                    margin-top: 10px;
+                    padding: 7px;
+                    border-radius: 10px;
+                    font-size: 12px;
+                    font-weight: 500;
+                    border: 1px solid;
+                    cursor: pointer;
+                }
+
+                .select-icon {
+                    margin-left: 3px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .word-list-view-wrapper {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}

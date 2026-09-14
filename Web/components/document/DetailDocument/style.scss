@@ -1,0 +1,13 @@
+#detail-document {
+    padding: 20px 0;
+
+    .detail-document-body {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 10px;
+
+        &-description {
+            padding: 10px 0;
+        }
+    }
+}

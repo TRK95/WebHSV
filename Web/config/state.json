@@ -1,0 +1,649 @@
+{
+    "cdl": [
+        {
+            "name": "Alabama",
+            "slug": "alabama"
+        },
+        {
+            "name": "Alaska",
+            "slug": "alaska"
+        },
+        {
+            "name": "Arizona",
+            "slug": "arizona"
+        },
+        {
+            "name": "Arkansas",
+            "slug": "arkansas"
+        },
+        {
+            "name": "California",
+            "slug": "california"
+        },
+        {
+            "name": "Colorado",
+            "slug": "colorado"
+        },
+        {
+            "name": "Connecticut",
+            "slug": "connecticut"
+        },
+        {
+            "name": "Delaware",
+            "slug": "delaware"
+        },
+        {
+            "name": "District of Columbia",
+            "slug": "district-of-columbia"
+        },
+        {
+            "name": "Florida",
+            "slug": "florida"
+        },
+        {
+            "name": "Georgia",
+            "slug": "georgia"
+        },
+        {
+            "name": "Hawaii",
+            "slug": "hawaii"
+        },
+        {
+            "name": "Idaho",
+            "slug": "idaho"
+        },
+        {
+            "name": "Illinois",
+            "slug": "illinois"
+        },
+        {
+            "name": "Indiana",
+            "slug": "indiana"
+        },
+        {
+            "name": "Iowa",
+            "slug": "iowa"
+        },
+        {
+            "name": "Kansas",
+            "slug": "kansas"
+        },
+        {
+            "name": "Kentucky",
+            "slug": "kentucky"
+        },
+        {
+            "name": "Louisiana",
+            "slug": "louisiana"
+        },
+        {
+            "name": "Maine",
+            "slug": "maine"
+        },
+        {
+            "name": "Maryland",
+            "slug": "maryland"
+        },
+        {
+            "name": "Massachusetts",
+            "slug": "massachusetts"
+        },
+        {
+            "name": "Michigan",
+            "slug": "michigan"
+        },
+        {
+            "name": "Minnesota",
+            "slug": "minnesota"
+        },
+        {
+            "name": "Mississippi",
+            "slug": "mississippi"
+        },
+        {
+            "name": "Missouri",
+            "slug": "missouri"
+        },
+        {
+            "name": "Montana",
+            "slug": "montana"
+        },
+        {
+            "name": "Nebraska",
+            "slug": "nebraska"
+        },
+        {
+            "name": "Nevada",
+            "slug": "nevada"
+        },
+        {
+            "name": "New Hampshire",
+            "slug": "new-hampshire"
+        },
+        {
+            "name": "New Jersey",
+            "slug": "new-jersey"
+        },
+        {
+            "name": "New Mexico",
+            "slug": "new-mexico"
+        },
+        {
+            "name": "New York",
+            "slug": "new-york"
+        },
+        {
+            "name": "North Carolina",
+            "slug": "north-carolina"
+        },
+        {
+            "name": "North Dakota",
+            "slug": "north-dakota"
+        },
+        {
+            "name": "Ohio",
+            "slug": "ohio"
+        },
+        {
+            "name": "Oklahoma",
+            "slug": "oklahoma"
+        },
+        {
+            "name": "Oregon",
+            "slug": "oregon"
+        },
+        {
+            "name": "Pennsylvania",
+            "slug": "pennsylvania"
+        },
+        {
+            "name": "Rhode Island",
+            "slug": "rhode-island"
+        },
+        {
+            "name": "South Carolina",
+            "slug": "south-carolina"
+        },
+        {
+            "name": "South Dakota",
+            "slug": "south-dakota"
+        },
+        {
+            "name": "Tennessee",
+            "slug": "tennessee"
+        },
+        {
+            "name": "Texas",
+            "slug": "texas"
+        },
+        {
+            "name": "Utah",
+            "slug": "utah"
+        },
+        {
+            "name": "Vermont",
+            "slug": "vermont"
+        },
+        {
+            "name": "Virginia",
+            "slug": "virginia"
+        },
+        {
+            "name": "Washington",
+            "slug": "washington"
+        },
+        {
+            "name": "West Virginia",
+            "slug": "west-virginia"
+        },
+        {
+            "name": "Wisconsin",
+            "slug": "wisconsin"
+        },
+        {
+            "name": "Wyoming",
+            "slug": "wyoming"
+        }
+    ],
+    "dmv": [
+        {
+            "name": "Alabama",
+            "slug": "alabama",
+            "shortSlug": "al"
+        },
+        {
+            "name": "Alaska",
+            "slug": "alaska",
+            "shortSlug": "ak"
+        },
+        {
+            "name": "Arizona",
+            "slug": "arizona",
+            "shortSlug": "az"
+        },
+        {
+            "name": "Arkansas",
+            "slug": "arkansas",
+            "shortSlug": "ar"
+        },
+        {
+            "name": "California",
+            "slug": "california",
+            "shortSlug": "ca"
+        },
+        {
+            "name": "Colorado",
+            "slug": "colorado",
+            "shortSlug": "co"
+        },
+        {
+            "name": "Connecticut",
+            "slug": "connecticut",
+            "shortSlug": "ct"
+        },
+        {
+            "name": "Delaware",
+            "slug": "delaware",
+            "shortSlug": "de"
+        },
+        {
+            "name": "District of Columbia",
+            "slug": "district-of-columbia",
+            "shortSlug": "dc"
+        },
+        {
+            "name": "Florida",
+            "slug": "florida",
+            "shortSlug": "fl"
+        },
+        {
+            "name": "Georgia",
+            "slug": "georgia",
+            "shortSlug": "ga"
+        },
+        {
+            "name": "Hawaii",
+            "slug": "hawaii",
+            "shortSlug": "hi"
+        },
+        {
+            "name": "Idaho",
+            "slug": "idaho",
+            "shortSlug": "id"
+        },
+        {
+            "name": "Illinois",
+            "slug": "illinois",
+            "shortSlug": "il"
+        },
+        {
+            "name": "Indiana",
+            "slug": "indiana",
+            "shortSlug": "in"
+        },
+        {
+            "name": "Iowa",
+            "slug": "iowa",
+            "shortSlug": "ia"
+        },
+        {
+            "name": "Kansas",
+            "slug": "kansas",
+            "shortSlug": "ks"
+        },
+        {
+            "name": "Kentucky",
+            "slug": "kentucky",
+            "shortSlug": "ky"
+        },
+        {
+            "name": "Louisiana",
+            "slug": "louisiana",
+            "shortSlug": "la"
+        },
+        {
+            "name": "Maine",
+            "slug": "maine",
+            "shortSlug": "me"
+        },
+        {
+            "name": "Maryland",
+            "slug": "maryland",
+            "shortSlug": "md"
+        },
+        {
+            "name": "Massachusetts",
+            "slug": "massachusetts",
+            "shortSlug": "ma"
+        },
+        {
+            "name": "Michigan",
+            "slug": "michigan",
+            "shortSlug": "mi"
+        },
+        {
+            "name": "Minnesota",
+            "slug": "minnesota",
+            "shortSlug": "mn"
+        },
+        {
+            "name": "Mississippi",
+            "slug": "mississippi",
+            "shortSlug": "ms"
+        },
+        {
+            "name": "Missouri",
+            "slug": "missouri",
+            "shortSlug": "mo"
+        },
+        {
+            "name": "Montana",
+            "slug": "montana",
+            "shortSlug": "mt"
+        },
+        {
+            "name": "Nebraska",
+            "slug": "nebraska",
+            "shortSlug": "ne"
+        },
+        {
+            "name": "Nevada",
+            "slug": "nevada",
+            "shortSlug": "nv"
+        },
+        {
+            "name": "New Hampshire",
+            "slug": "new-hampshire",
+            "shortSlug": "nh"
+        },
+        {
+            "name": "New Jersey",
+            "slug": "new-jersey",
+            "shortSlug": "nj"
+        },
+        {
+            "name": "New Mexico",
+            "slug": "new-mexico",
+            "shortSlug": "nm"
+        },
+        {
+            "name": "New York",
+            "slug": "new-york",
+            "shortSlug": "ny"
+        },
+        {
+            "name": "North Carolina",
+            "slug": "north-carolina",
+            "shortSlug": "nc"
+        },
+        {
+            "name": "North Dakota",
+            "slug": "north-dakota",
+            "shortSlug": "nd"
+        },
+        {
+            "name": "Ohio",
+            "slug": "ohio",
+            "shortSlug": "oh"
+        },
+        {
+            "name": "Oklahoma",
+            "slug": "oklahoma",
+            "shortSlug": "ok"
+        },
+        {
+            "name": "Oregon",
+            "slug": "oregon",
+            "shortSlug": "or"
+        },
+        {
+            "name": "Pennsylvania",
+            "slug": "pennsylvania",
+            "shortSlug": "pa"
+        },
+        {
+            "name": "Rhodes Island",
+            "slug": "rhodes-island",
+            "shortSlug": "ri"
+        },
+        {
+            "name": "South Carolina",
+            "slug": "south-carolina",
+            "shortSlug": "sc"
+        },
+        {
+            "name": "South Dakota",
+            "slug": "south-dakota",
+            "shortSlug": "sd"
+        },
+        {
+            "name": "Tennessee",
+            "slug": "tennessee",
+            "shortSlug": "tn"
+        },
+        {
+            "name": "Texas",
+            "slug": "texas",
+            "shortSlug": "tx"
+        },
+        {
+            "name": "Utah",
+            "slug": "utah",
+            "shortSlug": "ut"
+        },
+        {
+            "name": "Vermont",
+            "slug": "vermont",
+            "shortSlug": "vt"
+        },
+        {
+            "name": "Virginia",
+            "slug": "virginia",
+            "shortSlug": "va"
+        },
+        {
+            "name": "Washington",
+            "slug": "washington",
+            "shortSlug": "wa"
+        },
+        {
+            "name": "West Virginia",
+            "slug": "west-virginia",
+            "shortSlug": "wv"
+        },
+        {
+            "name": "Wisconsin",
+            "slug": "wisconsin",
+            "shortSlug": "wi"
+        },
+        {
+            "name": "Wyoming",
+            "slug": "wyoming",
+            "shortSlug": "wy"
+        }
+    ],
+    "ged": [
+        {
+            "name": "Language Arts",
+            "slug": "ged-language-arts-practice-test",
+            "dataSlug": "",
+            "subjects": [
+                {
+                    "name": "Reading",
+                    "fullName": "Language Arts - Reading",
+                    "slug": "language-arts-reading"
+                },
+                {
+                    "name": "Writing",
+                    "fullName": "Language Arts - Writing",
+                    "slug": "language-arts-writing"
+                }
+            ]
+        },
+        {
+            "name": "Math",
+            "slug": "ged-math-practice-test",
+            "dataSlug": "mathematical-reasoning"
+        },
+        {
+            "name": "Science",
+            "slug": "ged-science-practice-test",
+            "dataSlug": "science"
+        },
+        {
+            "name": "Social Studies",
+            "slug": "ged-social-studies-practice-test",
+            "dataSlug": "social-studies"
+        }
+    ],
+    "alevel-maths": [
+        {
+            "name": "ALGEBRA & FUNCTIONS",
+            "slug": "algebra-and-functions",
+            "avatar": "/images/app/alevel-maths/alevel-maths-algebra-and-functions-practice-test.png",
+            "dataSlug": "1-algebra-and-functions",
+            "subjects": [
+                {
+                    "name": "Quadratics",
+                    "slug": "11-quadratics"
+                },
+                {
+                    "name": "Inequalities & Simultaneous Equations",
+                    "slug": "12-inequalities-and-simultaneous-equations"
+                },
+                {
+                    "name": "Functions",
+                    "slug": "13-functions"
+                },
+                {
+                    "name": "Graphs of Functions",
+                    "slug": "14-graphs-of-functions"
+                },
+                {
+                    "name": "Transformations of Functions",
+                    "slug": "15-transformations-of-functions"
+                },
+                {
+                    "name": "Combinations of Transformations",
+                    "slug": "16-combinations-of-transformations"
+                },
+                {
+                    "name": "Modelling with Functions",
+                    "slug": "17-modelling-with-functions"
+                }
+            ]
+        },
+        {
+            "name": "COORDINATE GEOMETRY",
+            "slug": "coordinate-geometry",
+            "avatar": "/images/app/alevel-maths/alevel-maths-coordinate-geometry-practice-test.png",
+            "dataSlug": "2-coordinate-geometry",
+            "subjects": [
+                {
+                    "name": "Equation of a Straight Line",
+                    "slug": "21-equation-of-a-straight-line"
+                },
+                {
+                    "name": "Circles",
+                    "slug": "22-circles"
+                }
+            ]
+        },
+        {
+            "name": "TRIGONOMETRY",
+            "slug": "trigonometry",
+            "avatar": "/images/app/alevel-maths/alevel-maths-trigonometry-practice-test.png",
+            "dataSlug": "3-trigonometry",
+            "subjects": [
+                {
+                    "name": "Basic Trigonometry",
+                    "slug": "31-basic-trigonometry"
+                },
+                {
+                    "name": "Trigonometry Functions",
+                    "slug": "32-trigonometry-functions"
+                },
+                {
+                    "name": "Circular Measure (Radians)",
+                    "slug": "33-circular-measure-radians"
+                },
+                {
+                    "name": "Trigonometric Equations",
+                    "slug": "34-trigonometric-equations"
+                },
+                {
+                    "name": "Modelling with Trigonometric Functions",
+                    "slug": "35-modelling-with-trigonometric-functions"
+                }
+            ]
+        },
+        {
+            "name": "SEQUENCES & SERIES",
+            "slug": "sequences-and-series",
+            "avatar": "/images/app/alevel-maths/alevel-maths-sequences-and-series-practice-test.png",
+            "dataSlug": "4-sequences-and-series",
+            "subjects": [
+                {
+                    "name": "Binomial Expansion",
+                    "slug": "41-binomial-expansion"
+                },
+                {
+                    "name": "Arithmetic Progressions",
+                    "slug": "42-arithmetic-progressions"
+                },
+                {
+                    "name": "Geometric Progression",
+                    "slug": "43-geometric-progression"
+                },
+                {
+                    "name": "Further Sequences & Series",
+                    "slug": "44-further-sequences-and-series"
+                }
+            ]
+        },
+        {
+            "name": "DIFFERENTIATION",
+            "slug": "differentiation",
+            "avatar": "/images/app/alevel-maths/alevel-maths-differentiation-practice-test.png",
+            "dataSlug": "5-differentiation",
+            "subjects": [
+                {
+                    "name": "Differentiation",
+                    "slug": "51-differentiation"
+                },
+                {
+                    "name": "Applications of Differentiation",
+                    "slug": "52-applications-of-differentiation"
+                }
+            ]
+        },
+        {
+            "name": "INTEGRATION",
+            "slug": "integration",
+            "avatar": "/images/app/alevel-maths/alevel-maths-integration-practice-test.png",
+            "dataSlug": "6-integration",
+            "subjects": [
+                {
+                    "name": "Integration",
+                    "slug": "61-integration"
+                },
+                {
+                    "name": "Further Integration",
+                    "slug": "62-further-integration"
+                }
+            ]
+        }
+    ],
+    "nclex": [
+        {
+            "name": "NCLEX-RN",
+            "slug": "nclex-rn",
+            "dataSlug": "nclex-rn"
+        },
+        {
+            "name": "NCLEX-PN",
+            "slug": "nclex-pn",
+            "dataSlug": "nclex-pn"
+        }
+    ]
+}

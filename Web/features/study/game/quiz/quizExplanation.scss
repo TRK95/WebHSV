@@ -1,0 +1,68 @@
+@mixin custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #606060 #f9f9f9;
+  &::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 7px;
+    background: #f9f9f9;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    background: #909090;
+    &:hover {
+      background: #606060;
+    }
+  }
+}
+
+.game-object-explanation.quiz-explanation {
+  padding-left: 16px;
+  .quiz-explanation-button-wrap {
+    border-bottom: 0.5px solid #717171;
+  }
+  .quiz-explanation-button {
+    font-weight: 500;
+  }
+  .game-object-explanation-content {
+    color: #777;
+    font-size: small;
+    p {
+      overflow: auto;
+      @include custom-scroll();
+    }
+
+    * {
+      max-width: 100% !important;
+    }
+  }
+  .explanation-lock {
+    padding: 10px;
+    .explanation-text {
+      margin: 0px 10px;
+      // width: 250px;
+    }
+    .app-bar-header-auth {
+      button {
+        color: #fff;
+        background-color: var(--secondaryColor);
+        border-radius: 10px;
+        transition: 0.5s;
+        @media (max-width: 576px) {
+          padding: 4px 8px;
+        }
+        &:hover {
+          background-color: var(--hoverSecondaryColor);
+          transform: translateY(-4px);
+        }
+      }
+      @media (max-width: 768px) {
+        button {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}

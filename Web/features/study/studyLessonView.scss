@@ -1,0 +1,24 @@
+@import "./studyView.scss";
+@import "./SubTopicList/style.scss";
+@import "../../styles/mixins.scss";
+
+.main-lesson-view {
+  background: #fff;
+  border-radius: 15px;
+  padding: 25px 30px;
+  @media (max-width: 992px) {
+    padding: 15px;
+  }
+  position: relative;
+  &.tablet {
+    border: 1px solid #e4e6ed;
+  }
+}
+
+.sub-topic-item-name.item-with-mark {
+  display: flex;
+  justify-content: space-between;
+  .sub-topic-item-name-text {
+    @include ellipsis-text();
+  }
+}

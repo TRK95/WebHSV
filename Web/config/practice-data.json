@@ -1,0 +1,665 @@
+{
+  "cscs": {
+    "homeCourseIndexes": [
+      0,
+      1
+    ],
+    "practiceCourseIndex": 0,
+    "practiceParentId": null,
+    "testCourseIndex": 1,
+    "testParentId": null,
+    "mapSlugData": {
+      "accident-reporting-and-recording": {
+        "name": "Accident Reporting and Recording",
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 45
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ],
+        "tag": "Practice CSCS Test by Topics"
+      },
+      "safety-signs-and-signals": {
+        "name": "Safety Signs and Signals",
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 62
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ],
+        "tag": "Practice CSCS Test by Topics"
+      },
+      "general-responsibilites": {
+        "name": "General responsibilites",
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 49
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ],
+        "tag": "Practice CSCS Test by Topics"
+      },
+      "working-at-height": {
+        "name": "Working at Height",
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 96
+          },
+          {
+            "name": "Levels",
+            "value": 5
+          }
+        ],
+        "tag": "Practice CSCS Test by Topics"
+      },
+      "fire-prevention-and-control": {
+        "name": "Fire Prevention and Control",
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 132
+          },
+          {
+            "name": "Levels",
+            "value": 5
+          }
+        ],
+        "tag": "Practice CSCS Test by Topics"
+      },
+      "practice-test-1": {
+        "name": "Practice Test 1",
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ],
+        "tag": "Practice Test"
+      },
+      "practice-test-2": {
+        "name": "Practice Test 2",
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ],
+        "tag": "Practice Test"
+      },
+      "practice-test-3": {
+        "name": "Practice Test 3",
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ],
+        "tag": "Practice Test"
+      },
+      "practice-test-4": {
+        "name": "Practice Test 4",
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ],
+        "tag": "Practice Test"
+      },
+      "practice-test-5": {
+        "name": "Practice Test 5",
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ],
+        "tag": "Practice Test"
+      },
+      "practice-test-6": {
+        "name": "Practice Test 6",
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ],
+        "tag": "Practice Test"
+      },
+      "practice-test-7": {
+        "name": "Practice Test 7",
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ],
+        "tag": "Practice Test"
+      },
+      "practice-test-8": {
+        "name": "Practice Test 8",
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ],
+        "tag": "Practice Test"
+      },
+      "practice-test-9": {
+        "name": "Practice Test 9",
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ],
+        "tag": "Practice Test"
+      },
+      "practice-test-10": {
+        "name": "Practice Test 10",
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ],
+        "tag": "Practice Test"
+      }
+    }
+  },
+  "asvab": {
+    "homeCourseIndexes": [
+      0,
+      1
+    ],
+    "practiceCourseIndex": 0,
+    "practiceParentId": null,
+    "testCourseIndex": 1,
+    "testParentId": null,
+    "practiceMeta": [
+      [
+        {
+          "name": "Questions",
+          "value": "185"
+        },
+        {
+          "name": "Levels",
+          "value": 12
+        }
+      ],
+      [
+        {
+          "name": "Questions",
+          "value": "90"
+        },
+        {
+          "name": "Levels",
+          "value": 8
+        }
+      ],
+      [
+        {
+          "name": "Questions",
+          "value": "170"
+        },
+        {
+          "name": "Levels",
+          "value": 11
+        }
+      ],
+      [
+        {
+          "name": "Questions",
+          "value": "190"
+        },
+        {
+          "name": "Levels",
+          "value": 11
+        }
+      ],
+      [
+        {
+          "name": "Questions",
+          "value": "135"
+        },
+        {
+          "name": "Levels",
+          "value": 10
+        }
+      ],
+      [
+        {
+          "name": "Questions",
+          "value": "337"
+        },
+        {
+          "name": "Levels",
+          "value": 13
+        }
+      ],
+      [
+        {
+          "name": "Questions",
+          "value": "162"
+        },
+        {
+          "name": "Levels",
+          "value": 9
+        }
+      ],
+      [
+        {
+          "name": "Questions",
+          "value": "210"
+        },
+        {
+          "name": "Levels",
+          "value": 10
+        }
+      ],
+      [
+        {
+          "name": "Questions",
+          "value": "192"
+        },
+        {
+          "name": "Levels",
+          "value": 11
+        }
+      ]
+    ]
+  },
+  "toeic": {
+    "practiceCourseIndex": 0,
+    "testCourseIndex": 1,
+    "mapSlugData": {
+      "part-1-photos": {
+        "name": "Part 1: Photos"
+      },
+      "part-2-question-response": {
+        "name": "Part 2: Question Response"
+      },
+      "part-3-conversations": {
+        "name": "Part 3: Conversations"
+      },
+      "part-4-short-talks": {
+        "name": "Part 4: Short Talks"
+      },
+      "part-5-incomplete-sentences": {
+        "name": "Part 5: Incompletes Sentences"
+      },
+      "part-6-text-completion": {
+        "name": "Part 6: Text Completion"
+      },
+      "part-7-single-passages": {
+        "name": "Part 7: Single Passages"
+      },
+      "part-7-double-passages": {
+        "name": "Part 7: Double Passages"
+      },
+      "part-7-triple-passages": {
+        "name": "Part 7: Triple Passages"
+      },
+      "grammar": {
+        "name": "Grammar"
+      },
+      "vocabulary": {
+        "name": "Vocabulary"
+      }
+    }
+  },
+  "ged": {
+    "practiceCourseIndex": 0,
+    "testCourseIndex": 0,
+    "mapSlugData": {
+      "ged-language-arts-practice-test": {
+        "name": "GED Language Arts"
+      },
+      "ged-math-practice-test": {
+        "name": "GED Math"
+      },
+      "ged-science-practice-test": {
+        "name": "GED Science"
+      },
+      "ged-social-studies-practice-test": {
+        "name": "GED Social Studies"
+      }
+    }
+  },
+  "hvac": {
+    "practiceCourseIndex": 0,
+    "practiceParentSlug": "practice-test",
+    "testCourseIndex": 0,
+    "testParentSlug": "full-test",
+    "flashCardCourseIndex": 0,
+    "flashCardParentSlug": "flashcard",
+    "mapSlugData": {
+      "practice-test-1": {
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ]
+      },
+      "practice-test-2": {
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ]
+      },
+      "practice-test-3": {
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ]
+      },
+      "practice-test-4": {
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ]
+      },
+      "practice-test-5": {
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ]
+      },
+      "practice-test-6": {
+        "meta": [
+          {
+            "name": "Questions",
+            "value": 100
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ]
+      },
+      "hvac-basics": {
+        "meta": [
+          {
+            "name": "Questions",
+            "value": "500+"
+          },
+          {
+            "name": "Levels",
+            "value": 15
+          }
+        ]
+      },
+      "hvac-electrical-basics": {
+        "meta": [
+          {
+            "name": "Questions",
+            "value": "500+"
+          },
+          {
+            "name": "Levels",
+            "value": 10
+          }
+        ]
+      },
+      "hvac-oil-and-gas-heating": {
+        "meta": [
+          {
+            "name": "Questions",
+            "value": "500+"
+          },
+          {
+            "name": "Levels",
+            "value": 5
+          }
+        ]
+      },
+      "hvac-controls": {
+        "meta": [
+          {
+            "name": "Questions",
+            "value": "500+"
+          },
+          {
+            "name": "Levels",
+            "value": 5
+          }
+        ]
+      },
+      "hvac-journeyman-imc-code": {
+        "meta": [
+          {
+            "name": "Questions",
+            "value": "500+"
+          },
+          {
+            "name": "Levels",
+            "value": 4
+          }
+        ]
+      }
+    }
+  },
+  "alevel-maths": {
+    "practiceCourseIndex": 0
+  },
+  "nclex": {
+    "testCourseIndex": 0
+  },
+  "cdl": {
+    "testCourseIndex": 0,
+    "groupSlugs": [
+      {
+        "name": "Combination",
+        "slugs": [
+          "general-knowledge",
+          "hazmat",
+          "air-brake",
+          "combination-vehicles",
+          "doubles-triples-trailers",
+          "tanker-vehicles",
+          "pre-trip"
+        ]
+      },
+      {
+        "name": "Straight Truck",
+        "slugs": [
+          "general-knowledge",
+          "hazmat",
+          "air-brake",
+          "tanker-vehicles",
+          "pre-trip"
+        ]
+      },
+      {
+        "name": "Heavy Equipment",
+        "slugs": [
+          "general-knowledge",
+          "air-brake",
+          "combination-vehicles",
+          "pre-trip"
+        ]
+      },
+      {
+        "name": "School Bus",
+        "slugs": [
+          "general-knowledge",
+          "school-bus",
+          "passenger-vehicles",
+          "air-brake",
+          "pre-trip"
+        ]
+      },
+      {
+        "name": " Coach/Transit Bus ",
+        "slugs": [
+          "general-knowledge",
+          "passenger-vehicles",
+          "air-brake",
+          "pre-trip"
+        ]
+      },
+      {
+        "name": "Service Truck",
+        "slugs": [
+          "general-knowledge",
+          "air-brake",
+          "pre-trip"
+        ]
+      },
+      {
+        "name": "Concrete Mixer",
+        "slugs": [
+          "general-knowledge",
+          "air-brake",
+          "combination-vehicles",
+          "pre-trip"
+        ]
+      },
+      {
+        "name": "Dump Truck",
+        "slugs": [
+          "general-knowledge",
+          "air-brake",
+          "combination-vehicles",
+          "doubles-triples-trailers",
+          "tanker-vehicles",
+          "pre-trip"
+        ]
+      }
+    ],
+    "mapSlugData": {
+      "general-knowledge": {
+        "name": "General Knowledge",
+        "avatar": "/images/app/cdl/icon-general-knowledge.png"
+      },
+      "hazmat": {
+        "name": "Hazmat",
+        "fullName": "Hazardous Materials Endorsement (HazMat)",
+        "avatar": "/images/app/cdl/icon-hazmat.png"
+      },
+      "passenger-vehicles": {
+        "name": "Passenger Vehicles",
+        "fullName": "Passenger Endorsement",
+        "avatar": "/images/app/cdl/icon-passenger-vehicles.png"
+      },
+      "air-brake": {
+        "name": "Air Brake",
+        "avatar": "/images/app/cdl/icon-air-brake.png"
+      },
+      "combination-vehicles": {
+        "name": "Combination Vehicles",
+        "avatar": "/images/app/cdl/icon-combination-vehicles.png"
+      },
+      "doubles-triples-trailers": {
+        "name": "Double/Triples Trailers",
+        "fullName": "Double And Triple - Trailer Endorsement",
+        "avatar": "/images/app/cdl/icon-doubles-triples-trailers.png"
+      },
+      "tanker-vehicles": {
+        "name": "Tanker Vehicles",
+        "fullName": "Tanker Endorsement",
+        "avatar": "/images/app/cdl/icon-tanker-vehicles.png"
+      },
+      "school-bus": {
+        "name": "School Bus",
+        "fullName": "School Bus Endorsement",
+        "avatar": "/images/app/cdl/icon-school-bus.png"
+      },
+      "pre-trip": {
+        "name": "Pre - Trip",
+        "fullName": "Pre-trip Inspection",
+        "avatar": "/images/app/cdl/icon-pre-trip.png"
+      }
+    }
+  },
+  "dmv": {
+    "mapSubjectCourseIndex": [
+      "dmv-motorcycle",
+      "dmv-permit",
+      "dmv-cdl-permit"
+    ]
+  }
+}

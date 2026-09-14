@@ -1,0 +1,26 @@
+.side-post-list {
+  .side-post-list-item {
+    margin-bottom: 30px;
+    overflow: hidden;
+    .post-title {
+      font-weight: 700;
+      @media (max-width: 1367px) {
+        font-size: 14px;
+      }
+    }
+    .post-thumb {
+      overflow: hidden;
+      > .wp-post-thumb {
+        transition: transform 0.2s linear;
+      }
+    }
+
+    &:hover {
+      .post-thumb {
+        > .wp-post-thumb {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}

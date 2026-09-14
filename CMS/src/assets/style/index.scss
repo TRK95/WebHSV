@@ -1,0 +1,19 @@
+.row-item{
+    &:hover {
+        box-shadow: 0px 4px 20px rgb(95 73 118 / 15%) !important;
+    }
+    transition: all 0.2s;
+}
+
+.c-multi-drag-table
+  .ant-table-tbody.is-dragging-over
+  > tr.ant-table-placeholder {
+  background: #deebff !important;
+}
+
+.row-dragging {
+    display: table;
+    background: #e5e5e5;
+    border: 1px solid #f0f0f0;
+    width: 100% !important;
+}

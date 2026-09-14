@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Luyện Thi THPT QG",
+    "slug": "luyen-thi-thpt-qg",
+    "courses": [
+      {
+        "name": "Tiếng Anh",
+        "slug": "tieng-anh"
+      }
+    ]
+  },
+  {
+    "name": "Lớp 10",
+    "slug": "lop-10"
+  },
+  {
+    "name": "Lớp 11",
+    "slug": "lop-11"
+  },
+  {
+    "name": "Lớp 12",
+    "slug": "lop-12"
+  }
+]

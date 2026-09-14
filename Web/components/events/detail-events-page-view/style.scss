@@ -1,0 +1,115 @@
+.detail-event-page-view-content {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.detail-event-page-view-header {
+    display: flex;
+    // justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+
+    @media (max-width: 768px) {
+        display: block;
+        text-align: justify;
+    }
+
+    &-image {
+        min-width: 120px;
+        border-radius: 100%;
+        overflow: hidden;
+
+        @media (max-width: 576px) {
+            width: 120px;
+            min-width: unset;
+            margin: 0 auto;
+            margin-bottom: 10px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        display: block;
+    }
+}
+
+.detail-event-page-view-header-actions {
+    color: var(--secondaryColor);
+    display: flex;
+    margin: 10px 0;
+
+    button {
+        background-color: #e6ebf3;
+        padding: 4px 12px;
+        border-radius: 10px;
+        margin: 0 6px;
+        min-width: min-content;
+        height: 42px;
+
+        .text-members-waitting {
+            color: var(--primary-color-main);
+            font-weight: bold;
+        }
+
+        &:hover {
+            transform: translateY(-4px);
+        }
+    }
+
+    @media (max-width: 992px) {
+        flex-direction: column;
+        min-width: 250px;
+
+        button {
+            margin: 8px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        margin-top: 5px;
+    }
+
+    @media (max-width: 576px) {
+        min-width: unset;
+    }
+}
+
+.detail-event-page-view-info {
+    display: flex;
+    column-gap: 10px;
+
+    &-title {
+        font-weight: 600;
+        color: #505050;
+    }
+
+    .detail-event-page-view-body {
+        img {
+            max-width: 100%;
+        }
+    }
+}
+
+.detail-event-page-view-info-criteria {
+    display: block !important;
+}
+
+
+.event-actions {
+    margin-bottom: 10px;
+    text-align: center;
+    margin-top: 16px;
+    color: var(--secondaryColor);
+
+    button {
+        padding: 8px 12px;
+        border-radius: 15px;
+        color: #fff;
+        cursor: pointer;
+
+        &:hover {
+            transform: translateY(-4px);
+        }
+    }
+}

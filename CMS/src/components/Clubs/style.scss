@@ -1,0 +1,36 @@
+.modalMember-tabs {
+    .ant-tabs-tab {
+        font-weight: 700;
+        border-radius: 10px 10px 0 0 !important;
+        background-color: #5624d0 !important;
+        color: #fff;
+    }
+    .ant-tabs-tab-active {
+        background-color: #fff !important;
+        color: #5624d0 !important;
+    }
+}
+
+.ClubMember__status{
+    padding: 5px 20px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 400;
+}
+
+.ClubMember__status--waiting{
+    background-color: #5624d0;
+    &:hover { 
+        color: #5624d0 !important;
+        border-color: #5624d0 !important;
+    }
+}
+
+.ClubMember__status--joined{
+    background-color: #2dbc78;
+}
+
+.ClubMember__status--rejected {
+    background-color: #bc872d;
+}

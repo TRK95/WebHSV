@@ -1,0 +1,76 @@
+#toeic-overview-panel {
+  .toeic-score {
+    border-left: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
+    &-left {
+      .toeic-score-panel {
+        padding-top: 10px;
+        padding-left: 10px;
+        border-bottom: 1px solid #e5e5e5;
+        border-right: 1px solid #e5e5e5;
+      }
+      .count-questions {
+        .label-wrap {
+          display: flex;
+          max-width: 200px;
+          .label {
+            border: 1px solid #19ce7a;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            width: 100px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .number {
+            background: #19ce7a;
+            color: #fff;
+            padding: 4px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+          }
+        }
+        .score-slider {
+          padding: 10px 30px;
+        }
+      }
+    }
+
+    &-right {
+      border-right: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 4px;
+      .title-score {
+        margin-bottom: 10px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+      .total-score-circle {
+        position: relative;
+      }
+      .total-score-wrap {
+        width: 90%;
+        position: relative;
+      }
+      .total-score-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        color: #19ce7a;
+        font-size: 32px;
+        font-weight: 600;
+      }
+    }
+  }
+}

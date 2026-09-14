@@ -1,0 +1,92 @@
+@mixin ellipsis-text {
+  &.dot-1 {
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1 !important;
+  }
+  &.dot-2 {
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  &.dot-3 {
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+  &.dot-4 {
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+  }
+  &.dot-5 {
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+  }
+  &.dot-6 {
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+  }
+  &.dot-7 {
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 7;
+  }
+  &.dot-8 {
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 8;
+  }
+  &.dot-9 {
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 9;
+  }
+  &.dot-10 {
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 10;
+  }
+}
+
+@mixin custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #d0d0d0 #f9f9f9;
+  &::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 7px;
+    background: #f9f9f9
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    background: #d0d0d0;
+    &:hover {
+      background: #8a8a8a;
+    }
+  }
+}

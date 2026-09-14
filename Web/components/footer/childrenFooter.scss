@@ -1,0 +1,12 @@
+#children-footer {
+    .children-footer-list {
+        padding: 20px;
+
+        .children-footer-item {
+            @media (max-width: 768px) {
+                width: 100px;
+                margin: 0 auto;
+            }
+        }
+    }
+}

@@ -1,0 +1,13 @@
+.questions-progress {
+  display: flex;
+  align-items: center;
+  .game-progress-bar {
+    width: 100%;
+  }
+  .progress-title {
+    margin-left: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #29313a;
+  }
+}

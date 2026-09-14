@@ -1,0 +1,18 @@
+.cta-btn-component {
+  position: relative;
+  &-main {
+    width: 100%;
+    z-index: 1;
+    transition: transform 0.2s linear;
+    &:hover {
+      transform: translateY(-10px);
+    }
+  }
+  &-bg-layer {
+    z-index: 0;
+    height: 100%;
+    position: absolute;
+    margin: 0 auto;
+    bottom: 0;
+  }
+}

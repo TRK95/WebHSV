@@ -1,0 +1,83 @@
+@import "./fonts/SVN-Poppins.scss";
+@import url("https://pro.fontawesome.com/releases/v5.15.4/css/all.css");
+@import "./mixins.scss";
+@import '~antd/dist/antd.css';
+
+* {
+  box-sizing: border-box;
+  font-family: SVN-Poppins;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 130px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  @include custom-scroll();
+
+  mjx-container[jax="CHTML"][display="true"] {
+    display: inline !important;
+  }
+
+  .title-h1 {
+    font-size: 24px;
+
+    &-icon {
+      width: 20px;
+      margin-right: 12px;
+    }
+  }
+
+  .image {
+    &.align-center {
+      text-align: center;
+    }
+
+    &.align-right {
+      text-align: right;
+    }
+
+    &.align-left {
+      text-align: left;
+    }
+  }
+
+  // titleH1 size
+  @media (max-width: 1367px) {
+    .title-h1 {
+      font-size: 20px !important;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .title-h1 {
+      font-size: 18px !important;
+      margin-bottom: 10px;
+    }
+  }
+
+  //text-size
+  @media (max-width: 1367px) {
+    .small-size-text {
+      font-size: 12px !important;
+    }
+  }
+
+  button {
+    line-height: 1.7 !important;
+    transition: 0.5s !important;
+    cursor: pointer;
+    outline: none;
+    border: none;
+  }
+
+  button.hover-secondary {
+    &:hover {
+      background-color: var(--hoverSecondaryColor) !important;
+      color: #fff !important;
+    }
+  }
+}

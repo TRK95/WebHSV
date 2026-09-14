@@ -1,0 +1,30 @@
+.mobile-mega-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+
+  &-parent-title {
+    flex: 1;
+  }
+  &-expand-icon {
+    flex: 0.3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #fff;
+    border-radius: 10px;
+  }
+}
+
+.mobile-mega-children {
+  padding-left: 16px;
+  &-item {
+    padding: 4px 0;
+    border-bottom: 0.5px solid #dedede;
+    cursor: pointer;
+    &.last {
+      border-bottom: none;
+    }
+  }
+}

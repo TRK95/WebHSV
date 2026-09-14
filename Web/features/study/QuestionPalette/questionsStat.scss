@@ -1,0 +1,14 @@
+.questions-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &-item {
+    &-text {
+      margin-left: 10px;
+      color: #1d1d1d;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 21px;
+    }
+  }
+}

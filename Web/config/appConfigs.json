@@ -1,0 +1,871 @@
+{
+  "cdl": {
+    "navBackground": "rgba(22, 27, 32, 0.95)",
+    "menuBackground": "#006684",
+    "menuTextColor": "#fff",
+    "menuHoverColor": "#00C9E4",
+    "appBorder": "1px solid #67878B",
+    "appBackground": "rgba(22, 27, 32, 0.95)",
+    "appHoverBackground": "#38799D",
+    "appTextColor": "#fff",
+    "appHoverColor": "#fff",
+    "searchBackground": "#005A74",
+    "titleColor": "#133A5C",
+    "contentColor": "#1E628F",
+    "iconWebFcColor": "#00C9E4",
+    "iconAppFcColor": "#006684",
+    "textAppFcColor": "#30372F",
+    "iconHoverAppFcColor": "#00CBE7",
+    "descAppFcColor": "#505050",
+    "descHoverAppFcColor": "#C4E5EE",
+    "appFcBackground": "#E6EEF0",
+    "appHoverFcBackground": "#006684",
+    "btnTestBackground": "#00CBE7",
+    "btnTestBackgroundLayer": "#15A5B9",
+    "btnTestTitleColor": "#fff",
+    "btnDownloadAppBgr": "#234A60",
+    "btnDownloadAppTitleColor": "#00CBE7",
+    "footer1Bg": "#F1F8FB",
+    "footer1TextColor": "#133A5C",
+    "footer2Bg": "#202D31",
+    "footer2TextColor": "#849297",
+    "menu": [
+      {
+        "name": "Home",
+        "slug": "/"
+      },
+      {
+        "name": "Full Test",
+        "slug": "#",
+        "onClickFunction": "select-state"
+      },
+      {
+        "name": "Blog",
+        "slug": "/blog"
+      }
+    ],
+    "social": [
+      {
+        "name": "facebook",
+        "link": "#"
+      }
+    ]
+  },
+  "cscs": {
+    "navBackground": "rgba(22, 27, 32, 0.95)",
+    "menuBackground": "#006684",
+    "menuTextColor": "#fff",
+    "menuHoverColor": "#00C9E4",
+    "appBorder": "1px solid #67878B",
+    "appBackground": "rgba(22, 27, 32, 0.95)",
+    "appHoverBackground": "#38799D",
+    "appTextColor": "#fff",
+    "appHoverColor": "#fff",
+    "searchBackground": "#005A74",
+    "titleColor": "#24335A",
+    "contentColor": "#303030",
+    "iconWebFcColor": "#00C9E4",
+    "iconAppFcColor": "#006684",
+    "textAppFcColor": "#30372F",
+    "iconHoverAppFcColor": "#00F0FF",
+    "descAppFcColor": "#505050",
+    "descHoverAppFcColor": "#A7F5FA",
+    "appFcBackground": "#E6EEF0",
+    "appHoverFcBackground": "#15A5B9",
+    "btnTestBackground": "#00D2DF",
+    "btnTestBackgroundLayer": "#15A5B9",
+    "btnTestTitleColor": "#fff",
+    "btnDownloadAppBgr": "#0A4E70",
+    "btnDownloadAppTitleColor": "#fff",
+    "footer1Bg": "#f1f8fb",
+    "footer2Bg": "#202d31",
+    "footer1TextColor": "#24335a",
+    "footer2TextColor": "#849297",
+    "testSlug": "/mock-test",
+    "facebookId": 106616002024083,
+    "menu": [
+      {
+        "name": "Home",
+        "slug": "/"
+      },
+      {
+        "name": "Practice",
+        "slug": "/#practice"
+      },
+      {
+        "name": "Mock Test",
+        "slug": "/mock-test"
+      },
+      {
+        "name": "CSCS Card",
+        "slug": "/cscs-card"
+      },
+      {
+        "name": "Blog",
+        "slug": "/blog"
+      }
+    ],
+    "social": [
+      {
+        "name": "facebook",
+        "link": "https://www.facebook.com/cscsprep"
+      },
+      {
+        "name": "pinterest",
+        "link": "https://www.pinterest.com/cscsprep"
+      },
+      {
+        "name": "youtube",
+        "link": "https://www.youtube.com/channel/UCrAb4f0TFjfq5X1yJxQiyHQ"
+      }
+    ]
+  },
+  "alevel-maths": {
+    "mathJax": true,
+    "navBackground": "#fff",
+    "menuBackground": "#1D5B96",
+    "menuTextColor": "#5B9BCA",
+    "menuHoverColor": "#55DEF9",
+    "appBorder": "none",
+    "appBackground": "#6188AC",
+    "appHoverBackground": "#1D5B96",
+    "appTextColor": "#fff",
+    "appHoverColor": "#fff",
+    "searchBackground": "#134C82",
+    "titleColor": "#033E5F",
+    "contentColor": "#fff",
+    "iconWebFcColor": "#5EC7EA",
+    "btnTestBackground": "#58CAF0",
+    "btnTestTitleColor": "#fff",
+    "btnTestBackgroundLayer": "#1B90B8",
+    "appFcBackground": "#E5EEF2",
+    "iconAppFcColor": "#4A7F9C",
+    "textAppFcColor": "#033E5F",
+    "descAppFcColor": "#505050",
+    "appHoverFcBackground": "#426E87",
+    "iconHoverAppFcColor": "#fff",
+    "descHoverAppFcColor": "#B1DBEE",
+    "btnDownloadAppBgr": "#184F6F",
+    "btnDownloadAppTitleColor": "#fff",
+    "footer1Bg": "#E1EEFA",
+    "footer1TextColor": "#033E5F",
+    "footer2Bg": "#0A4175",
+    "footer2TextColor": "#5399C0",
+    "testSlug": "/a-level-maths-online-test",
+    "facebookId": 110656638282075,
+    "menu": [
+      {
+        "name": "Home",
+        "slug": "/"
+      },
+      {
+        "name": "Practice",
+        "slug": "/#practice"
+      },
+      {
+        "name": "Mock Test",
+        "slug": "/a-level-maths-online-test"
+      },
+      {
+        "name": "Blog",
+        "slug": "/blog"
+      },
+      {
+        "name": "Mathematical Methods",
+        "slug": "/mathematical-methods"
+      }
+    ],
+    "social": [
+      {
+        "name": "facebook",
+        "link": "https://www.facebook.com/alevelmathsprep/"
+      },
+      {
+        "name": "pinterest",
+        "link": "https://www.pinterest.com/alevelmathsprep/"
+      },
+      {
+        "name": "tumblr",
+        "link": "https://alevelmathsprep.tumblr.com/"
+      }
+    ]
+  },
+  "hvac": {
+    "navBackground": "#2F3E2F",
+    "menuBackground": "#64815D",
+    "menuTextColor": "#14380A",
+    "menuHoverColor": "#fff",
+    "appBorder": "1px solid #67878B",
+    "appBackground": "#5E7657",
+    "appHoverBackground": "#788F71",
+    "appTextColor": "#fff",
+    "appHoverColor": "#fff",
+    "searchBackground": "#678460",
+    "titleColor": "#414A2E",
+    "contentColor": "#6F7D5D",
+    "iconWebFcColor": "#90C083",
+    "btnTestBackground": "#63AF6B",
+    "btnTestTitleColor": "#D9FABE",
+    "btnTestBackgroundLayer": "#2D6C25",
+    "appFcBackground": "#EEF0EE",
+    "iconAppFcColor": "#709667",
+    "textAppFcColor": "#30372F",
+    "descAppFcColor": "#505050",
+    "appHoverFcBackground": "#80927C",
+    "iconHoverAppFcColor": "#fff",
+    "descHoverAppFcColor": "#CDDBCA",
+    "btnDownloadAppBgr": "#1B3B24",
+    "btnDownloadAppTitleColor": "#fff",
+    "footer1Bg": "#DCE4E2",
+    "footer1TextColor": "#2F3E33",
+    "footer2Bg": "#2F3E33",
+    "footer2TextColor": "#92A196",
+    "testSlug": "/exam-simulator",
+    "facebookId": 110389008313534,
+    "menu": [
+      {
+        "name": "Home",
+        "slug": "/"
+      },
+      {
+        "name": "Practice",
+        "slug": "/#practice"
+      },
+      {
+        "name": "Exam Simulator",
+        "slug": "/exam-simulator"
+      },
+      {
+        "name": "Flash Card",
+        "slug": "/flash-card"
+      },
+      {
+        "name": "Blog",
+        "slug": "/blog"
+      }
+    ],
+    "social": [
+      {
+        "name": "facebook",
+        "link": "https://www.facebook.com/hvacpracticetest"
+      },
+      {
+        "name": "pinterest",
+        "link": "https://www.pinterest.com/hvacpracticetest"
+      },
+      {
+        "name": "tumblr",
+        "link": "https://hvacpracticetest.tumblr.com/"
+      }
+    ]
+  },
+  "nclex": {
+    "mathJax": true,
+    "navBackground": "#0D3969",
+    "menuBackground": "#074990",
+    "menuTextColor": "#86BAF2",
+    "menuHoverColor": "#fff",
+    "appBorder": "",
+    "appBackground": "#124379",
+    "appHoverBackground": "#1A5AA0",
+    "appTextColor": "#fff",
+    "appHoverColor": "#fff",
+    "searchBackground": "#07386F",
+    "titleColor": "#20447D",
+    "contentColor": "#282828",
+    "iconWebFcColor": "#007AFF",
+    "btnTestBackground": "#007AFF",
+    "btnTestTitleColor": "#fff",
+    "btnTestBackgroundLayer": "#0057B6",
+    "appFcBackground": "#E0EBF9",
+    "iconAppFcColor": "#007AFF",
+    "textAppFcColor": "#30372F",
+    "descAppFcColor": "#505050",
+    "appHoverFcBackground": "#1068C9",
+    "iconHoverAppFcColor": "#fff",
+    "descHoverAppFcColor": "#C9D2E9",
+    "btnDownloadAppBgr": "#20447D",
+    "btnDownloadAppTitleColor": "#fff",
+    "footer1Bg": "#0d3969",
+    "footer1TextColor": "#fff",
+    "footer2Bg": "#074990",
+    "footer2TextColor": "#fff",
+    "testSlug": "/exam-simulator",
+    "facebookId": 113988677947686,
+    "menu": [
+      {
+        "name": "Home",
+        "slug": "/"
+      },
+      {
+        "name": "Practice",
+        "slug": "/#practice"
+      },
+      {
+        "name": "Exam Simulator",
+        "slug": "/exam-simulator"
+      },
+      {
+        "name": "Blog",
+        "slug": "/blog"
+      }
+    ],
+    "social": [
+      {
+        "name": "facebook",
+        "link": "https://www.facebook.com/nclexpracticequestions"
+      },
+      {
+        "name": "pinterest",
+        "link": "https://www.pinterest.com/nclexpracticequestions"
+      },
+      {
+        "name": "tumblr",
+        "link": "https://nclexpracticequestions.tumblr.com/"
+      }
+    ]
+  },
+  "ged": {
+    "mathJax": true,
+    "navBackground": "#0C0C0C",
+    "menuBackground": "#282F3B",
+    "menuTextColor": "#A0A0A0",
+    "menuHoverColor": "#FFC825",
+    "appBorder": "none",
+    "appBackground": "#363D48",
+    "appHoverBackground": "#545A64",
+    "appTextColor": "#fff",
+    "appHoverColor": "#fff",
+    "searchBackground": "#1B222D",
+    "titleColor": "#3F330F",
+    "contentColor": "#6A6D72",
+    "iconWebFcColor": "#FFBF01",
+    "btnTestBackground": "#FFBF01",
+    "btnTestBackgroundLayer": "#BA962D",
+    "btnTestTitleColor": "#fff",
+    "appFcBackground": "#E6EAED",
+    "descAppFcColor": "#505050",
+    "textAppFcColor": "#3F330F",
+    "iconAppFcColor": "#53514D",
+    "appHoverFcBackground": "#53524D",
+    "descHoverAppFcColor": "#D0CABD",
+    "iconHoverAppFcColor": "#fff",
+    "btnDownloadAppBgr": "#111328",
+    "btnDownloadAppTitleColor": "#fff",
+    "footer1Bg": "#3C4650",
+    "footer1TextColor": "#A0A0A0",
+    "footer2Bg": "#0F222C",
+    "footer2TextColor": "#A0A0A0",
+    "testSlug": "/ged-online-test",
+    "facebookId": 104271472264504,
+    "menu": [
+      {
+        "name": "Home",
+        "slug": "/"
+      },
+      {
+        "name": "Practice",
+        "slug": "/#practice"
+      },
+      {
+        "name": "Full Test",
+        "slug": "/ged-online-test"
+      },
+      {
+        "name": "GED Near Me",
+        "slug": "/ged-near-me"
+      },
+      {
+        "name": "Blog",
+        "slug": "/blog"
+      }
+    ],
+    "social": [
+      {
+        "name": "facebook",
+        "link": "https://www.facebook.com/gedpracticetest/"
+      },
+      {
+        "name": "pinterest",
+        "link": "https://www.pinterest.com/gedpracticetest/"
+      },
+      {
+        "name": "tumblr",
+        "link": "https://gedpracticetest.tumblr.com/"
+      }
+    ]
+  },
+  "toeic": {
+    "navBackground": "#103557",
+    "menuBackground": "#2E72B1",
+    "menuTextColor": "#9BC9FF",
+    "menuHoverColor": "#fff",
+    "footer1Bg": "#E7ECF9",
+    "footer2Bg": "#103557",
+    "footer1TextColor": "#34447C",
+    "footer2TextColor": "#D5DEF0",
+    "appBorder": "1px solid #2D5592",
+    "appBackground": "inherit",
+    "appHoverBackground": "#2D5592",
+    "appTextColor": "#fff",
+    "appHoverColor": "#fff",
+    "searchBackground": "#2C6CA7",
+    "titleColor": "#34447C",
+    "contentColor": "#8293D0",
+    "iconWebFcColor": "#6C81FF",
+    "iconAppFcColor": "#435DA1",
+    "textAppFcColor": "#30372F",
+    "iconHoverAppFcColor": "#828AFF",
+    "descAppFcColor": "#505050",
+    "descHoverAppFcColor": "#A9B9F2",
+    "appFcBackground": "#EDF5FF",
+    "appHoverFcBackground": "#435DA2",
+    "btnTestBackground": "#828AFF",
+    "btnTestBackgroundLayer": "#4162D8",
+    "btnDownloadAppBgr": "#656EF1",
+    "btnDownloadAppTitleColor": "#fff",
+    "testSlug": "/test",
+    "facebookId": 108078988600409,
+    "multiLocales": true,
+    "menu": [
+      {
+        "name": "Home",
+        "slug": "/",
+        "locale": "en"
+      },
+      {
+        "name": "Practice",
+        "slug": "/practice",
+        "locale": "en",
+        "childs": [
+          {
+            "name": "PART 1: PHOTOS",
+            "slug": "/practice/part-1-photos"
+          },
+          {
+            "name": "PART 2: QUESTION- RESPONSE",
+            "slug": "/practice/part-2-question-response"
+          },
+          {
+            "name": "PART 3: CONVERSATIONS",
+            "slug": "/practice/part-3-conversations"
+          },
+          {
+            "name": "PART 4: SHORT TALKS",
+            "slug": "/practice/part-4-short-talks"
+          },
+          {
+            "name": "PART 5: INCOMPLETE SENTENCES",
+            "slug": "/practice/part-5-incomplete-sentences"
+          },
+          {
+            "name": "PART 6: TEXT COMPLETION",
+            "slug": "/practice/part-6-text-completion"
+          },
+          {
+            "name": "PART 7: SINGLE PASSAGES",
+            "slug": "/practice/part-7-single-passages"
+          },
+          {
+            "name": "PART 7: DOUBLE PASSAGES",
+            "slug": "/practice/part-7-double-passages"
+          },
+          {
+            "name": "PART 7: TRIPLE PASSAGES",
+            "slug": "/practice/part-7-triple-passages"
+          },
+          {
+            "name": "GRAMMAR",
+            "slug": "/practice/grammar"
+          },
+          {
+            "name": "VOCABULARY",
+            "slug": "/practice/vocabulary"
+          }
+        ]
+      },
+      {
+        "name": "Test",
+        "slug": "/test",
+        "locale": "en",
+        "childs": [
+          {
+            "name": "Full Test",
+            "slug": "/test/full-test"
+          },
+          {
+            "name": "Mini Test",
+            "slug": "/test/minitest"
+          }
+        ]
+      },
+      {
+        "name": "Blog",
+        "slug": "/blog",
+        "locale": "en"
+      },
+      {
+        "name": "TOEIC Tips",
+        "slug": "#",
+        "type": "extra",
+        "locale": "en",
+        "childs": [
+          {
+            "name": "TOEIC Listening Tips",
+            "slug": "/toeic-listening-tips"
+          },
+          {
+            "name": "TOEIC Reading Tips",
+            "slug": "/toeic-reading-tips"
+          }
+        ]
+      },
+      {
+        "name": "Trang chủ",
+        "slug": "/vi",
+        "locale": "vi"
+      },
+      {
+        "name": "Luyện tập",
+        "slug": "/vi/practice",
+        "locale": "vi",
+        "childs": [
+          {
+            "name": "PHẦN 1: MÔ TẢ TRANH",
+            "slug": "/vi/practice/part-1-photos",
+            "locale": "vi"
+          },
+          {
+            "name": "PHẦN 2: HỎI - ĐÁP",
+            "slug": "/vi/practice/part-2-question-response"
+          },
+          {
+            "name": "PHẦN 3: ĐOẠN HỘI THOẠI",
+            "slug": "/vi/practice/part-3-conversations"
+          },
+          {
+            "name": "PHẦN 4: BÀI NÓI NGẮN",
+            "slug": "/vi/practice/part-4-short-talks"
+          },
+          {
+            "name": "PHẦN 5: HOÀN THÀNH CÂU",
+            "slug": "/vi/practice/part-5-incomplete-sentences"
+          },
+          {
+            "name": "PHẦN 6: HOÀN THÀNH ĐOẠN VĂN",
+            "slug": "/vi/practice/part-6-text-completion"
+          },
+          {
+            "name": "PHẦN 7: ĐỌC HIỂU - ĐOẠN ĐƠN",
+            "slug": "/vi/practice/part-7-single-passages"
+          },
+          {
+            "name": "PHẦN 7: ĐỌC HIỂU - ĐOẠN KÉP",
+            "slug": "/vi/practice/part-7-double-passages"
+          },
+          {
+            "name": "PHẦN 7: ĐỌC HIỂU - ĐOẠN BA",
+            "slug": "/vi/practice/part-7-triple-passages"
+          },
+          {
+            "name": "NGỮ PHÁP",
+            "slug": "/vi/practice/grammar"
+          },
+          {
+            "name": "TỪ VỰNG",
+            "slug": "/vi/practice/vocabulary"
+          }
+        ]
+      },
+      {
+        "name": "Đề thi thử",
+        "slug": "/vi/test",
+        "locale": "vi",
+        "childs": [
+          {
+            "name": "Full Test",
+            "slug": "/vi/test/full-test"
+          },
+          {
+            "name": "Mini Test",
+            "slug": "/vi/test/minitest"
+          }
+        ]
+      },
+      {
+        "name": "Blog",
+        "slug": "/vi/blog",
+        "locale": "vi"
+      },
+      {
+        "name": "TOEIC Tips",
+        "slug": "#",
+        "locale": "vi",
+        "type": "extra",
+        "childs": [
+          {
+            "name": "TOEIC Listening Tips",
+            "slug": "/toeic-listening-tips"
+          },
+          {
+            "name": "TOEIC Reading Tips",
+            "slug": "/toeic-reading-tips"
+          }
+        ]
+      }
+    ],
+    "topic": [
+      {
+        "part": "Part 1",
+        "name": "Photographs",
+        "slug": "part-1-photos",
+        "avatar": "/images/app/toeic/part-1.png",
+        "shortDescription": "Four short statements regarding a photograph will be spoken only one time. Of these four statements, select the one. that best describes the photograph.",
+        "skill": "listening"
+      },
+      {
+        "part": "Part 2",
+        "name": "Question - Response",
+        "slug": "part-2-question-response",
+        "avatar": "/images/app/toeic/part-2.png",
+        "shortDescription": "Three responses to one question or statement will be spoken only one time. Select the best response for the question.",
+        "skill": "listening"
+      },
+      {
+        "part": "Part 3",
+        "name": "Short Conversations",
+        "slug": "part-3-conversations",
+        "avatar": "/images/app/toeic/part-3.png",
+        "shortDescription": "Conversations between two or three people will be spoken only one time. Listen to each conversation and select the best response for the question. There are three questions for each conversation.",
+        "skill": "listening"
+      },
+      {
+        "part": "Part 4",
+        "name": "Short Talks",
+        "slug": "part-4-short-talks",
+        "avatar": "/images/app/toeic/part-4.png",
+        "shortDescription": "Short talks such as announcements or narrations will be spoken only one time. Listen to each talk and select the best response for the question There are three questions for each talk.",
+        "skill": "listening"
+      },
+      {
+        "part": "Part 5",
+        "name": "Incomplete Sentences",
+        "slug": "part-5-incomplete-sentences",
+        "avatar": "/images/app/toeic/part-5.png",
+        "shortDescription": "Select the best answer of the four choices to complete the sentence.",
+        "skill": "reading"
+      },
+      {
+        "part": "Part 6",
+        "name": "Text Completion",
+        "slug": "part-6-text-completion",
+        "avatar": "/images/app/toeic/part-6.png",
+        "shortDescription": "Select the best answer of the four choices (words, phrases, or a sentence) to complete the text. There are four questions for each text.",
+        "skill": "reading"
+      },
+      {
+        "part": "Part 7",
+        "name": "Reading Comprehension",
+        "slug": "part-7-single-passages",
+        "avatar": "/images/app/toeic/part-7.png",
+        "shortDescription": "Read a range of different texts and select the best answer of the four choices.There are multiple questions for each text."
+      },
+      {
+        "part": "Part 7",
+        "name": "Reading Comprehension",
+        "slug": "part-7-double-passages",
+        "avatar": "/images/app/toeic/part-7.png",
+        "shortDescription": "Read a range of different texts and select the best answer of the four choices.There are multiple questions for each text."
+      },
+      {
+        "part": "Part 7",
+        "name": "Reading Comprehension",
+        "slug": "part-7-triple-passages",
+        "avatar": "/images/app/toeic/part-7.png",
+        "shortDescription": "Read a range of different texts and select the best answer of the four choices.There are multiple questions for each text."
+      }
+    ],
+    "social": [
+      {
+        "name": "facebook",
+        "link": "https://www.facebook.com/toeictestpro2020"
+      },
+      {
+        "name": "youtube",
+        "link": "https://www.youtube.com/channel/UCGG5IGBgkchine0n0OpmFWQ"
+      },
+      {
+        "name": "twitter",
+        "link": "https://twitter.com/toeictestpro"
+      }
+    ]
+  },
+  "asvab": {
+    "mathJax": true,
+    "navBackground": "#30372F",
+    "menuBackground": "#82835D",
+    "menuTextColor": "#CBD08F",
+    "menuHoverColor": "#DEE780",
+    "appBackground": "#4D544C",
+    "appHoverBackground": "#6E6F4B",
+    "appTextColor": "#fff",
+    "appHoverColor": "#fff",
+    "searchBackground": "#6F704D",
+    "titleColor": "#414A2E",
+    "contentColor": "#727D52",
+    "iconWebFcColor": "#D3AC60",
+    "iconAppFcColor": "#4D544C",
+    "textAppFcColor": "#30372F",
+    "iconHoverAppFcColor": "#AAB446",
+    "descAppFcColor": "#505050",
+    "descHoverAppFcColor": "#C8CDC7",
+    "appFcBackground": "#D9E5E0",
+    "appHoverFcBackground": "#4D544C",
+    "btnTestBackground": "#DEE96F",
+    "btnTestBackgroundLayer": "#AAB446",
+    "btnTestTitleColor": "#30372F",
+    "btnDownloadAppBgr": "#DEE780",
+    "btnDownloadAppTitleColor": "#30372F",
+    "footer1Bg": "#4D544C",
+    "footer2Bg": "#30372F",
+    "footer1TextColor": "#DEE780",
+    "footer2TextColor": "#92A196",
+    "testSlug": "/full-test",
+    "facebookId": 104831745616458,
+    "menu": [
+      {
+        "name": "Home",
+        "slug": "/"
+      },
+      {
+        "name": "Practice",
+        "slug": "/#practice"
+      },
+      {
+        "name": "Full Test",
+        "slug": "/full-test"
+      },
+      {
+        "name": "Study Guide",
+        "slug": "/study-guide"
+      },
+      {
+        "name": "Blog",
+        "slug": "/blog"
+      }
+    ],
+    "social": [
+      {
+        "name": "facebook",
+        "link": "https://www.facebook.com/asvabtestpro"
+      },
+      {
+        "name": "pinterest",
+        "link": "https://www.pinterest.com/asvabtestpro"
+      },
+      {
+        "name": "youtube",
+        "link": "https://www.youtube.com/channel/UCC1qim1JgXgfsJewyi6rXZQ"
+      }
+    ]
+  },
+  "dmv": {
+    "navBackground": "#fff",
+    "menuBackground": "rgb(57, 62, 250, 0.9)",
+    "menuTextColor": "#ADBFFF",
+    "menuHoverColor": "#fff",
+    "appBorder": "#2D5592",
+    "appBackground": "#fff",
+    "appHoverBackground": "#2E3C4A",
+    "appTextColor": "#2E3C4A",
+    "appHoverColor": "#fff",
+    "searchBackground": "#2C32CB",
+    "titleColor": "#393EFA",
+    "contentColor": "#535353",
+    "iconWebFcColor": "#393EFA",
+    "iconAppFcColor": "#393EFA",
+    "textAppFcColor": "#30372F",
+    "iconHoverAppFcColor": "#fff",
+    "descAppFcColor": "#505050",
+    "descHoverAppFcColor": "#C9D2E9",
+    "appFcBackground": "#F4F7FA",
+    "appHoverFcBackground": "#394F89",
+    "btnTestBackground": "#393EFA",
+    "btnTestBackgroundLayer": "#101384",
+    "btnTestTitleColor": "#fff",
+    "btnDownloadAppBgr": "#393EFA",
+    "btnDownloadAppTitleColor": "#fff",
+    "footer1Bg": "#DBE3EF",
+    "footer1TextColor": "#68696D",
+    "footer2Bg": "#202D31",
+    "footer2TextColor": "#849297",
+    "testSlug": "#practice",
+    "menu": [
+      {
+        "name": "Home",
+        "slug": "/"
+      },
+      {
+        "name": "Practice",
+        "slug": "#practice",
+        "onClickFunction": "scroll"
+      },
+      {
+        "name": "Full Test",
+        "slug": "#full-test",
+        "onClickFunction": "scroll",
+        "dynamic": true
+      },
+      {
+        "name": "Blog",
+        "slug": "/blog"
+      }
+    ],
+    "social": [
+      {
+        "name": "facebook",
+        "link": "https://www.facebook.com/"
+      },
+      {
+        "name": "pinterest",
+        "link": "https://www.pinterest.com/"
+      },
+      {
+        "name": "youtube",
+        "link": "https://www.youtube.com/"
+      }
+    ]
+  },
+  "COMPANY_INFO": [
+    {
+      "name": "Liên hệ",
+      "slug": "/vi/contact",
+      "locale": "vi"
+    },
+    {
+      "name": "Điều khoản",
+      "slug": "/vi/terms",
+      "locale": "vi"
+    },
+    {
+      "name": "Quyền riêng tư",
+      "slug": "/vi/privacy",
+      "locale": "vi"
+    },
+    {
+      "name": "Contact",
+      "slug": "/contact",
+      "locale": "en"
+    },
+    {
+      "name": "Terms",
+      "slug": "/terms",
+      "locale": "en"
+    },
+    {
+      "name": "Privacy",
+      "slug": "/privacy",
+      "locale": "en"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+node_modules
+package-lock.json
+yarn.lock
+.vscode
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+# env file
+.env
+/dist
+# misc
+.DS_Store
+.env.local
+.env.test.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

@@ -1,0 +1,98 @@
+@import "../../styles/mixins.scss";
+.grade-page-panel {
+  padding: 20px 0;
+
+  .title-topic {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .item-category-grade {
+    background-color: white;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: transform 0.4s ease-in-out;
+    &-image {
+      @media (max-width: 1367px) {
+        span {
+          width: 100% !important;
+          img {
+            object-fit: fill;
+          }
+        }
+      }
+    }
+    .infor-course {
+      padding: 10px;
+      @media (max-width: 1367px) {
+        padding-top: 6px;
+      }
+
+      .title-category-grade {
+        @include ellipsis-text();
+        font-weight: 600;
+        font-size: 16px;
+
+        @media (max-width: 1367px) {
+          font-size: 14px;
+        }
+      }
+
+      .des-category-grade {
+        @include ellipsis-text();
+        font-size: 14px;
+        @media (max-width: 1367px) {
+          font-size: 12px;
+        }
+        text-align: justify;
+      }
+      .practice-now {
+        margin-top: 5px;
+        button {
+          font-size: 13px;
+          box-shadow: 0px 4px 10px rgba(192, 210, 235, 0.75);
+          background-color: white;
+          font-weight: 600;
+          color: var(--secondaryColor);
+          padding: 6px 10px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          margin-left: auto;
+          cursor: pointer;
+          &:hover {
+            transform: translateY(-4px);
+          }
+
+          @media (max-width: 1367px) {
+            padding: 4px 8px;
+          }
+        }
+      }
+    }
+
+    img {
+      transition: 0.75s;
+    }
+    &:hover {
+      transform: translateY(-10px);
+      transition: transform 0.4s ease-in-out;
+      box-shadow: 0px 4px 10px rgba(192, 210, 235, 0.5);
+
+      img {
+        transform: scale(1.1);
+      }
+      .practice-now {
+        button {
+          background-color: var(--secondaryColor);
+          color: white;
+
+          &:hover {
+            transform: translateY(-4px);
+          }
+        }
+      }
+    }
+  }
+}

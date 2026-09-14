@@ -1,0 +1,17 @@
+.practice-view-chart {
+    margin-bottom: 20px;
+    canvas {
+        background-color: #fff;
+        border-radius: 15px;
+        padding: 18px;
+        height: 400px;
+
+        @media (max-width: 768px) {
+            height: 320px;
+        }
+
+        @media (max-width: 600px) {
+            height: unset;
+        }
+    }
+}

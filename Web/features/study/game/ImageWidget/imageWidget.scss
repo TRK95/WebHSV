@@ -1,0 +1,23 @@
+.game-image-widget-container {
+  position: relative;
+  margin: 0 auto;
+  .game-image-widget {
+    display: flex;
+    justify-content: flex-end
+  }
+
+  .game-image-widget-backdrop-preview {
+    .preview-close {
+      color: #fff !important;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .image-preview {
+      max-height: 80%;
+      max-width: 80%;
+    }
+  }
+}
+
+

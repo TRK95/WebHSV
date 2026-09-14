@@ -1,0 +1,313 @@
+.banner-pages {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 25px;
+    // height: 60vh !important;
+    background-color: white;
+
+    @media (max-width: 1367px) {
+        height: 275px !important;
+    }
+
+    .banner-item {
+        position: relative;
+
+        .left-banner {
+            .text-1 {
+                font-size: 45px;
+                padding-top: 45px;
+
+                @media (max-width: 1367px) {
+                    font-size: 26px;
+                    padding-top: unset;
+                }
+
+                span {
+                    font-weight: bold;
+                    color: var(--primary-color-main);
+                }
+            }
+
+            .text-2 {
+                margin-bottom: 10px;
+
+                b {
+                    color: var(--secondaryColor);
+                    font-size: 35px;
+
+                    @media (max-width: 1367px) {
+                        font-size: 22px;
+                    }
+                }
+
+                span {
+                    color: #ff6557;
+                    font-size: 35px;
+                    font-weight: 700;
+
+                    @media (max-width: 1367px) {
+                        font-size: 22px;
+                    }
+                }
+            }
+
+            .des {
+                div {
+                    margin-bottom: 5px;
+                    display: flex;
+                    align-items: center;
+
+                    span {
+                        font-size: 17px;
+                        margin-left: 20px;
+
+                        @media (max-width: 1367px) {
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+
+            .register-now {
+                margin-top: 20px;
+
+                button {
+                    background: linear-gradient(298.48deg, #009c93 13.52%, #1adac3 100.5%);
+                    box-shadow: 0px 10px 10px rgba(6, 192, 192, 0.25);
+                    width: 320px;
+                    height: 70px;
+                    padding: 10px;
+                    border-radius: 50px;
+                    font-size: 20px;
+                    color: white;
+                    font-weight: 600;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: all 0.5s;
+
+                    @media (max-width: 1367px) {
+                        width: 200px;
+                        height: 50px;
+                        font-size: 16px;
+                    }
+
+                    img {
+                        width: 25px;
+                        margin-left: 10px;
+                    }
+
+                    &:hover {
+                        transform: translateY(-10px);
+                    }
+                }
+            }
+        }
+
+        .right-banner {
+            position: absolute;
+            left: calc(50% - 100px);
+            width: 661px;
+            height: 460px;
+            top: -20px;
+
+            @media (max-width: 1367px) {
+                width: 400px;
+                left: unset;
+            }
+        }
+    }
+
+    .contact-page {
+        position: fixed;
+        right: 50px;
+        top: 200px;
+        z-index: 99;
+
+        @media (max-width: 1367px) {
+            right: 50px;
+            top: 160px;
+        }
+    }
+}
+
+@media (min-width: 1441px) {
+    .banner-pages {
+        height: 450px !important;
+    }
+}
+
+@media (min-width: 1378px) and (max-width: 1440px) {
+    .banner-pages {
+        height: 480px !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .banner-pages {
+        height: 335px !important;
+
+        // padding-top: unset;
+        .banner-item {
+            .left-banner {
+                .text-1 {
+                    font-size: 30px;
+                    padding-top: unset;
+                }
+
+                .text-2 {
+                    b {
+                        font-size: 24px;
+                    }
+
+                    span {
+                        font-size: 24px;
+                    }
+                }
+            }
+
+            .right-banner {
+                left: calc(50% - 70px);
+                top: 0;
+                width: 460px;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .banner-pages {
+        padding-top: 20px;
+        height: 250px !important;
+
+        .banner-item {
+            .left-banner {
+                .text-1 {
+                    font-size: 20px;
+                    padding-top: 20px;
+                }
+
+                .text-2 {
+                    b {
+                        font-size: 18px;
+                    }
+
+                    span {
+                        font-size: 18px;
+                    }
+                }
+
+                .des {
+                    svg {
+                        width: 15px;
+                    }
+
+                    div {
+                        span {
+                            font-size: 12px;
+                            margin-left: 10px;
+                        }
+                    }
+                }
+
+                .register-now {
+                    button {
+                        width: 180px;
+                        font-size: 14px;
+                        height: 40px;
+                    }
+                }
+            }
+
+            .right-banner {
+                width: 300px;
+                left: unset;
+                right: 0;
+                top: 25px;
+            }
+        }
+
+        .contact-page {
+            top: 100px;
+            right: 10px;
+
+            a {
+                img {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .banner-pages {
+        padding-top: 10px;
+        height: 240px !important;
+
+        .MuiContainer-root {
+            padding-right: 0px !important;
+        }
+
+        .banner-item {
+            .left-banner {
+                .text-1 {
+                    font-size: 18px;
+                    padding-top: 0px;
+                }
+
+                .text-2 {
+                    b {
+                        font-size: 14px;
+                    }
+
+                    span {
+                        font-size: 14px;
+                    }
+                }
+
+                .des {
+                    svg {
+                        width: 15px;
+                    }
+
+                    div {
+                        span {
+                            font-size: 12px;
+                            margin-left: 6px;
+                        }
+                    }
+                }
+
+                .register-now {
+                    button {
+                        width: 165px;
+                        font-size: 12px;
+                        height: 32px;
+                    }
+                }
+            }
+
+            .right-banner {
+                width: 210px;
+                left: unset;
+                right: 0;
+                top: 45px;
+            }
+        }
+
+        .contact-page {
+            top: 100px;
+            right: 10px;
+
+            a {
+                img {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        }
+    }
+}

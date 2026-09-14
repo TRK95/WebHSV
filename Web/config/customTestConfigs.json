@@ -1,0 +1,26 @@
+{
+  "cscs": {
+    "courseId": "6201e794de2fe43395348d08",
+    "parentId": null,
+    "sampleLimit": 10,
+    "duration": 45,
+    "questionsNum": 50,
+    "pass": 9
+  },
+  "asvab": {
+    "courseId": "6260d177741e53dd4799a98f",
+    "parentId": null,
+    "sampleLimit": 9,
+    "duration": 154,
+    "questionsNum": 145,
+    "pass": 5
+  },
+  "alevel-maths": {
+    "courseId": "620b2362620fbb6e1c9c26e8",
+    "parentId": null,
+    "sampleLimit": 6,
+    "duration": 120,
+    "questionsNum": 100,
+    "pass": 3.33
+  }
+}

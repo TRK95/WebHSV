@@ -1,0 +1,154 @@
+@import "../../../styles/mixins.scss";
+
+.game-object-question {
+  width: 100%;
+  height: 100%;
+  &.para-root {
+    width: 45%;
+    &.no-content {
+      display: none;
+    }
+  }
+  &.tablet {
+    &.para-root {
+      width: 100%;
+      height: auto;
+    }
+  }
+  &-text {
+    font-size: 18px;
+    font-family: inherit !important;
+    font-weight: 500;
+    line-height: 30px;
+    color: #1d1d1d;
+    text-align: justify;
+    @media (max-width: 992px) {
+      font-size: 14px;
+    }
+    > p {
+      margin-block-start: auto;
+      margin-block-end: auto;
+    }
+
+    img {
+      max-width: 100%;
+    }
+  }
+  &-sound {
+    margin-bottom: 10px;
+    @media (max-width: 768px) {
+      margin-right: 10px;
+    }
+  }
+  &-image {
+    img {
+      margin: 0 auto;
+      display: block;
+    }
+  }
+  @media (max-width: 992px) {
+    width: 100%;
+  }
+}
+.content-para-scroll {
+  position: relative;
+  background-color: rgba(242, 243, 247, 0.3);
+  border: 1.5px solid #cfcfdb;
+  border-radius: 10px;
+  padding: 10px;
+  padding-bottom: 24px;
+  &.open-menu {
+    overflow: initial !important;
+  }
+  &:not(&.tablet) {
+    height: 100%;
+    .content-para-scroll-collapse-root,
+    .content-para-scroll-collapse-wrapper,
+    .content-para-scroll-collapse-wrapper-inner {
+      height: 100% !important;
+    }
+  }
+
+  .content-game-para-custom {
+    height: 100%;
+    overflow: auto;
+    @include custom-scroll();
+    @media (max-width: 992px) {
+      height: 240px;
+    }
+  }
+  .zoom-para {
+    position: absolute;
+    right: 5px;
+    bottom: 0px;
+    display: flex;
+    align-items: center;
+    img {
+      width: 20px;
+      height: 20px;
+      margin: 5px;
+      cursor: pointer;
+    }
+  }
+}
+.change-max-width .submit-game-confirm-modal {
+  max-width: 100%;
+}
+.change-text-size-pop-paper {
+  bottom: -42px !important;
+  top: auto !important;
+  left: auto !important;
+  right: 0 !important;
+}
+.show-zoom-in-out {
+  position: absolute !important;
+  display: flex;
+  padding: 8px;
+  right: 0;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  button {
+    margin: 5px;
+    border: 0;
+    background-color: transparent;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  span {
+    font-size: 12px;
+  }
+  .MuiPopover-paper {
+    border-radius: 10px;
+  }
+}
+.custom-popover {
+  padding: 7px;
+}
+.show-content-gamepara {
+  display: none;
+  @media (max-width: 992px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    border-radius: 5px;
+    background-color: rgb(228 230 236);
+    svg {
+      color: #848585;
+      font-size: 20px;
+      &.down {
+        color: #1976d2;
+      }
+    }
+  }
+}
+
+#dialog-content-para {
+  .dialog-question-text-content {
+    @include custom-scroll();
+  }
+}

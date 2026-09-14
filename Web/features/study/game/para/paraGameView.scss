@@ -1,0 +1,56 @@
+@import "../../../../styles/mixins.scss";
+.game-object-question-sound-para {
+  margin: 5px 0;
+}
+
+.game-object-para {
+  display: flex;
+  &.has-sound {
+    height: calc(100% - 40px) !important;
+  }
+  &.tablet {
+    flex-direction: column;
+  }
+  .game-object-para-children {
+    height: 100%;
+    overflow: auto;
+    @include custom-scroll();
+    padding: 10px;
+    padding-top: 0;
+    width: 55%;
+    &.no-parent-content {
+      width: 100%;
+    }
+    &.tablet {
+      width: 100%;
+    }
+    .game-object-child-wrap {
+      margin-top: 0;
+      .game-object-view {
+        .question-index-wrap {
+          padding-top: 10px;
+          .game-object-question {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .game-object-child-wrap {
+    margin-top: 16px;
+    border-top: 1px solid #ccc;
+    &:first-child {
+      border-top: 0;
+    }
+  }
+}
+
+.game-object-question-explanation-para {
+  background: #fff;
+  padding: 10px;
+  margin-top: 32px;
+  width: calc(100% + 20px);
+  transform: translateX(-10px);
+  border-radius: 15px;
+}

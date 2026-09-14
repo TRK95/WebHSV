@@ -1,0 +1,57 @@
+@import "../../../styles/mixins.scss";
+
+#sub-topic-list {
+  @media (max-width: 992px) {
+    padding-right: 17px;
+    padding-bottom: 17px;
+  }
+  .sub-topic-item {
+    color: #777777;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 21px;
+    height: 55px;
+    display: flex;
+    padding: 0 25px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    flex-direction: column;
+    position: relative;
+    padding-top: 11px;
+    background: #fff;
+    &-name {
+      @include ellipsis-text();
+    }
+    &.tablet {
+      background: #f2f3f7;
+      &.sub-active {
+        background: #f2f3f7;
+        font-weight: 500;
+      }
+    }
+    &:hover {
+      background: #1976d20a;
+    }
+    &.sub-active {
+      color: #007aff;
+      font-weight: 500;
+    }
+    .sub-topic-progress {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      padding: 0 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      .sub-topic-progress-bar {
+        background-color: #d1d3da;
+        &.tablet {
+          background-color: #fff;
+        }
+      }
+    }
+  }
+}

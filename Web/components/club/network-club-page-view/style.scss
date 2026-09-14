@@ -1,0 +1,225 @@
+@import "../../../styles/mixins.scss";
+
+#network-club-page-view {
+    padding-top: 20px;
+    padding-bottom: 40px;
+
+    .network-club-page-view-layout {
+        padding-top: 24px;
+        display: flex;
+
+        @media (max-width: 992px) {
+            display: unset;
+        }
+
+        .network-club-side-bar-wrapper {
+            min-height: 1000px;
+
+            @media (max-width: 992px) {
+                min-height: unset;
+            }
+
+            .network-club-side-bar {
+                position: sticky;
+                top: 18%;
+                width: 220px;
+                background-color: #fff;
+                border-radius: 20px;
+                overflow: hidden;
+
+                @media (max-width: 992px) {
+                    width: unset;
+                    height: unset;
+                    position: unset;
+                    top: unset;
+                }
+
+                &-title {
+                    padding: 14px;
+                    text-align: center;
+                    font-size: 20px;
+                    font-weight: 700;
+                    color: #333;
+                    border-bottom: 2px solid #f4f8fe;
+                }
+
+                &-options {
+                    list-style-type: none;
+                    padding-left: unset;
+                    text-align: center;
+                    margin: 0;
+
+                    @media (max-width: 992px) {
+                        display: flex;
+                        justify-content: space-evenly;
+                    }
+
+                    @media (max-width: 768px) {
+                        display: grid;
+                        grid-template-columns: auto auto auto;
+                        justify-content: unset;
+                    }
+
+                    @media (max-width: 576px) {
+                        grid-template-columns: auto auto;
+                    }
+
+                    &-item {
+                        display: flex;
+                        align-items: center;
+                        padding: 16px;
+                        cursor: pointer;
+                        transition: 0.25s;
+
+                        .side-bar-options-name {
+                            transition: 0.25s;
+                        }
+
+                        &.active {
+                            background-color: rgb(235, 227, 227);
+
+                            .side-bar-options-name {
+                                color: var(--primary-color-main);
+                            }
+                        }
+
+                        @media (max-width: 992px) {
+                            padding: 8px;
+                        }
+
+                        @media (max-width: 768px) {
+                            justify-content: center;
+                        }
+
+                        &:hover {
+                            .side-bar-options-name {
+                                color: var(--primary-color-main);
+                                transform: translateY(-4px);
+                            }
+                        }
+
+                        .side-bar-options-icon {
+                            @media (max-width: 992px) {
+                                width: 20px;
+                            }
+                        }
+
+                        .side-bar-options-name {
+                            margin-left: 12px;
+                            font-size: 16px;
+                            font-weight: 500;
+                            opacity: 0.8;
+                            color: var(--textColor);
+
+                            @media (max-width: 992px) {
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .network-club-main {
+            width: calc(100% - 250px);
+            margin-left: 20px;
+
+            @media (max-width: 992px) {
+                width: 100%;
+                margin-left: unset;
+                margin-top: 20px;
+            }
+
+            &-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+
+                &-title {
+                    display: flex;
+                    align-items: center;
+                    color: var(--secondaryColor);
+                    font-weight: 600;
+                }
+
+                &-actions {
+                    input {
+                        outline: none;
+                        border: 1px solid #d3dcec;
+                        padding: 6px 12px;
+                        background-color: transparent;
+                        border-radius: 10px;
+                        font-weight: 600;
+
+                        @media (max-width: 1367px) {
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+
+            &-body {
+                &-item {
+                    transition: 0.5s;
+                    cursor: pointer;
+
+                    &-content {
+                        background-color: #fff;
+                        padding: 8px;
+                        font-size: 12px;
+                        color: var(--textColor);
+                        border-bottom-left-radius: 10px;
+                        border-bottom-right-radius: 10px;
+
+                        .item-content-name {
+                            font-size: 12px;
+                            font-weight: 600;
+                            line-height: 22px;
+                            min-height: 44px;
+                            @include ellipsis-text();
+                        }
+
+                        .item-content-actions {
+                            button {
+                                background-color: transparent;
+                                color: var(--textColor);
+                                opacity: 0.8;
+                                padding: 6px 8px;
+                                display: flex;
+                                align-items: center;
+                                cursor: pointer;
+
+                                * {
+                                    transition: 0.5s;
+                                }
+
+                                &:hover {
+                                    color: var(--primary-color-main);
+
+                                    svg {
+                                        stroke: var(--primary-color-main);
+
+                                        circle {
+                                            stroke: var(--primary-color-main);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .item-content-short-desc {
+                            @include ellipsis-text;
+                            line-height: 18px;
+                            min-height: 54px;
+                        }
+                    }
+
+                    &:hover {
+                        transform: translateY(-6px);
+                    }
+                }
+            }
+        }
+    }
+}

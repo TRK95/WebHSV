@@ -1,0 +1,24 @@
+/node_modules
+/buckets
+/.pnp
+.pnp.js
+yarn.lock
+package-lock.json
+/public
+
+# /images
+# misc
+.DS_Store
+*.pem
+*.http
+workspace.code-workspace
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# env files
+.env
+.env.development
+.env.staging
+.env.production

@@ -1,0 +1,19 @@
+.DS_Store
+*.log
+
+# Local secrets
+.env
+.env.*
+!*.env.example
+atlas-credentials.env
+
+# Dependency/install output
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build output
+.next/
+dist/
+build/
+coverage/

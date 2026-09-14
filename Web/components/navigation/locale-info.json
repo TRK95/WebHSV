@@ -1,0 +1,10 @@
+{
+  "en": {
+    "label": "English",
+    "selectLabel": "Your language"
+  },
+  "vi": {
+    "label": "Tiếng Việt",
+    "selectLabel": "Ngôn ngữ"
+  }
+}

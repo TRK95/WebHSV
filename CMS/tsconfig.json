@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "target": "ES5",
+        "allowJs": true,
+        "strict": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
+        "strictPropertyInitialization": false,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ],
+            "@@/*": [
+                "./*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ],
+}

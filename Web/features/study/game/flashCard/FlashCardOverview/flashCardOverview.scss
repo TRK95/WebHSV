@@ -1,0 +1,150 @@
+#flash-card-overview {
+  overflow: auto;
+  height: 100%;
+  .title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .list-overview-item {
+    margin-top: 75px;
+    margin-bottom: 90px;
+    display: flex;
+    justify-content: center;
+    @media (max-width: 576px) {
+      margin-top: 0;
+    }
+
+    .overview-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+      border-radius: 15px;
+      height: 100%;
+      margin: 0 12.5px;
+      background-color: #f4f5fc;
+      width: 150px;
+
+      &-label {
+        flex: 1;
+        color: #007aff;
+        font-weight: 500;
+        font-size: 14px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+      }
+
+      &-value {
+        border-radius: 10px;
+        background-color: #fff;
+        width: 130px;
+        &.fixed-value,
+        .option-value-selector {
+          font-size: 14px;
+
+          .select-icon {
+            position: absolute;
+            right: 20px;
+          }
+        }
+
+        &.fixed-value {
+          min-width: 130px;
+          height: 37px;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+        .option-value-selector {
+          border-radius: 0;
+          width: 140px;
+          > div {
+            text-align: center;
+            font-weight: 600;
+          }
+
+          fieldset {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .list-overview-item {
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: auto;
+      .overview-item {
+        flex-direction: unset;
+        width: 100%;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        &-label {
+          margin-top: auto;
+          margin-bottom: auto;
+        }
+      }
+    }
+  }
+
+  .overview-progress {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    padding: 0 16px;
+    &-label {
+      margin-right: 32px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  .overview-game-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 16px;
+    margin-bottom: 20px;
+    max-width: 576px;
+    padding: 0 16px;
+
+    @media (max-width: 576px) {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .play-button {
+      border-radius: 50px;
+      padding-top: 9px;
+      padding-bottom: 9px;
+      min-width: 180px;
+      font-weight: 700;
+      margin: 0 15px;
+      &.practice {
+        border: 1px solid #007aff;
+        color: #007aff !important;
+        background: #fff;
+        &:hover {
+          background: #fff;
+        }
+      }
+      &.game {
+        color: #fff !important;
+        background: #007aff;
+        &:hover {
+          background: #007aff;
+        }
+      }
+    }
+  }
+}

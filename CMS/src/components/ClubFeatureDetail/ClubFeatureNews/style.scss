@@ -1,0 +1,41 @@
+#posts {
+    .posts-actions {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .posts-body {
+        .list-post {
+            &-title {
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+.posts-modal-add {
+    &-actions {
+        &-title {
+            font-weight: 600;
+        }
+
+        &-body {
+            padding: 16px;
+            border: 1px solid #c3c4c7;
+
+            &-item {
+                font-size: 14px;
+            }
+        }
+    }
+
+    .sync-button {
+        border: 1px solid;
+        background-color: orange;
+        color: white;
+        border-radius: 10px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+}

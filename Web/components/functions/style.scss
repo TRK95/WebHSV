@@ -1,0 +1,43 @@
+#functions {
+  padding-top: 85px;
+  background: linear-gradient(
+    180deg,
+    rgba(230, 238, 240, 0.5) 0%,
+    rgba(255, 255, 255, 0.5) 13.02%,
+    rgba(254, 254, 255, 0.5) 76.04%,
+    rgba(230, 238, 240, 0.5) 100%
+  );
+  .title-function {
+    font-size: 35px;
+    font-weight: 600;
+    padding-bottom: 15px;
+    margin: 0;
+    text-align: left;
+  }
+  #web-function {
+    .cta-go-test-web {
+      display: flex;
+      justify-content: center;
+      margin-top: 45px;
+    }
+    .cta-go-test-web-button {
+      padding: 20px;
+    }
+    .cta-go-test-web-button-title {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 35px;
+      letter-spacing: 0.02em;
+      color: #fff;
+      margin-right: 16px;
+      @media (max-width: 576px) {
+        font-size: 16px;
+      }
+    }
+  }
+  #app-function {
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom: 140px;
+  }
+}

@@ -1,0 +1,130 @@
+@import "../../styles/mixins.scss";
+
+#infor-searching {
+    padding-bottom: 40px;
+    .infor-searching-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        @media (max-width: 992px) {
+            display: block;
+
+            &-title {
+                padding-bottom: 12px;
+            }
+        }
+        &-title {
+            display: flex;
+            align-items: center;
+            color: var(--secondaryColor);
+            font-weight: 600;
+        }
+
+        &-actions {
+            display: flex;
+            align-items: center;
+
+            @media (max-width: 576px) {
+                flex-direction: column;
+            }
+
+            // button {
+            //     padding: 6px 24px;
+            //     border-radius: 15px;
+            //     border: 1px solid #d3dcec;
+            //     background-color: transparent;
+            //     font-size: 16px;
+            //     font-weight: 600;
+            //     color: var(--textColor);
+            //     + button {
+            //         margin-left: 10px;
+            //     }
+            // }
+
+            &-search {
+                margin-left: 6px;
+                @media (max-width: 576px) {
+                    margin-top: 12px;
+                    margin-left: unset;
+                }
+
+                input {
+                    min-width: 260px;
+                    padding: 8px;
+                    border: 1px solid #d3dcec;
+                    border-radius: 12px;
+                    background-color: transparent;
+                    font-size: 14px;
+                    font-weight: 500;
+                    outline: none;
+                    @media (max-width: 576px) {
+                        font-size: 12px;
+                        height: 35px;
+                        width: 341px;
+                    }
+                    @media (max-width: 376px) {
+                        font-size: 12px;
+                        height: 35px;
+                        width: 303px;
+                    }
+                }
+            }
+        }
+    }
+
+    .infor-searching-body {
+        margin-top: 24px;
+        &-item {
+            background-color: #fff;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+            height: 330px;
+            cursor: pointer;
+
+            @media (max-width: 576px) {
+                margin: 5px 15px;
+            }
+
+            &-image {
+                max-width: 100px;
+                margin: 0 auto;
+            }
+
+            &-title {
+                @include ellipsis-text();
+                line-height: 24px;
+                min-height: 48px;
+                font-size: 16px;
+                font-weight: 600;
+                margin-top: 24px;
+                color: #333;
+            }
+
+            &-semester {
+                font-size: 12px;
+                color: #909090;
+                margin-top: 16px;
+            }
+
+            &-desc {
+                font-size: 12px;
+                color: #909090;
+                line-height: 21px;
+                min-height: 42px;
+                @include ellipsis-text();
+            }
+        }
+
+        &-actions {
+            text-align: right;
+            button {
+                color: #fff;
+                padding: 4px 8px;
+                border-radius: 6px;
+                background-color: var(--secondaryColor);
+            }
+        }
+    }
+}

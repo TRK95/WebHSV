@@ -1,0 +1,18 @@
+.site-breadcrumbs {
+  // margin-top: 2em !important;
+}
+
+.wp-post-publish-date {
+  display: flex;
+  align-items: center;
+  @media (max-width: 1367px) {
+    font-size: 14px;
+  }
+}
+
+.heading-recent-posts {
+  font-size: 1.7rem;
+  margin-bottom: 12px;
+  margin-top: 80px;
+  margin-bottom: 23px;
+}

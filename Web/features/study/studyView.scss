@@ -1,0 +1,212 @@
+#main-study-view {
+  &.main-study-view.tablet {
+    padding-bottom: 320px; // Auto ADS. TODO: manual Config Ads
+  }
+  .root-topic-name {
+    flex: 1;
+    text-align: center;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 45px;
+    color: #1d1d1d;
+    padding: 0 10px 45px 10px;
+    margin-left: 10px;
+  }
+
+  .main-study-layout {
+    display: flex;
+    margin-top: 20px;
+    &.tablet {
+      margin-top: 20px;
+      display: block;
+    }
+
+    .study-layout-left {
+      width: 335px;
+      &.small-desktop {
+        width: 250px;
+      }
+      &.tablet {
+        display: none;
+      }
+      .sub-list-container {
+        margin-top: 40px;
+      }
+    }
+    .study-layout-mid {
+      flex: 1;
+      margin-left: 10px;
+      position: relative;
+      &.tablet {
+        margin: 0;
+      }
+      .tablet-question-stats {
+        margin: 0 15px;
+        margin-bottom: 10px;
+      }
+      .tablet-question-progress {
+        margin: 0 15px;
+        margin-bottom: 16px;
+      }
+
+      .sub-topic-theory-control {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 4px;
+        width: 100%;
+        position: absolute;
+        top: -34px;
+        &-button {
+          background: #fff !important;
+          width: 90px;
+          height: 30px;
+          border-radius: 10px;
+          font-size: 14px;
+          font-weight: 600;
+        }
+      }
+      #sub-topic-theory {
+        position: relative;
+        background: #fff;
+        border-radius: 15px;
+        height: 300px;
+        padding: 10px;
+        margin-bottom: 16px;
+        .zoom-theory {
+          position: absolute;
+          bottom: 5px;
+          right: 10px;
+
+          img {
+            width: 20px;
+            height: 20px;
+            margin: 5px;
+            cursor: pointer;
+          }
+        }
+        * {
+          font-family: inherit !important;
+        }
+        .sub-topic-theory-main {
+          padding: 16px;
+          * {
+            font-size: inherit !important;
+          }
+        }
+      }
+    }
+  }
+
+  .main-study-tablet-nav {
+    display: none;
+    &.tablet {
+      display: block;
+    }
+  }
+}
+
+.show-zoom-in-out-theory {
+  display: flex;
+  padding: 8px;
+  border-radius: 20px;
+  box-shadow: 0px 4px 15px rgba(95, 73, 118, 0.15);
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+
+  .MuiPopover-paper {
+    border-radius: 10px;
+  }
+}
+
+.custom-popover-theory {
+  padding: 7px;
+
+  span {
+    font-size: 12px;
+    padding-left: 8px;
+  }
+
+  button {
+    padding: 0 8px;
+    border: 0;
+    background-color: transparent;
+    font-size: 13px;
+    cursor: pointer;
+  }
+}
+
+.dialog-theory-modal {
+  max-height: calc(100% - 200px);
+  max-width: 1125px;
+  border-radius: 20px;
+  .dialog-theory-modal-content {
+    scrollbar-width: thin;
+    scrollbar-color: #d0d0d0 #f9f9f9;
+    &::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 7px;
+      background: #f9f9f9;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 7px;
+      background: #d0d0d0;
+      &:hover {
+        background: #8a8a8a;
+      }
+    }
+  }
+}
+
+#tablet-study-view-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1201;
+  left: 0;
+  &.tablet-nav-open {
+    z-index: 1200;
+  }
+  .tablet-study-main-nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    &.study-test-view {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+    &.hide-practices {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    padding: 8px 0;
+    background: #fff;
+    border-radius: 20px 20px 0px 0px;
+    box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.05);
+  }
+  .study-nav-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &-label {
+      font-size: 10px;
+      color: #bbc9d9;
+      &.active {
+        color: #007aff;
+      }
+    }
+    &:hover {
+      .study-nav-item-label {
+        color: #007aff;
+      }
+    }
+  }
+}
+
+#tablet-study-menu-item-content {
+  padding-bottom: 46px;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+}

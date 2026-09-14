@@ -1,0 +1,26 @@
+#post-toc {
+  margin-top: 20px;
+  border: 1px solid;
+  width: 280px;
+  z-index: 1;
+  &.sticky {
+    position: fixed;
+    top: 60px;
+  }
+
+  .post-toc-header {
+    border-bottom: 1px solid;
+    font-weight: bold;
+  }
+
+  .post-toc-nested {
+    margin-left: 16px;
+  }
+
+  .post-toc-list-item {
+    margin-top: 12px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+#game-done-view {
+  .done-view-title {
+    text-align: center;
+    color: #1d1d1d;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 36px;
+  }
+  .done-view-image-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 32px;
+  }
+  .try-again-button-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    .try-again-button {
+      width: 180px;
+      height: 40px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 21px;
+      letter-spacing: 1px;
+      background: #007aff;
+      color: #fff;
+      &:hover {
+        background: #007aff;
+        color: #fff;
+      }
+      &.review-button {
+        color: #007aff !important;
+        background: #fff !important;
+        border: 2px solid #007aff !important;
+        margin-left: 4px;
+      }
+    }
+  }
+
+  .continue-box-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin-top: 50px;
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "menu": [
+    {
+      "name": "Giới thiệu",
+      "slug:": "/gioi-thieu/hoi-sinh-vien-viet-nam"
+    },
+    {
+      "name": "Tin tức",
+      "slug": "/tin-tuc/tat-ca-tin-tuc",
+      "childs": [
+        {
+          "name": "Tin tức",
+          "slug": "/tin-tuc/tat-ca-tin-tuc"
+        }
+      ]
+    },
+    {
+      "name": "Sự kiện",
+      "slug": "/su-kien/tat-ca-su-kien"
+    },
+    {
+      "name": "Tổ chức trực thuộc",
+      "slug": "/to-chuc/to-chuc-truc-thuoc"
+    },
+    {
+      "name": "Tổ chức của bạn",
+      "slug": "/to-chuc-cua-ban"
+    },
+    {
+      "name": "Phong trào sinh viên 5 tốt",
+      "slug": "/sinh-vien-5-tot/gioi-thieu"
+    },
+    {
+      "name": "Văn bản",
+      "slug": "/tai-lieu/van-ban"
+    }
+  ]
+}

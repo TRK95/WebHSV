@@ -1,0 +1,129 @@
+@import "../../../styles/mixins.scss";
+
+@mixin level-connector($align, $reversed: false) {
+  content: "";
+  position: absolute;
+  background: #fff;
+  z-index: -1;
+  @media (max-width: 992px) {
+    z-index: 0;
+  }
+  @if $align == horizontal {
+    height: 4px;
+    width: 10px;
+    @if $reversed == true {
+      left: -10px;
+    } @else {
+      right: -10px;
+    }
+  }
+  @if $align == vertical {
+    height: 10px;
+    width: 4px;
+    top: -10px;
+  }
+}
+
+.current-level-list-label {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+#current-topic-list,
+#current-topic-lesson-list {
+  width: auto;
+  .topic-levels {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  .topic-level-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    background: #e4e6ed;
+    border-radius: 10px;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 500;
+    position: relative;
+    cursor: pointer;
+    &.item-lesson {
+      justify-content: flex-start;
+      margin-bottom: 8px;
+    }
+    &.no-progress {
+      color: #b1b5c2;
+    }
+    &.current-level,
+    &:hover {
+      border: 1px solid #007aff;
+      color: #007aff;
+    }
+    &.current-level {
+      border: 2px solid #007aff;
+      color: #007aff;
+      @media (max-width: 992px) {
+        color: #fff;
+        background: #007aff;
+        &.after-connector::after {
+          width: 8px;
+        }
+        &.after-connector-reversed::after {
+          width: 8px;
+        }
+        &.before-connector::before {
+          top: -12px;
+        }
+      }
+    }
+
+    &.before-connector {
+      &::before {
+        @include level-connector(vertical);
+      }
+    }
+    &.before-connector-2::before,
+    &.after-connector-2::after {
+      background: #e4e6ed !important;
+    }
+
+    &.after-connector {
+      &::after {
+        @include level-connector(horizontal);
+      }
+    }
+    &.after-connector-reversed {
+      &::after {
+        @include level-connector(horizontal, true);
+      }
+    }
+    &.has-progress-border {
+      border: 2px solid #fff;
+    }
+    .level-name {
+      z-index: 1;
+      @media (max-width: 992px) {
+        filter: contrast(0.5);
+      }
+      &.level-lesson-name {
+        @include ellipsis-text();
+        padding: 0 10px;
+      }
+    }
+    .level-progress {
+      position: absolute;
+      height: calc(100% + 4px);
+      left: 0;
+      z-index: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      &.current-level {
+        height: 100%;
+      }
+    }
+  }
+}
