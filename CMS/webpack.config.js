@@ -10,6 +10,15 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPl
 const fs = require("fs");
 
 const directoryPath = path.resolve("public");
+const createDotenvPlugin = isDev => {
+    const envFile = path.resolve(__dirname, isDev ? "./.env.development" : "./.env.production");
+    return new Dotenv({
+        path: fs.existsSync(envFile) ? envFile : path.resolve(__dirname, "./.env.example"),
+        safe: path.resolve(__dirname, "./.env.example"),
+        systemvars: true
+    });
+};
+
 const handleDir = () => {
     return new Promise((resolve, reject) => {
         fs.readdir(directoryPath, (err, files) => {
@@ -36,10 +45,7 @@ module.exports = async (env, agrv) => {
     //     });
 
     const basePlugins = [
-        new Dotenv({
-            path: path.resolve(__dirname, './.env.development'),
-            safe: true
-        }),
+        createDotenvPlugin(isDev),
         new HtmlWebpackPlugin({
             template: "public/index.html"
         }),
@@ -53,10 +59,6 @@ module.exports = async (env, agrv) => {
     ];
 
     let prodPlugins = [
-        new Dotenv({
-            path: path.resolve(__dirname, './.env.production'),
-            safe: true
-        }),
         ...basePlugins,
         new CleanWebpackPlugin(),
         new CompressionPlugin({
