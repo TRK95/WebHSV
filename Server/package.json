@@ -5,10 +5,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "engines": {
-    "node": ">=14.20.1"
+    "node": ">=18.20.0 <21"
   },
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./public/server.js",
+    "start:render": "cross-env NODE_ENV=production ts-node --transpile-only server.ts",
     "dev": "cross-env NODE_ENV=development ts-node-dev --transpile-only --respawn --pretty server.ts",
     "pre-build": "grep -rl '\"outDir\": \"./public/\"' tsconfig.json | xargs sed -i 's#\"outDir\": \"./public/\"#\"outDir\": \"./build/\"#g'",
     "pre-build-mac": "grep -rl '\"outDir\": \"./public/\"' tsconfig.json | xargs sed -i '' 's#\"outDir\": \"./public/\"#\"outDir\": \"./build/\"#g'",
