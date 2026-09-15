@@ -19,6 +19,7 @@ import "./style.scss";
 import { apiGetEventBySlug, apiGetMembersEvent, joinEvent } from "../../../utils/api/eventsApi";
 import { useSnackbar } from "notistack";
 import { useForm } from "antd/lib/form/Form";
+import { getDisplayImage } from "../../../utils/image";
 
 enum StatusJoinEvent {
   FAILED = -1,
@@ -207,7 +208,7 @@ function DetailEventsPageView({
           <div className="detail-event-page-view-content">
             <div className="detail-event-page-view-header">
               <div className="detail-event-page-view-header-image">
-                <Image src={detailEvent?.avatar?.includes('http') ? detailEvent?.avatar : "/images/huy-hieu-hoi.png"} layout='responsive' width={119} height={119} objectFit="cover" />
+                <Image src={getDisplayImage(detailEvent?.avatar)} layout='responsive' width={119} height={119} objectFit="cover" />
               </div>
               <div style={{ marginLeft: 10 }}>
                 <h2

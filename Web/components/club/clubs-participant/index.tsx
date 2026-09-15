@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "../../../app/hooks";
 import Club from "../../../models/clubsModel";
 import './style.scss'
+import { getDisplayImage } from "../../../utils/image";
 
 function ClubsParticipant({ title, myClubsData }: { title?: string, myClubsData: Array<Club> }) {
     const router = useRouter()
@@ -26,7 +27,7 @@ function ClubsParticipant({ title, myClubsData }: { title?: string, myClubsData:
                             <Grid item md={3} sm={6} xs={6} key={item?.name}>
                                 <div className="clubs-participant-body-item">
                                     <div className="clubs-participant-body-item-image">
-                                        <Image src={item?.avatar?.includes('http') ? item?.avatar : '/images/e-hust-clubs.jpg'} layout="responsive" width={280} height={146} />
+                                        <Image src={getDisplayImage(item?.avatar, '/images/e-hust-clubs.jpg')} layout="responsive" width={280} height={146} />
                                     </div>
                                     <div className="clubs-participant-body-item-content">
                                         <div className="clubs-participant-item title small-size-text">

@@ -21,6 +21,7 @@ import Club from "../../../models/clubsModel";
 import ClubFeatureDetail from "../../../models/ClubFeatureDetail";
 import ClubFeatureChild from "../../../models/ClubFeatureChild";
 import { apiGetMemberFeatureDetail, apiJoinClubFeature } from "../../../utils/api/clubFeatureApi";
+import { getDisplayImage } from "../../../utils/image";
 
 enum StatusJoinEvent {
   FAILED = -1,
@@ -171,7 +172,7 @@ function EventFeaturePageView(
           <div className="detail-event-page-view-content">
             <div className="detail-event-page-view-header">
               <div className="detail-event-page-view-header-image">
-                <Image src={featureDetail?.avatar?.includes('http') ? featureDetail?.avatar : "/images/huy-hieu-hoi.png"} layout='responsive' width={119} height={119} objectFit="cover" />
+                <Image src={getDisplayImage(featureDetail?.avatar)} layout='responsive' width={119} height={119} objectFit="cover" />
               </div>
               <div style={{ marginLeft: 10 }}>
                 <h2

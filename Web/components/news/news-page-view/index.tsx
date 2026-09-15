@@ -15,6 +15,7 @@ import moment from 'moment';
 import NewsInCategory from '../../../models/newsIncategory';
 import Image from 'next/image';
 import NonAccentVietnamese from '../../../utils/checkNonVietNameseAccent';
+import { getDisplayImage } from '../../../utils/image';
 
 function NewsPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], newsCategories?: Array<NewsCategory>, pageQuery }) {
     const router = useRouter()
@@ -195,7 +196,7 @@ function NewsPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
                                                                     <div className="news-page-view-item">
                                                                         <div className="news-page-view-item-image">
                                                                             <img
-                                                                                src={item?.avatar?.includes('http') ? item?.avatar : '/images/huy-hieu-hoi.png'}
+                                                                            src={getDisplayImage(item?.avatar)}
                                                                                 onError={(e) => {
                                                                                     const target = e.target as HTMLImageElement;
                                                                                     target.onerror = null;
@@ -240,7 +241,7 @@ function NewsPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
                                                                 <div className="news-page-view-item">
                                                                     <div className="news-page-view-item-image">
                                                                         <img
-                                                                            src={item.news?.avatar?.includes('http') ? item.news?.avatar : '/images/huy-hieu-hoi.png'}
+                                                                            src={getDisplayImage(item.news?.avatar)}
                                                                             onError={(e) => {
                                                                                 const target = e.target as HTMLImageElement;
                                                                                 target.onerror = null;

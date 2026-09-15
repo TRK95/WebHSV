@@ -64,5 +64,5 @@
     "resolveJsonModule": true,
   },
   "include": ["./**/*.ts", "./built/**/*"],
-  "exclude": ["node_modules", "dist", "./public/**/*"]
+  "exclude": ["node_modules", "dist", "./public/**/*", "./scripts/**/*"]
 }

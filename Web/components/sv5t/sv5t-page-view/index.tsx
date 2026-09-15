@@ -13,6 +13,7 @@ import { apiGetNewsByDate, apiGetNewsInCategory } from '../../../utils/api/newsA
 import BreadCrumb from '../../breadcrumb/BreadCrumb';
 import moment from 'moment';
 import NewsInCategory from '../../../models/newsIncategory';
+import { getDisplayImage } from '../../../utils/image';
 
 function Sv5tPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], newsCategories?: Array<NewsCategory>, pageQuery }) {
     const router = useRouter()
@@ -150,7 +151,7 @@ function Sv5tPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
                                                     <div className="news-page-view-item">
                                                         <div className="news-page-view-item-image">
                                                             <img
-                                                                src={item.news?.avatar?.includes('http') ? item.news?.avatar : '/images/huy-hieu-hoi.png'}
+                                                                src={getDisplayImage(item.news?.avatar)}
                                                                 onError={(e) => {
                                                                     const target = e.target as HTMLImageElement;
                                                                     target.onerror = null;

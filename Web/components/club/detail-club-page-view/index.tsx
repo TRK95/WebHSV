@@ -20,6 +20,7 @@ import ModalJoin from "../../../features/common/ModalJoin";
 import { notification } from "antd";
 import { useDispatch, useSelector } from "../../../app/hooks";
 import { apiGetMemberClubs, apijoinClub } from "../../../utils/api/clubMembersApi";
+import { getDisplayImage } from "../../../utils/image";
 
 enum StatusJoinClub {
     FAILED = -1,
@@ -397,7 +398,7 @@ function DetailClubPageView({ clubDetail, memberClubs, slugs }: { clubDetail: Cl
                                 <Grid item md={6} sm={12} xs={12}>
                                     <div className="detail-network-club-headquater-member" data-aos="fade-left">
                                         <div className="headquater-member-image">
-                                            <Image src={clubDetail?.avatar?.includes('http') ? clubDetail?.avatar : "/images/huy-hieu-hoi.png"} layout='responsive' width={119} height={119} objectFit="cover" />
+                                            <Image src={getDisplayImage(clubDetail?.avatar)} layout='responsive' width={119} height={119} objectFit="cover" />
                                         </div>
                                         <div className="headquater-member-text name">
                                             {clubDetail?.settingStatus === STATUS_NO_REGISTER ? `${clubDetail?.name}` : `Đăng ký tham gia ${clubDetail?.name}`}

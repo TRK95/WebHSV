@@ -10,6 +10,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./public/server.js",
     "start:render": "cross-env NODE_ENV=production ts-node --transpile-only server.ts",
+    "seed:demo": "cross-env NODE_ENV=development ts-node --transpile-only scripts/seedDemoContent.ts",
+    "seed:demo:api": "ts-node --transpile-only scripts/seedDemoContentViaApi.ts",
     "dev": "cross-env NODE_ENV=development ts-node-dev --transpile-only --respawn --pretty server.ts",
     "pre-build": "grep -rl '\"outDir\": \"./public/\"' tsconfig.json | xargs sed -i 's#\"outDir\": \"./public/\"#\"outDir\": \"./build/\"#g'",
     "pre-build-mac": "grep -rl '\"outDir\": \"./public/\"' tsconfig.json | xargs sed -i '' 's#\"outDir\": \"./public/\"#\"outDir\": \"./build/\"#g'",

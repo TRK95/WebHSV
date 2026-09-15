@@ -10,6 +10,7 @@ import './style.scss'
 import { apiGetNewsByDate } from "../../../utils/api/newsApi";
 import NewsInCategory from "../../../models/newsIncategory";
 import moment from "moment";
+import { getDisplayImage } from "../../../utils/image";
 
 export const MAX_DATA_DISPLAY = 5
 
@@ -53,7 +54,7 @@ function News({ title }: { title?: string }) {
                             <Grid item md={6} sm={12} xs={12}>
                                 <Grid item md={12} sm={12} xs={12} style={{ height: "100%", paddingRight: "16px" }}>
                                     <div className="news-item" data-aos="fade-up" onClick={() => window.location.href = `/${newsArrayData[0]?.slug ? newsArrayData[0].slug : ''}`} style={{ height: "100%" }}>
-                                        <Image objectFit="cover" src={(newsArrayData[0]?.avatar?.includes('http')) ? newsArrayData[0].avatar : '/images/huy-hieu-hoi.png'} width={730} height={419} style={{ height: "100%" }} />
+                                        <Image objectFit="cover" src={getDisplayImage(newsArrayData[0]?.avatar)} width={730} height={419} style={{ height: "100%" }} />
                                         <div className="news-desc">
                                             <div className="news-title small-size-text">{newsArrayData[0]?.title}</div>
                                             <div className="news-time small-size-text" >
@@ -71,7 +72,7 @@ function News({ title }: { title?: string }) {
                                         <div className="news-item" data-aos="fade-up"
                                             style={{ borderBottom: "1px solid #EBF1F2", paddingBottom: "16px" }}
                                             onClick={() => window.location.href = `/${newsArrayData[1]?.slug ? newsArrayData[2].slug : ''}`} >
-                                            <Image objectFit="cover" src={(newsArrayData[1]?.avatar?.includes('http')) ? newsArrayData[1].avatar : '/images/huy-hieu-hoi.png'} layout='responsive' width={287} height={185} />
+                                            <Image objectFit="cover" src={getDisplayImage(newsArrayData[1]?.avatar)} layout='responsive' width={287} height={185} />
                                             <div className="news-desc">
                                                 <div className="news-title small-size-text">{newsArrayData[1]?.title}</div>
                                                 <div className="news-time small-size-text" >
@@ -85,7 +86,7 @@ function News({ title }: { title?: string }) {
                                         <div className="news-item" data-aos="fade-up"
                                             style={{ paddingTop: "16px" }}
                                             onClick={() => window.location.href = `/${newsArrayData[2]?.slug ? newsArrayData[2].slug : ''}`} >
-                                            <Image objectFit="cover" src={(newsArrayData[2]?.avatar?.includes('http')) ? newsArrayData[2].avatar : '/images/huy-hieu-hoi.png'} layout='responsive' width={287} height={185} />
+                                            <Image objectFit="cover" src={getDisplayImage(newsArrayData[2]?.avatar)} layout='responsive' width={287} height={185} />
                                             <div className="news-desc">
                                                 <div className="news-title small-size-text">{newsArrayData[2]?.title}</div>
                                                 <div className="news-time small-size-text" >
@@ -109,7 +110,7 @@ function News({ title }: { title?: string }) {
                                         </Grid>
                                         <Grid item md={7}>
                                             <div className="news-item news-item-row" data-aos="fade-up" onClick={() => window.location.href = `/${newsArrayData[2]?.slug ? newsArrayData[2].slug : ''}`} >
-                                                <Image objectFit="cover" src={(newsArrayData[2]?.avatar?.includes('http')) ? newsArrayData[2].avatar : '/images/huy-hieu-hoi.png'} layout='responsive' width={133} height={75} />
+                                                <Image objectFit="cover" src={getDisplayImage(newsArrayData[2]?.avatar)} layout='responsive' width={133} height={75} />
                                             </div>
                                         </Grid>
                                     </Grid>
@@ -124,7 +125,7 @@ function News({ title }: { title?: string }) {
                                         </Grid>
                                         <Grid item md={7}>
                                             <div className="news-item news-item-row" data-aos="fade-up" onClick={() => window.location.href = `/${newsArrayData[2]?.slug ? newsArrayData[2].slug : ''}`} >
-                                                <Image objectFit="cover" src={(newsArrayData[2]?.avatar?.includes('http')) ? newsArrayData[2].avatar : '/images/huy-hieu-hoi.png'} layout='responsive' width={133} height={75} />
+                                                <Image objectFit="cover" src={getDisplayImage(newsArrayData[2]?.avatar)} layout='responsive' width={133} height={75} />
                                             </div>
                                         </Grid>
                                     </Grid>
@@ -139,7 +140,7 @@ function News({ title }: { title?: string }) {
                                         </Grid>
                                         <Grid item md={7}>
                                             <div className="news-item news-item-row" data-aos="fade-up" onClick={() => window.location.href = `/${newsArrayData[2]?.slug ? newsArrayData[2].slug : ''}`} >
-                                                <Image objectFit="cover" src={(newsArrayData[2]?.avatar?.includes('http')) ? newsArrayData[2].avatar : '/images/huy-hieu-hoi.png'} layout='responsive' width={133} height={75} />
+                                                <Image objectFit="cover" src={getDisplayImage(newsArrayData[2]?.avatar)} layout='responsive' width={133} height={75} />
                                             </div>
                                         </Grid>
                                     </Grid>
@@ -154,7 +155,7 @@ function News({ title }: { title?: string }) {
                                         </Grid>
                                         <Grid item md={7}>
                                             <div className="news-item news-item-row" data-aos="fade-up" onClick={() => window.location.href = `/${newsArrayData[2]?.slug ? newsArrayData[2].slug : ''}`} >
-                                                <Image objectFit="cover" src={(newsArrayData[2]?.avatar?.includes('http')) ? newsArrayData[2].avatar : '/images/huy-hieu-hoi.png'} layout='responsive' width={133} height={75} />
+                                                <Image objectFit="cover" src={getDisplayImage(newsArrayData[2]?.avatar)} layout='responsive' width={133} height={75} />
                                             </div>
                                         </Grid>
                                     </Grid>
@@ -169,7 +170,7 @@ function News({ title }: { title?: string }) {
                                         </Grid>
                                         <Grid item md={7}>
                                             <div className="news-item news-item-row" data-aos="fade-up" onClick={() => window.location.href = `/${newsArrayData[2]?.slug ? newsArrayData[2].slug : ''}`} >
-                                                <Image objectFit="cover" src={(newsArrayData[2]?.avatar?.includes('http')) ? newsArrayData[2].avatar : '/images/huy-hieu-hoi.png'} layout='responsive' width={133} height={75} />
+                                                <Image objectFit="cover" src={getDisplayImage(newsArrayData[2]?.avatar)} layout='responsive' width={133} height={75} />
                                             </div>
                                         </Grid>
                                     </Grid>
@@ -183,7 +184,7 @@ function News({ title }: { title?: string }) {
                                     {newsArrayData.slice(isSmallTabletUI ? 2 : MAX_DATA_DISPLAY, newsArrayData.length).map((item, index) => (
                                         <Grid item sm={6} md={6} lg={4} key={index} >
                                             <div className="news-item" data-aos="fade-up" onClick={() => window.location.href = `/${item?.slug ? item.slug : ''}`} >
-                                                <Image objectFit="cover" src={(item?.avatar?.includes('http')) ? item?.avatar : '/images/huy-hieu-hoi.png'} layout='responsive' width={350} height={260} />
+                                                <Image objectFit="cover" src={getDisplayImage(item?.avatar)} layout='responsive' width={350} height={260} />
                                                 <div className="news-desc small-size-text"> {item?.title} </div>
                                             </div>
                                         </Grid>

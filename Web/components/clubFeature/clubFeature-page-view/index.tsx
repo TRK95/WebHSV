@@ -14,6 +14,7 @@ import ClubFeatureDetail from '../../../models/ClubFeatureDetail';
 import { apiGetClubFeatureDetailByFeatureId } from '../../../utils/api/clubFeatureApi';
 import Club from '../../../models/clubsModel';
 import { apiGetClubBySlug } from '../../../utils/api/clubsApi';
+import { getDisplayImage } from '../../../utils/image';
 
 function FeaturePageView({ clubSlug, featureSlug, featureId, featureCategories, pageQuery }: { clubSlug?: string, featureSlug?: string, featureId?: string, featureCategories?: Array<ClubFeatureChild>, pageQuery }) {
     const router = useRouter()
@@ -140,7 +141,7 @@ function FeaturePageView({ clubSlug, featureSlug, featureId, featureCategories, 
                                                             <div className="news-page-view-item">
                                                                 <div className="news-page-view-item-image">
                                                                     <img
-                                                                        src={item?.avatar?.includes('http') ? item?.avatar : '/images/huy-hieu-hoi.png'}
+                                                                        src={getDisplayImage(item?.avatar)}
                                                                         onError={(e) => {
                                                                             const target = e.target as HTMLImageElement;
                                                                             target.onerror = null;

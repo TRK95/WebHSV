@@ -13,6 +13,7 @@ import BreadCrumb from '../../breadcrumb/BreadCrumb';
 import { useRouter } from 'next/router';
 import NextLink from '../../NextLink';
 import { getPurifiedContent } from '../../../utils/format';
+import { getDisplayImage } from '../../../utils/image';
 
 export const MAX_CLUBS_DATA_DISPLAY = 10
 
@@ -187,7 +188,7 @@ function NetWorkClubPageView({
                                                                 <NextLink href={`/to-chuc/tat-ca/${item.slug ?? ''}`}>
                                                                     <div className="network-club-main-body-item">
                                                                         <div className="network-club-main-body-item-images">
-                                                                            <Image objectFit='cover' src={item?.avatar?.includes('http') ? item.avatar : '/images/e-hust-clubs.jpg'} layout="responsive" width={280} height={146} />
+                                                                            <Image objectFit='cover' src={getDisplayImage(item?.avatar, '/images/e-hust-clubs.jpg')} layout="responsive" width={280} height={146} />
                                                                         </div>
                                                                         <div className="network-club-main-body-item-content">
                                                                             <div className="item-content-name dot-2">
@@ -228,7 +229,7 @@ function NetWorkClubPageView({
                                                                 <NextLink href={`/to-chuc/${slugs?.[0]}/${item.slug ?? ''}`}>
                                                                     <div className="network-club-main-body-item">
                                                                         <div className="network-club-main-body-item-images">
-                                                                            <Image objectFit='cover' src={item?.avatar?.includes('http') ? item.avatar : '/images/e-hust-clubs.jpg'} layout="responsive" width={280} height={146} />
+                                                                            <Image objectFit='cover' src={getDisplayImage(item?.avatar, '/images/e-hust-clubs.jpg')} layout="responsive" width={280} height={146} />
                                                                         </div>
                                                                         <div className="network-club-main-body-item-content">
                                                                             <div className="item-content-name dot-2">
