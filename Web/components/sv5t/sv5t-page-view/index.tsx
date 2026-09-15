@@ -12,12 +12,14 @@ import BreadCrumb from '../../breadcrumb/BreadCrumb';
 import NewsInCategory from '../../../models/newsIncategory';
 import { getPurifiedContent } from '../../../utils/format';
 
+type CategoryId = string | number;
+
 function Sv5tPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], newsCategories?: Array<NewsCategory>, pageQuery }) {
     const router = useRouter()
     const initialCategory = newsCategories?.find(item => item?.slug === slugs?.[0])
     const [loading, setLoading] = useState(true)
     const [newsInCategory, setNewsIncategory] = useState<Array<NewsInCategory & { news: NewsModel }>>([])
-    const [categoryId, setCategoryId] = useState<number | null>(initialCategory?._id ?? null)
+    const [categoryId, setCategoryId] = useState<CategoryId | null>(initialCategory?._id ?? null)
     const [path, setPath] = useState<{
         label?: string,
         slug?: string
@@ -44,9 +46,11 @@ function Sv5tPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
             }
         })
         if (responseNewsInCate.status === RESPONSE_SUCCESS) {
-            setLoading(false)
             setNewsIncategory(responseNewsInCate.data)
+        } else {
+            setNewsIncategory([])
         }
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -91,7 +95,7 @@ function Sv5tPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
                                 <div className="news-page-view-side-bar-wrapper">
                                     <div className="news-page-view-side-bar">
                                         <ul>
-                                            {newsCategories.map((item, index) => (
+                                            {newsCategories?.map((item, index) => (
                                                 <li onClick={() => handleChangeCate(item)} className={slugs?.length > 0 && slugs[0] === item.slug ? 'active' : ''} key={index}>
                                                     <p>{item?.title}</p>
                                                 </li>

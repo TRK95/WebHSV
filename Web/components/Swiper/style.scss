@@ -20,6 +20,35 @@
   pointer-events: none;
 }
 
+.banner-panel {
+  width: 100%;
+  overflow: hidden;
+
+  .mySwiperCustomBanners {
+    width: 100%;
+  }
+
+  .banner-image-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 6;
+    min-height: 220px;
+    max-height: 620px;
+    background-color: #eef6fb;
+    overflow: hidden;
+
+    @media (max-width: 900px) {
+      aspect-ratio: 16 / 8;
+      min-height: 180px;
+    }
+
+    @media (max-width: 600px) {
+      aspect-ratio: 4 / 3;
+      min-height: 240px;
+    }
+  }
+}
+
 .pagination-swiper {
   margin-top: 15px;
   bottom: unset !important;

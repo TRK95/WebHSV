@@ -17,9 +17,9 @@ import { useSnackbar } from "notistack";
 import ForgotPassForm from "../../components/auth/ForgotPassForm";
 import ChangePassword from "../../components/auth/ChangePassword";
 import customMaxWidthContainer from "./CustomMaxWidth";
-import { RESPONSE_SUCCESS, USER_LOGIN_FAILED } from "../../utils/constraint";
+import { RESPONSE_SUCCESS, STATUS_PUBLIC, USER_LOGIN_FAILED } from "../../utils/constraint";
 import NavItem from "../../components/navigation/NavItem";
-import { apiGetNewsByType, apiGetNewsCategories } from "../../utils/api/newsApi";
+import { apiGetNewsCategories } from "../../utils/api/newsApi";
 import { apiGetClubById, apiGetClubCategories } from "../../utils/api/clubsApi";
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import NotifyPopup from "../../components/NotifyPopup/NotifyPopup";
@@ -56,26 +56,47 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
 
   useEffect(() => {
     (async () => {
-      // const introduceNavRes = await apiGetNewsInCategory({
-      const introduceNavRes = await apiGetNewsByType({
+      const introduceNavRes = await apiGetNewsCategories({
         reqQuery: {
-          contentType: 4,
-          offset: 0,
-          limit: 10
+          parentId: -1,
+          type: 4,
+          status: STATUS_PUBLIC,
         }
       })
 
       if (introduceNavRes.status === RESPONSE_SUCCESS) {
+        const introduceCategories = await Promise.all(
+          (introduceNavRes?.data ?? []).map(async item => {
+            const childrenRes = await apiGetNewsCategories({
+              reqQuery: {
+                parentId: item._id,
+                status: STATUS_PUBLIC,
+              }
+            })
+
+            return [
+              {
+                name: item?.title,
+                slug: `/gioi-thieu/${item?.slug}`
+              },
+              ...(
+                childrenRes.status === RESPONSE_SUCCESS
+                  ? childrenRes?.data?.map(childItem => ({
+                    name: childItem?.title,
+                    slug: `/gioi-thieu/${childItem?.slug}`
+                  })) ?? []
+                  : []
+              )
+            ]
+          })
+        )
+        const introduceNavItems = introduceCategories.reduce((result, items) => [...result, ...items], [])
+
         setDataIntroduceNav([
           {
             name: 'Giới thiệu',
-            slug: '/gioi-thieu/hoi-sinh-vien-dai-hoc-bach-khoa-ha-noi',
-            childs: introduceNavRes?.data?.map(item => {
-              return {
-                name: item?.title,
-                slug: `/gioi-thieu/${item?.slug}`
-              }
-            })
+            slug: introduceNavItems[0]?.slug ?? '/gioi-thieu',
+            childs: introduceNavItems
           }
         ])
       }

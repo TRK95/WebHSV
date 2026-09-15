@@ -45,7 +45,6 @@ const PaginationHome = (props: {
                 loop
                 autoplay={{ delay: 3000, disableOnInteraction: true }}
                 // modules={modulesProps ? modulesProps : []}
-                autoHeight
                 data-aos="fade-down"
                 navigation={{
                   nextEl: ".image-swiper-button-next",
@@ -56,7 +55,9 @@ const PaginationHome = (props: {
               >
                 {data?.map((i, index) => (
                   <SwiperSlide key={index} >
-                    <Image src={i?.url} layout='responsive' width={600} height={201} objectFit='contain' />
+                    <div className="banner-image-frame">
+                      <Image src={i?.url} layout="fill" objectFit="cover" priority={index === 0} />
+                    </div>
                   </SwiperSlide>
                 ))}
               </Swiper>

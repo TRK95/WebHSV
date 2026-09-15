@@ -15,6 +15,8 @@ export type IntroduceCategory = NewsCategory & {
     children?: NewsCategory[];
 };
 
+type CategoryId = string | number;
+
 const flattenCategories = (categories: IntroduceCategory[] = []) => {
     return categories.reduce<NewsCategory[]>((result, item) => {
         result.push(item);
@@ -25,7 +27,7 @@ const flattenCategories = (categories: IntroduceCategory[] = []) => {
     }, []);
 };
 
-const findParentCategory = (categories: IntroduceCategory[] = [], childId?: number) => {
+const findParentCategory = (categories: IntroduceCategory[] = [], childId?: CategoryId) => {
     return categories.find(item => item.children?.some(child => child._id === childId));
 };
 
@@ -41,9 +43,9 @@ function IntroducePageView({
     const allCategories = useMemo(() => flattenCategories(introduceCategories), [introduceCategories]);
     const initialCategory = allCategories.find(item => item.slug === currentSlug) ?? allCategories[0];
     const [loading, setLoading] = useState(true);
-    const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(initialCategory?._id ?? null);
+    const [selectedCategoryId, setSelectedCategoryId] = useState<CategoryId | null>(initialCategory?._id ?? null);
     const [selectedNews, setSelectedNews] = useState<NewsModel | null>(null);
-    const [expandedIds, setExpandedIds] = useState<number[]>([]);
+    const [expandedIds, setExpandedIds] = useState<CategoryId[]>([]);
     const [path, setPath] = useState<{
         label?: string,
         slug?: string
