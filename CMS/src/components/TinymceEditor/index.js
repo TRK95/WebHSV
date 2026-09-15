@@ -22,7 +22,7 @@ const TinymceEditor = ({ editorRef, value, heightEditor, id, onChange, inline = 
         <Editor
             id={id}
             inline={inline}
-            apiKey={process.env.REACT_APP_EDITOR_APIKEY || "nnqx976ljgzj2ra31oednlrr6b420y3icsrjad7etsxkn1sm"}
+            tinymceScriptSrc="/tinymce/tinymce.min.js"
             initialValue={value}
             onInit={(evt, editor) => { if (editorRef) { editorRef.current = editor } }}
             onEditorChange={(e) => {

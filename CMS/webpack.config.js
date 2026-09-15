@@ -52,6 +52,14 @@ module.exports = async (env, agrv) => {
         // new CopyPlugin({
         //     patterns: copyPluginPatterns
         // }),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, "node_modules/tinymce"),
+                    to: "tinymce"
+                }
+            ]
+        }),
         new MiniCssExtractPlugin({
             filename: isDev ? "css/site.css" : "static/css/site.min.css"
         }),
