@@ -25,7 +25,8 @@ export class FetchError extends Error {
 
 const defaultHeaders = {
   "Content-Type": "application/json",
-  Accept: "application/json"
+  Accept: "application/json",
+  "Cache-Control": "no-cache"
 }
 
 export type RequestData = {
@@ -62,7 +63,8 @@ const request = async (args: RequestData) => {
       method,
       headers,
       body: body ? (bodyType === "multipart" ? body : JSON.stringify(body)) : null,
-      credentials: withCredentials ? "include" : "omit"
+      credentials: withCredentials ? "include" : "omit",
+      cache: "no-store"
     });
     const data = responseType === "buffer" ?
       await response.arrayBuffer()

@@ -40,7 +40,9 @@ export const GET_API = async ({ url, reqQuery }: { url: string, reqQuery?: any }
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      "Cache-Control": "no-cache",
     } as HeadersInit,
+    cache: "no-store",
   });
   const data = await res.json();
   const status = res.status;
@@ -66,8 +68,10 @@ export const POST_API = async ({ url, reqQuery, reqBody }: { url: string, reqQue
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      "Cache-Control": "no-cache",
     } as HeadersInit,
     body: JSON.stringify(reqBody),
+    cache: "no-store",
   });
   const data = await res.json();
   const status = res.status;
