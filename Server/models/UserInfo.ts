@@ -5,6 +5,7 @@ export enum TypeUserInfo {
 }
 export interface UserInfoI {
     userId?: string,
+    password?: string,
     status?: number,
     fullName?: string,
     birthdate?: number,

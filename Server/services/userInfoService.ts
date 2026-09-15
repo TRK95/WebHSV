@@ -85,9 +85,16 @@ export default class UserInfoService {
                 status: 0
             };
         }
+        const checkExistEmail = args.email ? await UserInfoModel.findOne({ email: args.email }) : null;
+        if (checkExistEmail) {
+            return {
+                data: checkExistEmail,
+                status: 2
+            };
+        }
         const userInfoNew = new UserInfoModel({
             ...args,
-            password: args.userId,
+            password: args.password || args.userId,
             createDate: time.getTime(),
             lastCheckin: -1,
         });
@@ -208,16 +215,13 @@ export default class UserInfoService {
                 });
             if (updateUserInfo) {
                 const userClubMembers = await ClubMemberModel.find({ userId: _id });
-                if (userClubMembers && userClubMembers.length > 0) {
-                    const userClubMember = {
-                        userId: userId,
-                        clubIds: userClubMembers.map(member => member.clubId),
-                        userInfo: updateUserInfo
-                    };
-                    const token = jwt.sign({ userClubs: userClubMember }, jwtCmsHSV, { expiresIn: '2h' });
-                    return { data: userClubMember, token: token, status: 1 };
-                }
-                return { data: null, token: '', status: 0 };
+                const userClubMember = {
+                    userId: userId,
+                    clubIds: userClubMembers.map(member => member.clubId),
+                    userInfo: updateUserInfo
+                };
+                const token = jwt.sign({ userClubs: userClubMember }, jwtCmsHSV, { expiresIn: '2h' });
+                return { data: userClubMember, token: token, status: 1 };
             }
         }
         return {
@@ -296,16 +300,13 @@ export default class UserInfoService {
             const userSignIn = await UserInfoModel.findOne({ email: email, password: password });
             if (userSignIn) {
                 const userClubMembers = await ClubMemberModel.find({ userId: userSignIn._id });
-                if (userClubMembers && userClubMembers.length > 0) {
-                    const userClubMember = {
-                        userId: userSignIn.userId,
-                        clubIds: userClubMembers.map(member => member.clubId),
-                        userInfo: userSignIn
-                    };
-                    const token = jwt.sign({ userClubs: userClubMember }, jwtCmsHSV, { expiresIn: '2h' });
-                    return { data: userClubMember, token: token, status: 1 };
-                }
-                return { data: null, token: '', status: 0 };
+                const userClubMember = {
+                    userId: userSignIn.userId,
+                    clubIds: userClubMembers.map(member => member.clubId),
+                    userInfo: userSignIn
+                };
+                const token = jwt.sign({ userClubs: userClubMember }, jwtCmsHSV, { expiresIn: '2h' });
+                return { data: userClubMember, token: token, status: 1 };
             }
         }
         return { data: null, token: "", status: -1 };

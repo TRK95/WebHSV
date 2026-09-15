@@ -132,6 +132,23 @@
       text-align: center;
     }
 
+    .auth-form-switch {
+      color: var(--textColor, #505050);
+      font-size: 15px;
+      margin-top: 18px;
+      text-align: center;
+
+      span {
+        color: var(--primary-color-main, #1788ca);
+        cursor: pointer;
+        font-weight: 700;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
     .auth-error-msg {
       color: red;
       font-size: 12px;

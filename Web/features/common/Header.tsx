@@ -13,6 +13,7 @@ import { SxProps } from "@mui/system";
 import PersonIcon from '@mui/icons-material/Person';
 import { Logout as LogoutIcon } from "@mui/icons-material";
 import LoginForm from "../../components/auth/LoginForm";
+import RegisterForm from "../../components/auth/RegisterForm";
 import { useSnackbar } from "notistack";
 import ForgotPassForm from "../../components/auth/ForgotPassForm";
 import ChangePassword from "../../components/auth/ChangePassword";
@@ -44,7 +45,7 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
   //   // window.location.href = ;
   // }
 
-  const { loginCode, showLoginPopup, showForgotPopup, student, userClub, checkLoginCode, showChangePassWord, showNotifyPopup, dataResetPass } = useSelector(state => state.authState)
+  const { loginCode, showLoginPopup, showSignupPopup, showForgotPopup, student, userClub, checkLoginCode, showChangePassWord, showNotifyPopup, dataResetPass } = useSelector(state => state.authState)
   const { enqueueSnackbar } = useSnackbar()
   const dispatch = useDispatch()
   const [dataIntroduceNav, setDataIntroduceNav] = useState<Array<NavItem>>([])
@@ -278,6 +279,16 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
     }, 300)
   }
 
+  const handleOpenLogin = () => {
+    dispatch(setShowSignupPopup(false));
+    dispatch(setShowLoginPopup(true));
+  }
+
+  const handleOpenSignup = () => {
+    dispatch(setShowLoginPopup(false));
+    dispatch(setShowSignupPopup(true));
+  }
+
   const open = Boolean(anchorUser);
   const desktopMenuItemStyle: SxProps<Theme> = {
     display: 'block', textAlign: 'left', fontWeight: 700, color: data.menuTextColor, flex: "0 0 auto", cursor: "pointer",
@@ -287,6 +298,7 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
     }
   }
   const loginText = "Đăng nhập"
+  const signupText = "Đăng ký"
 
   const isLgDesktopUI = useMediaQuery(theme.breakpoints.down("xxl"))
   return <>
@@ -317,8 +329,7 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
                         ? <div className="app-bar-header-auth">
                           <Button
                             onClick={() => {
-                              // handleRedirectToLoginPage();
-                              dispatch(setShowLoginPopup(true))
+                              handleOpenLogin()
                             }}
                             sx={{
                               ...desktopMenuItemStyle,
@@ -326,6 +337,15 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
                             }}
                           >
                             {loginText}
+                          </Button>
+                          <Button
+                            onClick={handleOpenSignup}
+                            sx={{
+                              ...desktopMenuItemStyle,
+                              padding: isLgDesktopUI ? '4px 12px' : '6px 8px',
+                            }}
+                          >
+                            {signupText}
                           </Button>
                         </div>
                         : <>
@@ -371,8 +391,7 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
       <Navigation disableAuth={props.disableAuth} />
     </div> */}
     {showLoginPopup && <LoginForm />}
-    {/* login popup */}
-    {/* {showSignupPopup && <RegisterForm isPopUp />} */}
+    {showSignupPopup && <RegisterForm />}
     {showForgotPopup && <ForgotPassForm />}
     {showChangePassWord && <ChangePassword />}
     {showNotifyPopup && dataResetPass &&

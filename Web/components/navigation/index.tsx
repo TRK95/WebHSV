@@ -113,6 +113,18 @@ const Navigation = (props: PropsWithoutRef<{ disableAuth?: boolean, listNav?: Ar
     }, 300)
   }
 
+  const handleOpenLogin = () => {
+    setAnchorElNav(false);
+    dispatch(setShowSignupPopup(false));
+    dispatch(setShowLoginPopup(true));
+  }
+
+  const handleOpenSignup = () => {
+    setAnchorElNav(false);
+    dispatch(setShowLoginPopup(false));
+    dispatch(setShowSignupPopup(true));
+  }
+
   const open = Boolean(anchorUser);
   const desktopMenuItemStyle: SxProps<Theme> = {
     display: 'block', textAlign: 'left', fontWeight: 700, color: data.menuTextColor, flex: "0 0 auto", cursor: "pointer",
@@ -222,11 +234,7 @@ const Navigation = (props: PropsWithoutRef<{ disableAuth?: boolean, listNav?: Ar
                             {!student
                               ? <div className="app-bar-header-auth">
                                 <Button
-                                  onClick={() => {
-                                    // handleRedirectToLoginPage();
-                                    setAnchorElNav(false);
-                                    dispatch(setShowLoginPopup(true))
-                                  }}
+                                  onClick={handleOpenLogin}
                                   sx={{
                                     ...desktopMenuItemStyle,
                                     padding: isLgDesktopUI ? '4px 12px' : '6px 8px',
@@ -234,18 +242,15 @@ const Navigation = (props: PropsWithoutRef<{ disableAuth?: boolean, listNav?: Ar
                                 >
                                   {loginText}
                                 </Button>
-                                {/* <Button
-                                onClick={() => {
-                                  dispatch(setShowSignupPopup(true))
-                                }}
-                                sx={{
-                                  ...desktopMenuItemStyle,
-                                  display: isMobileUI && 'none',
-                                  padding: isLgDesktopUI ? '4px 12px' : '6px 8px',
-                                }}
-                              >
-                                {signupText}
-                              </Button> */}
+                                <Button
+                                  onClick={handleOpenSignup}
+                                  sx={{
+                                    ...desktopMenuItemStyle,
+                                    padding: isLgDesktopUI ? '4px 12px' : '6px 8px',
+                                  }}
+                                >
+                                  {signupText}
+                                </Button>
                               </div>
                               : <>
                                 <div className="app-bar-header-auth">
@@ -306,11 +311,7 @@ const Navigation = (props: PropsWithoutRef<{ disableAuth?: boolean, listNav?: Ar
                       !student
                         ? <div className="app-bar-header-auth" style={{ display: "flex", width: "100%", justifyContent: "flex-end" }}>
                           <Button
-                            onClick={() => {
-                              // handleRedirectToLoginPage();
-                              setAnchorElNav(false);
-                              dispatch(setShowLoginPopup(true))
-                            }}
+                            onClick={handleOpenLogin}
                             sx={{
                               ...desktopMenuItemStyle,
                               padding: isLgDesktopUI ? '4px 12px' : '6px 8px',
@@ -318,6 +319,16 @@ const Navigation = (props: PropsWithoutRef<{ disableAuth?: boolean, listNav?: Ar
                             }}
                           >
                             {loginText}
+                          </Button>
+                          <Button
+                            onClick={handleOpenSignup}
+                            sx={{
+                              ...desktopMenuItemStyle,
+                              padding: isLgDesktopUI ? '4px 12px' : '6px 8px',
+                              display: 'flex'
+                            }}
+                          >
+                            {signupText}
                           </Button>
                         </div>
                         : <>

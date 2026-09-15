@@ -79,7 +79,7 @@ export const apiCheckLogin = async (reqBody: { token: string }): Promise<{ data:
 export const apiRegister = async ({ reqBody }): Promise<{
   data: any, status: number
 }> => {
-  const url = 'alumni/register'
+  const url = 'userInfos/createUserInfo'
   const res = await POST_API({ url, reqBody });
 
   if (res.status !== 200) {

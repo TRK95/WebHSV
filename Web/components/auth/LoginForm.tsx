@@ -76,6 +76,11 @@ const LoginForm = (props: PropsWithoutRef<{
     dispatch(login({ email: username, password: password }));
   }
 
+  const openSignup = () => {
+    dispatch(setShowLoginPopup(false))
+    dispatch(setShowSignupPopup(true))
+  }
+
   const router = useRouter();
   const trans = useMemo(() => {
     const account = "Tài khoản"; const accountPlaceholder = "Nhập email";
@@ -153,6 +158,9 @@ const LoginForm = (props: PropsWithoutRef<{
                 className="btn-submit"
                 onSubmit={handleSubmit((values) => handleLogin(values))}
               >{fetchingAPI ? <CircularProgress style={{ color: "white", width: '30px', height: '30px' }} /> : trans.login}</Button>
+            </div>
+            <div className="auth-form-switch">
+              Chưa có tài khoản? <span onClick={openSignup}>Đăng ký</span>
             </div>
           </form >
         </DialogContent>
