@@ -10,10 +10,20 @@ export const Sv5tApplicationTableName = "Sv5tApplication";
 type Doc<T> = T & Document & { _id: any };
 type M<T> = Model<Doc<T>>;
 
+const SubCriterionSchema = new Schema({
+  key: String,
+  title: String,
+  type: String,
+  minVerifiedActivities: Number,
+}, { _id: false });
+
 const CriterionSchema = new Schema({
   key: String,
   title: String,
+  type: String,
   minVerifiedActivities: Number,
+  requiredOptionalCount: Number,
+  criteria: [SubCriterionSchema],
 }, { _id: false });
 
 const CampaignSchema = new Schema<Doc<Sv5tCampaign>, M<Sv5tCampaign>>({

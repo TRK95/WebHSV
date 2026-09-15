@@ -14,6 +14,38 @@ import {
   apiUploadSv5tEvidence, SV5T_CRITERIA,
 } from "../../../utils/api/sv5tApi";
 
+const normalizeCriteriaGroups = (criteria?: any[]) => {
+  const source = criteria?.length ? criteria : SV5T_CRITERIA;
+  return source.map((group: any) => {
+    const children = Array.isArray(group.criteria) && group.criteria.length
+      ? group.criteria
+      : [{ key: group.key, title: group.title, type: "REQUIRED", minVerifiedActivities: group.minVerifiedActivities ?? 1 }];
+    return {
+      key: group.key,
+      title: group.title,
+      requiredOptionalCount: Math.max(0, Number(group.requiredOptionalCount) || 0),
+      criteria: children.map((criterion: any, index: number) => ({
+        key: criterion.key || `${group.key}_${index + 1}`,
+        title: criterion.title || "Tiêu chí",
+        type: criterion.type === "OPTIONAL" ? "OPTIONAL" : "REQUIRED",
+        minVerifiedActivities: Math.max(1, Number(criterion.minVerifiedActivities) || 1),
+        ...criterion,
+      })),
+    };
+  });
+};
+
+const flattenCriteriaOptions = (criteria?: any[]) => normalizeCriteriaGroups(criteria).flatMap((group) =>
+  group.criteria.map((criterion) => ({
+    value: criterion.key,
+    label: `${group.title} - ${criterion.title}`,
+  }))
+);
+
+const criterionLabel = (criteria: any[] | undefined, key: string) => (
+  flattenCriteriaOptions(criteria).find((criterion) => criterion.value === key)?.label || key
+);
+
 const resultView = (status?: string) => {
   if (status === "PASSED") return <Alert showIcon type="success" message="Hồ sơ hiện tại: ĐẠT" description="Bạn đã đủ số hoạt động đã được xác minh cho tất cả tiêu chí." />;
   if (status === "PENDING") return <Alert showIcon type="warning" message="Hồ sơ hiện tại: CHỜ DUYỆT" description="Nếu các minh chứng đang chờ được duyệt, hồ sơ sẽ đủ điều kiện." />;
@@ -84,13 +116,14 @@ export default function Sv5tApplicationPageView() {
   </Container>;
   if (!data?.campaign) return <Container maxWidth={customMaxWidthContainer()} style={{ paddingTop: 40, paddingBottom: 60 }}><Empty description="Hiện chưa có đợt xét Sinh viên 5 tốt đang mở" /></Container>;
 
-  const verifiedRows = (data.criteria || []).flatMap((c) => (c.verifiedItems || []).map((item, i) => ({
+  const criterionOptions = flattenCriteriaOptions(data.campaign?.criteria);
+  const verifiedRows = (data.criteria || []).flatMap((group) => (group.criteria || []).flatMap((c) => (c.verifiedItems || []).map((item, i) => ({
     key: `${c.key}-${i}-${item.activity?._id || item.claim?._id}`,
-    criterion: c.title,
+    criterion: `${group.title} - ${c.title}`,
     title: item.activity?.title || item.claim?.title,
     date: item.activity?.activityDate || item.claim?.activityDate,
     source: item.source,
-  })));
+  }))));
 
   const pendingClaims = (data.claims || []).filter((c) => c.status === 0);
   const availableManual = (data.manualActivities || []).filter((a) => !claimByActivity[String(a._id)]);
@@ -108,11 +141,26 @@ export default function Sv5tApplicationPageView() {
     </Descriptions>}
 
     <h2 style={{ marginTop: 28 }}>Tiến độ 5 tiêu chí</h2>
-    <Row gutter={[12, 12]}>{(data.criteria || []).map((c) => {
-      const percent = c.minVerifiedActivities > 0 ? Math.min(100, Math.round((c.verified / c.minVerifiedActivities) * 100)) : 100;
-      return <Col xs={24} sm={12} md={8} key={c.key}><Card size="small" title={<Space>{c.passed ? <CheckCircleOutlined style={{ color: "green" }} /> : c.pending > 0 ? <ClockCircleOutlined style={{ color: "orange" }} /> : null}<span>{c.title}</span></Space>}>
-        <Progress percent={percent} status={c.passed ? "success" : "active"} />
-        <div>Đã xác minh: <b>{c.verified}/{c.minVerifiedActivities}</b>{c.pending > 0 && <> · Chờ duyệt: <b>{c.pending}</b></>}</div>
+    <Row gutter={[12, 12]}>{(data.criteria || []).map((group) => {
+      const childTotal = Math.max(1, (group.criteria || []).length);
+      const childPassed = (group.criteria || []).filter((criterion) => criterion.passed).length;
+      const percent = Math.min(100, Math.round((childPassed / childTotal) * 100));
+      return <Col xs={24} md={12} key={group.key}><Card size="small" title={<Space>{group.passed ? <CheckCircleOutlined style={{ color: "green" }} /> : group.pending > 0 ? <ClockCircleOutlined style={{ color: "orange" }} /> : null}<span>{group.title}</span></Space>}>
+        <Progress percent={percent} status={group.passed ? "success" : "active"} />
+        <div style={{ marginBottom: 8 }}>Bắt buộc: <b>{group.requiredPassed ? "Đạt" : "Chưa đạt"}</b>{group.optionalTotal > 0 && <> · Phụ: <b>{group.optionalPassedCount}/{group.requiredOptionalCount}</b> cần đạt</>}</div>
+        <Space direction="vertical" style={{ width: "100%" }}>
+          {(group.criteria || []).map((criterion) => {
+            const itemPercent = criterion.minVerifiedActivities > 0 ? Math.min(100, Math.round((criterion.verified / criterion.minVerifiedActivities) * 100)) : 100;
+            return <div key={criterion.key}>
+              <Space>
+                <Tag color={criterion.type === "OPTIONAL" ? "blue" : "red"}>{criterion.type === "OPTIONAL" ? "Phụ" : "Bắt buộc"}</Tag>
+                <b>{criterion.title}</b>
+              </Space>
+              <Progress percent={itemPercent} status={criterion.passed ? "success" : "active"} size="small" />
+              <div>Đã xác minh: <b>{criterion.verified}/{criterion.minVerifiedActivities}</b>{criterion.pending > 0 && <> · Chờ duyệt: <b>{criterion.pending}</b></>}</div>
+            </div>
+          })}
+        </Space>
       </Card></Col>;
     })}</Row>
 
@@ -128,7 +176,7 @@ export default function Sv5tApplicationPageView() {
     <Card title="Hoạt động có sẵn nhưng cần nộp minh chứng" style={{ marginTop: 20 }} extra={<Button icon={<PlusOutlined />} onClick={() => { setPdf(undefined); setSuggestModal(true); }}>Đề xuất hoạt động khác</Button>}>
       <Table pagination={false} rowKey="_id" dataSource={availableManual} columns={[
         { title: "Hoạt động", dataIndex: "title" },
-        { title: "Tiêu chí", dataIndex: "criterionKey", render: (v) => SV5T_CRITERIA.find((c) => c.key === v)?.title || v },
+        { title: "Tiêu chí", dataIndex: "criterionKey", render: (v) => criterionLabel(data.campaign?.criteria, v) },
         { title: "Đơn vị tổ chức", dataIndex: "organizer" },
         { title: "Ngày", dataIndex: "activityDate", render: (v) => v ? moment(v).format("DD/MM/YYYY") : "" },
         { title: "", render: (_, r) => <Button icon={<FilePdfOutlined />} onClick={() => { setSelectedActivity(r); setPdf(undefined); setClaimModal(true); }}>Nộp PDF</Button> },
@@ -138,7 +186,7 @@ export default function Sv5tApplicationPageView() {
     <Card title={<Space>Hoạt động đang chờ admin kiểm tra <Badge count={pendingClaims.length} /></Space>} style={{ marginTop: 20 }}>
       <Table pagination={false} rowKey="_id" dataSource={pendingClaims} columns={[
         { title: "Hoạt động", dataIndex: "title" },
-        { title: "Tiêu chí", dataIndex: "criterionKey", render: (v) => SV5T_CRITERIA.find((c) => c.key === v)?.title || v },
+        { title: "Tiêu chí", dataIndex: "criterionKey", render: (v) => criterionLabel(data.campaign?.criteria, v) },
         { title: "Nộp lúc", dataIndex: "createDate", render: (v) => moment(v).format("HH:mm DD/MM/YYYY") },
         { title: "Minh chứng", dataIndex: "evidenceUrl", render: (v) => v ? <a href={v} target="_blank" rel="noreferrer">Xem PDF</a> : "-" },
         { title: "Trạng thái", render: () => <Tag color="gold">Chờ duyệt</Tag> },
@@ -153,7 +201,7 @@ export default function Sv5tApplicationPageView() {
     <Modal destroyOnClose visible={suggestModal} title="Đề xuất thêm hoạt động" onCancel={() => setSuggestModal(false)} onOk={async () => { const v = await formSuggest.validateFields(); await uploadAndCreateClaim({ ...v, activityDate: v.activityDate?.valueOf(), source: "SUGGESTED" }); }} okText="Gửi đề xuất" width={620}>
       <Form layout="vertical" form={formSuggest}>
         <Form.Item name="title" label="Tên hoạt động" rules={[{ required: true }]}><Input /></Form.Item>
-        <Row gutter={12}><Col span={12}><Form.Item name="criterionKey" label="Tiêu chí đề xuất" rules={[{ required: true }]}><Select options={(data.campaign.criteria || SV5T_CRITERIA).map((c) => ({ value: c.key, label: c.title }))} /></Form.Item></Col><Col span={12}><Form.Item name="activityDate" label="Ngày tham gia"><DatePicker style={{ width: "100%" }} /></Form.Item></Col></Row>
+        <Row gutter={12}><Col span={12}><Form.Item name="criterionKey" label="Tiêu chí đề xuất" rules={[{ required: true }]}><Select options={criterionOptions} /></Form.Item></Col><Col span={12}><Form.Item name="activityDate" label="Ngày tham gia"><DatePicker style={{ width: "100%" }} /></Form.Item></Col></Row>
         <Form.Item name="organizer" label="Đơn vị tổ chức"><Input /></Form.Item>
         <Form.Item label="PDF minh chứng" required><Upload beforeUpload={(file) => { setPdf(file as any); return false; }} maxCount={1} accept="application/pdf,.pdf"><Button icon={<UploadOutlined />}>Chọn PDF</Button></Upload></Form.Item>
       </Form>

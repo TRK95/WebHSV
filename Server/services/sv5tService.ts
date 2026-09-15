@@ -14,9 +14,48 @@ import {
   SV5T_RESULT_PASSED,
   SV5T_RESULT_PENDING,
   Sv5tCriterion,
+  Sv5tCriterionGroup,
 } from "../models/Sv5t";
 
 const normalizeStudentId = (value: any) => String(value ?? "").trim().replace(/^['\"]|['\"]$/g, "");
+const CRITERION_REQUIRED = "REQUIRED";
+const CRITERION_OPTIONAL = "OPTIONAL";
+
+const normalizeCriterionGroups = (rawCriteria: any): Sv5tCriterionGroup[] => {
+  const source = Array.isArray(rawCriteria) && rawCriteria.length ? rawCriteria : DEFAULT_SV5T_CRITERIA;
+
+  return source.map((group: any) => {
+    const isNewShape = Array.isArray(group.criteria);
+    const criteria: Sv5tCriterion[] = (isNewShape ? group.criteria : [group]).map((criterion: any, index: number) => ({
+      key: String(criterion.key || `${group.key}_${index + 1}`),
+      title: String(criterion.title || "Tiêu chí"),
+      type: criterion.type === CRITERION_OPTIONAL ? CRITERION_OPTIONAL : CRITERION_REQUIRED,
+      minVerifiedActivities: Math.max(1, Number(criterion.minVerifiedActivities) || 1),
+    }));
+    const optionalCount = criteria.filter((criterion) => criterion.type === CRITERION_OPTIONAL).length;
+    const requiredOptionalCount = Math.min(
+      optionalCount,
+      Math.max(0, Number(isNewShape ? group.requiredOptionalCount : 0) || 0)
+    );
+
+    return {
+      key: String(group.key),
+      title: String(group.title),
+      requiredOptionalCount,
+      criteria,
+    };
+  });
+};
+
+const flattenCriterionGroups = (rawCriteria: any): Array<Sv5tCriterion & { groupKey: string; groupTitle: string }> => {
+  return normalizeCriterionGroups(rawCriteria).flatMap((group) =>
+    group.criteria.map((criterion) => ({
+      ...criterion,
+      groupKey: group.key,
+      groupTitle: group.title,
+    }))
+  );
+};
 
 export default class Sv5tService {
   async listCampaigns() {
@@ -25,13 +64,7 @@ export default class Sv5tService {
   }
 
   async upsertCampaign(args: any) {
-    const criteria: Sv5tCriterion[] = Array.isArray(args.criteria) && args.criteria.length
-      ? args.criteria.map((c: any) => ({
-          key: String(c.key),
-          title: String(c.title),
-          minVerifiedActivities: Math.max(0, Number(c.minVerifiedActivities) || 0),
-        }))
-      : DEFAULT_SV5T_CRITERIA;
+    const criteria = normalizeCriterionGroups(args.criteria);
 
     const payload = {
       title: args.title,
@@ -69,7 +102,7 @@ export default class Sv5tService {
   async createActivity(args: any) {
     const campaign = await Sv5tCampaignModel.findById(args.campaignId);
     if (!campaign) return { data: null, status: -1, message: "Campaign not found" };
-    const criterionExists = campaign.criteria?.some((c: any) => c.key === args.criterionKey);
+    const criterionExists = flattenCriterionGroups(campaign.criteria).some((c) => c.key === args.criterionKey);
     if (!criterionExists) return { data: null, status: -1, message: "Criterion not found" };
 
     const data = await new Sv5tActivityModel({
@@ -211,6 +244,8 @@ export default class Sv5tService {
     const studentId = normalizeStudentId(studentIdRaw);
     const campaign = await Sv5tCampaignModel.findById(campaignId);
     if (!campaign) return null;
+    const criteriaGroups = normalizeCriterionGroups(campaign.criteria);
+    const flatCriteria = flattenCriterionGroups(criteriaGroups);
 
     const [participantRows, claims] = await Promise.all([
       Sv5tParticipantModel.find({ campaignId, studentId }).exec(),
@@ -224,7 +259,7 @@ export default class Sv5tService {
 
     const verifiedByCriterion: Record<string, any[]> = {};
     const pendingByCriterion: Record<string, any[]> = {};
-    for (const criterion of campaign.criteria ?? []) {
+    for (const criterion of flatCriteria) {
       verifiedByCriterion[criterion.key] = [];
       pendingByCriterion[criterion.key] = [];
     }
@@ -240,13 +275,13 @@ export default class Sv5tService {
       }
     });
 
-    const criteria = (campaign.criteria ?? []).map((criterion: any) => {
+    const criteriaByKey = flatCriteria.reduce((result: Record<string, any>, criterion: any) => {
       const verified = verifiedByCriterion[criterion.key]?.length ?? 0;
       const pending = pendingByCriterion[criterion.key]?.length ?? 0;
-      const required = Math.max(0, Number(criterion.minVerifiedActivities) || 0);
+      const required = Math.max(1, Number(criterion.minVerifiedActivities) || 1);
       const passed = verified >= required;
       const potentiallyPassed = verified + pending >= required;
-      return {
+      result[criterion.key] = {
         ...(criterion.toObject ? criterion.toObject() : criterion),
         verified,
         pending,
@@ -254,6 +289,33 @@ export default class Sv5tService {
         potentiallyPassed,
         verifiedItems: verifiedByCriterion[criterion.key] ?? [],
         pendingItems: pendingByCriterion[criterion.key] ?? [],
+      };
+      return result;
+    }, {});
+
+    const criteria = criteriaGroups.map((group: any) => {
+      const childResults = (group.criteria ?? []).map((criterion: any) => criteriaByKey[criterion.key]).filter(Boolean);
+      const requiredItems = childResults.filter((criterion: any) => criterion.type !== CRITERION_OPTIONAL);
+      const optionalItems = childResults.filter((criterion: any) => criterion.type === CRITERION_OPTIONAL);
+      const requiredPassed = requiredItems.every((criterion: any) => criterion.passed);
+      const requiredPotentiallyPassed = requiredItems.every((criterion: any) => criterion.passed || criterion.potentiallyPassed);
+      const optionalRequired = Math.min(optionalItems.length, Math.max(0, Number(group.requiredOptionalCount) || 0));
+      const optionalPassedCount = optionalItems.filter((criterion: any) => criterion.passed).length;
+      const optionalPotentialCount = optionalItems.filter((criterion: any) => criterion.passed || criterion.potentiallyPassed).length;
+      const optionalPassed = optionalPassedCount >= optionalRequired;
+      const optionalPotentiallyPassed = optionalPotentialCount >= optionalRequired;
+
+      return {
+        ...(group.toObject ? group.toObject() : group),
+        requiredOptionalCount: optionalRequired,
+        criteria: childResults,
+        verified: childResults.reduce((sum: number, criterion: any) => sum + criterion.verified, 0),
+        pending: childResults.reduce((sum: number, criterion: any) => sum + criterion.pending, 0),
+        requiredPassed,
+        optionalPassedCount,
+        optionalTotal: optionalItems.length,
+        passed: requiredPassed && optionalPassed,
+        potentiallyPassed: requiredPotentiallyPassed && optionalPotentiallyPassed,
       };
     });
 

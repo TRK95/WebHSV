@@ -2,11 +2,11 @@ import { store } from "@/redux/store";
 import { GET_API, POST_API } from ".";
 
 export const SV5T_CRITERIA = [
-  { key: "DAO_DUC", title: "Đạo đức tốt" },
-  { key: "HOC_TAP", title: "Học tập tốt" },
-  { key: "THE_LUC", title: "Thể lực tốt" },
-  { key: "TINH_NGUYEN", title: "Tình nguyện tốt" },
-  { key: "HOI_NHAP", title: "Hội nhập tốt" },
+  { key: "DAO_DUC", title: "Đạo đức tốt", requiredOptionalCount: 0, criteria: [{ key: "DAO_DUC", title: "Đạo đức tốt", type: "REQUIRED", minVerifiedActivities: 1 }] },
+  { key: "HOC_TAP", title: "Học tập tốt", requiredOptionalCount: 0, criteria: [{ key: "HOC_TAP", title: "Học tập tốt", type: "REQUIRED", minVerifiedActivities: 1 }] },
+  { key: "THE_LUC", title: "Thể lực tốt", requiredOptionalCount: 0, criteria: [{ key: "THE_LUC", title: "Thể lực tốt", type: "REQUIRED", minVerifiedActivities: 1 }] },
+  { key: "TINH_NGUYEN", title: "Tình nguyện tốt", requiredOptionalCount: 0, criteria: [{ key: "TINH_NGUYEN", title: "Tình nguyện tốt", type: "REQUIRED", minVerifiedActivities: 1 }] },
+  { key: "HOI_NHAP", title: "Hội nhập tốt", requiredOptionalCount: 0, criteria: [{ key: "HOI_NHAP", title: "Hội nhập tốt", type: "REQUIRED", minVerifiedActivities: 1 }] },
 ];
 
 export const apiGetSv5tCampaigns = async () => (await GET_API({ url: "sv5t/campaigns" })).data;

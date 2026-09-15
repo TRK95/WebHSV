@@ -1,15 +1,23 @@
 export type Sv5tCriterion = {
   key: string;
   title: string;
+  type?: "REQUIRED" | "OPTIONAL";
   minVerifiedActivities: number;
 };
 
-export const DEFAULT_SV5T_CRITERIA: Sv5tCriterion[] = [
-  { key: "DAO_DUC", title: "Đạo đức tốt", minVerifiedActivities: 1 },
-  { key: "HOC_TAP", title: "Học tập tốt", minVerifiedActivities: 1 },
-  { key: "THE_LUC", title: "Thể lực tốt", minVerifiedActivities: 1 },
-  { key: "TINH_NGUYEN", title: "Tình nguyện tốt", minVerifiedActivities: 1 },
-  { key: "HOI_NHAP", title: "Hội nhập tốt", minVerifiedActivities: 1 },
+export type Sv5tCriterionGroup = {
+  key: string;
+  title: string;
+  requiredOptionalCount: number;
+  criteria: Sv5tCriterion[];
+};
+
+export const DEFAULT_SV5T_CRITERIA: Sv5tCriterionGroup[] = [
+  { key: "DAO_DUC", title: "Đạo đức tốt", requiredOptionalCount: 0, criteria: [{ key: "DAO_DUC", title: "Đạo đức tốt", type: "REQUIRED", minVerifiedActivities: 1 }] },
+  { key: "HOC_TAP", title: "Học tập tốt", requiredOptionalCount: 0, criteria: [{ key: "HOC_TAP", title: "Học tập tốt", type: "REQUIRED", minVerifiedActivities: 1 }] },
+  { key: "THE_LUC", title: "Thể lực tốt", requiredOptionalCount: 0, criteria: [{ key: "THE_LUC", title: "Thể lực tốt", type: "REQUIRED", minVerifiedActivities: 1 }] },
+  { key: "TINH_NGUYEN", title: "Tình nguyện tốt", requiredOptionalCount: 0, criteria: [{ key: "TINH_NGUYEN", title: "Tình nguyện tốt", type: "REQUIRED", minVerifiedActivities: 1 }] },
+  { key: "HOI_NHAP", title: "Hội nhập tốt", requiredOptionalCount: 0, criteria: [{ key: "HOI_NHAP", title: "Hội nhập tốt", type: "REQUIRED", minVerifiedActivities: 1 }] },
 ];
 
 export const SV5T_CLAIM_REJECTED = -1;
@@ -27,7 +35,7 @@ export class Sv5tCampaign {
   status: number;
   submitFrom: number;
   submitTo: number;
-  criteria: Sv5tCriterion[];
+  criteria: Sv5tCriterionGroup[];
   createDate: number;
   constructor(args: any = {}) {
     this._id = args._id;
