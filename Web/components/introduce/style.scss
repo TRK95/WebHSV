@@ -15,8 +15,15 @@
 
                 li {
                     cursor: pointer;
-                    padding-left: 10px;
                     border-bottom: 2px solid #eee;
+
+                    .introduce-page-view-side-bar-row {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 8px;
+                        padding-left: 10px;
+                    }
 
                     p {
                         transition: 0.25s;
@@ -41,6 +48,25 @@
                     &:hover {
                         color: var(--primary-color-main);
                     }
+
+                    span {
+                        padding-right: 14px;
+                        font-weight: 700;
+                    }
+                }
+
+                .introduce-page-view-sub-list {
+                    background-color: #fff;
+                    border-radius: 0;
+
+                    li {
+                        padding-left: 18px;
+                        border-bottom: 1px solid #eee;
+
+                        p {
+                            font-weight: 400;
+                        }
+                    }
                 }
             }
         }
@@ -62,7 +88,17 @@
                         width: auto;
                     }
                 }
+
+                img {
+                    max-width: 100%;
+                    height: auto;
+                }
             }
+        }
+
+        &-empty {
+            color: var(--subTextColor);
+            padding: 20px 0;
         }
     }
 }

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import customMaxWidthContainer from '../../../features/common/CustomMaxWidth';
 import NewsModel from '../../../models/newsModel';
-import { RESPONSE_SUCCESS } from '../../../utils/constraint';
+import { RESPONSE_SUCCESS, STATUS_PUBLIC } from '../../../utils/constraint';
 import './style.scss'
 import NewsCategory from '../../../models/newsCategoryModel';
 import { apiGetNewsInCategory } from '../../../utils/api/newsApi';
@@ -39,6 +39,7 @@ function Sv5tPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
             reqQuery: {
                 offset: 0,
                 limit: 1,
+                status: STATUS_PUBLIC,
                 categoryId: categoryId
             }
         })
