@@ -28,7 +28,7 @@ class App {
         this.app.use(cors({
             origin: NODE_ENV === 'production' ? (process.env.ALLOWED_ORIGIN ? process.env.ALLOWED_ORIGIN.split(',') : true) : true,
             credentials: true,
-            allowedHeaders: 'X-PINGOTHER, Content-Type, Authorization, X-Forwarded-For, x-requested-with',
+            allowedHeaders: 'X-PINGOTHER, Content-Type, Authorization, X-Forwarded-For, x-requested-with, Cache-Control',
             methods: 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS',
             optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
         }));

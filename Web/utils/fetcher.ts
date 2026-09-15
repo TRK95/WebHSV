@@ -25,8 +25,7 @@ export class FetchError extends Error {
 
 const defaultHeaders = {
   "Content-Type": "application/json",
-  Accept: "application/json",
-  "Cache-Control": "no-cache"
+  Accept: "application/json"
 }
 
 export type RequestData = {
