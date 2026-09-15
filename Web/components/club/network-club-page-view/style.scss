@@ -159,6 +159,30 @@
                 }
             }
 
+            .network-club-category-description {
+                margin-bottom: 24px;
+                padding: 16px 18px;
+                background-color: #fff;
+                border-radius: 10px;
+                color: var(--textColor);
+                line-height: 1.7;
+
+                h1,
+                h2,
+                h3,
+                h4,
+                h5,
+                h6,
+                p {
+                    margin-top: 0;
+                }
+
+                img {
+                    max-width: 100%;
+                    height: auto;
+                }
+            }
+
             &-body {
                 &-item {
                     transition: 0.5s;

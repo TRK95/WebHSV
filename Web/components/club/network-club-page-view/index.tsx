@@ -12,6 +12,7 @@ import NonAccentVietnamese from '../../../utils/checkNonVietNameseAccent';
 import BreadCrumb from '../../breadcrumb/BreadCrumb';
 import { useRouter } from 'next/router';
 import NextLink from '../../NextLink';
+import { getPurifiedContent } from '../../../utils/format';
 
 export const MAX_CLUBS_DATA_DISPLAY = 10
 
@@ -22,18 +23,20 @@ function NetWorkClubPageView({
     clubCategories: Array<ClubCategory>,
     slugs?: string[]
 }) {
+    const currentCategory = clubCategories?.find(item => item?.slug === slugs?.[0])
     const [clubsData, setClubsData] = useState<Array<Club>>([])
     const [categoryId, setCategoryId] = useState<string>(
-        clubCategories.filter(item => item?.slug === slugs?.[0])[0]?._id
-            ? clubCategories.filter(item => item?.slug === slugs?.[0])[0]?._id
+        currentCategory?._id
+            ? currentCategory?._id
             : null
     )
     const [clubsByCategoryId, setClubsByCategoryId] = useState<Array<Club>>([])
     const [clubName, setClubName] = useState<string>(
-        clubCategories?.filter(item => item?.slug === slugs?.[0])[0]?.name
-            ? clubCategories?.filter(item => item?.slug === slugs?.[0])[0]?.name
+        currentCategory?.name
+            ? currentCategory?.name
             : undefined,
     )
+    const [categoryDescription, setCategoryDescription] = useState<string>(currentCategory?.des ?? '')
     const [searchValue, setSearchValue] = useState<string>('')
     const [loading, setLoading] = useState(true)
     const router = useRouter()
@@ -44,11 +47,11 @@ function NetWorkClubPageView({
         label?: string,
         slug?: string
     }>({
-        label: !!clubCategories?.filter(item => item?.slug === slugs?.[0])[0]?.name
-            ? clubCategories?.filter(item => item?.slug === slugs?.[0])[0]?.name
+        label: !!currentCategory?.name
+            ? currentCategory?.name
             : 'Tất cả tổ chức',
-        slug: !!clubCategories?.filter(item => item?.slug === slugs?.[0])[0]?.slug
-            ? `${clubCategories?.filter(item => item?.slug === slugs?.[0])[0]?.slug}`
+        slug: !!currentCategory?.slug
+            ? `${currentCategory?.slug}`
             : 'to-chuc/tat-ca-to-chuc'
     })
     useEffect(() => {
@@ -90,6 +93,7 @@ function NetWorkClubPageView({
         router.push(`/to-chuc/${item.slug}`)
         setCategoryId(item._id)
         setClubName(item.name)
+        setCategoryDescription(item.des ?? '')
         window.scrollTo(0, 0);
         setPath({
             label: item?.name ?? '',
@@ -135,6 +139,7 @@ function NetWorkClubPageView({
                                     setLoading(false)
                                     setPath({ label: 'Tất cả tổ chức', slug: 'to-chuc/tat-ca-to-chuc' })
                                     setClubName(undefined)
+                                    setCategoryDescription('')
                                 }} className={`network-club-side-bar-options-item ${slugs?.length > 0 && slugs[0] === 'tat-ca-to-chuc' ? 'active' : ''}`}>
                                     <div className="side-bar-options-name">Tất cả tổ chức</div>
                                 </li>
@@ -161,6 +166,12 @@ function NetWorkClubPageView({
                                 <input type="search" onChange={(e) => setSearchValue(e.target.value)} placeholder="Tìm kiếm" />
                             </div>
                         </div>
+                        {!!categoryDescription && (
+                            <div
+                                className="network-club-category-description"
+                                dangerouslySetInnerHTML={{ __html: getPurifiedContent(categoryDescription) }}
+                            />
+                        )}
                         {!loading
                             ? <div className="network-club-main-body">
                                 <Grid container spacing={2}>
