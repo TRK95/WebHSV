@@ -109,7 +109,7 @@ const DefaultLayout = ({ children }: { children?: React.ReactNode }) => {
                                     </Menu.SubMenu>
                                     <Menu.SubMenu key={'gioithieu'} level={1} icon={<div className='iconLayout'><IconIntroduce /></div>} title="Giới thiệu">
                                         <Menu.Item key={'/danh-muc-gioi-thieu'}><Link to={'/danh-muc-gioi-thieu'}>Danh mục</Link></Menu.Item>
-                                        <Menu.Item key={'/gioi-thieu'}><Link to={'/gioi-thieu'}>Nội dung giới thiệu</Link></Menu.Item>
+                                        <Menu.Item key={'/gioi-thieu'}><Link to={'/gioi-thieu'}>Nội dung chi tiết</Link></Menu.Item>
                                     </Menu.SubMenu>
                                     <Menu.SubMenu key={'tintuc'} level={1} icon={<div className='iconLayout'><IconNews /></div>} title="Tin tức">
                                         <Menu.Item key={'/danh-muc-tin-tuc'}><Link to={'/danh-muc-tin-tuc'}>Danh mục</Link></Menu.Item>

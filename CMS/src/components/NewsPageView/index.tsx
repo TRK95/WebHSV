@@ -609,7 +609,7 @@ function NewsPageView() {
                                 ]} >
                                     <TextArea rows={4} placeholder="Mô tả ngắn" minLength={4} />
                                 </Form.Item>
-                                <Form.Item label={<h3>{postDetailUpdate ? "Sửa mô tả chi tiết" : "Thêm mô tả chi tiết"}</h3>} rules={[
+                                <Form.Item label={<h3>{postDetailUpdate ? "Sửa nội dung chi tiết" : "Thêm nội dung chi tiết"}</h3>} rules={[
                                     { required: true, message: 'Vui lòng nhập thông tin!' },
                                 ]} >
                                     <TinymceEditor

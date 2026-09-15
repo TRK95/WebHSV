@@ -108,5 +108,48 @@
             padding-top: 20px;
             text-align: center;
         }
+
+        &-detail {
+            padding: 12px 0 40px 20px;
+
+            @media (max-width: 768px) {
+                padding-left: 0;
+            }
+
+            &-title {
+                margin-top: 0;
+                margin-bottom: 18px;
+                color: var(--primary-color-main);
+                font-weight: 700;
+            }
+
+            &-content {
+                line-height: 1.7;
+
+                img {
+                    max-width: 100%;
+                    height: auto;
+                }
+
+                table {
+                    max-width: 100%;
+                }
+
+                p {
+                    @media (max-width: 1367px) {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+
+        &-empty {
+            padding: 20px 0 40px 20px;
+            color: var(--subTextColor);
+
+            @media (max-width: 768px) {
+                padding-left: 0;
+            }
+        }
     }
 }
