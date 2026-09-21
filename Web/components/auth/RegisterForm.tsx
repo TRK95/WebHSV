@@ -7,12 +7,13 @@ import { useForm } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
 import { useDispatch, useSelector } from '../../app/hooks';
 import { setShowLoginPopup, setShowSignupPopup } from '../../features/auth/auth.slice';
-import { apiRegister, apiRegisterUserId } from '../../features/auth/auth.api';
+import { apiRegister } from '../../features/auth/auth.api';
 import { RESPONSE_MEMBER_EXIST, RESPONSE_SUCCESS, STATUS_PUBLIC } from '../../utils/constraint';
 import './style.scss';
 
 type AuthFormRegister = {
   fullName: string;
+  studentId: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -70,10 +71,10 @@ const RegisterForm = () => {
 
     setSubmitting(true);
     try {
-      const { userId } = await apiRegisterUserId();
+      const studentId = values.studentId.trim();
       const res = await apiRegister({
         reqBody: {
-          userId,
+          userId: studentId,
           status: STATUS_PUBLIC,
           fullName: values.fullName.trim(),
           email: values.email.trim().toLowerCase(),
@@ -140,6 +141,21 @@ const RegisterForm = () => {
                 />
               </div>
               {errors.fullName?.type === "required" && <div className='error-message'>Vui lòng nhập họ và tên!</div>}
+            </div>
+
+            <div className="auth-form-item">
+              <div className="input-item">
+                <TextField
+                  {...register("studentId", {
+                    required: true,
+                    pattern: /^[A-Za-z0-9._-]+$/
+                  })}
+                  sx={{ width: '100%' }}
+                  label="Mã số sinh viên" placeholder="Ví dụ: 20230001"
+                />
+              </div>
+              {errors.studentId?.type === "required" && <div className='error-message'>Vui lòng nhập mã số sinh viên!</div>}
+              {errors.studentId?.type === "pattern" && <div className='error-message'>Mã số sinh viên chỉ nên gồm chữ, số, dấu chấm, gạch ngang hoặc gạch dưới.</div>}
             </div>
 
             <div className="auth-form-item">
