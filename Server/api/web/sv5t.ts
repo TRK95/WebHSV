@@ -1,11 +1,11 @@
 import express from "express";
 import Multer from "multer";
-import { Storage } from "@google-cloud/storage";
 import { verify } from "jsonwebtoken";
 import { jwtCmsHSV } from "../../constraint";
 import asyncHandler from "../../utils/asyncHandler";
 import dotenv from "../../utils/dotenv";
 import Sv5tService from "../../services/sv5tService";
+import { getSignedObjectUrl, uploadObject } from "../../services/storageService";
 
 dotenv.config();
 const Router = express.Router();
@@ -15,38 +15,20 @@ const multer = Multer({
   limits: { fileSize: 20 * 1024 * 1024 },
 });
 
-const storage = new Storage({
-  projectId: process.env.GCLOUD_STORAGE_PROJECT_ID,
-  credentials: {
-    type: "service_account",
-    private_key: process.env.GCLOUD_STORAGE_PRIVATE_KEY,
-    client_id: process.env.GCLOUD_STORAGE_CLIENT_ID,
-    client_email: process.env.GCLOUD_STORAGE_CLIENT_EMAIL,
-  },
-});
-const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET || "");
-
 const safeName = (name: string) => name.replace(/[^a-zA-Z0-9._-]/g, "_");
 const uploadPrivateEvidence = async (file: any, studentId: string) => {
   const objectName = `sv5t/evidence/${studentId}/${Date.now()}_${safeName(file.originalname || "evidence.pdf")}`;
-  const blob = bucket.file(objectName);
-  await blob.save(file.buffer, {
-    resumable: false,
-    metadata: {
-      contentType: "application/pdf",
-      contentDisposition: `attachment; filename="${safeName(file.originalname || "evidence.pdf")}"`,
-    },
+  await uploadObject({
+    objectName,
+    buffer: file.buffer,
+    contentType: "application/pdf",
+    contentDisposition: `attachment; filename="${safeName(file.originalname || "evidence.pdf")}"`,
   });
   return objectName;
 };
 
 const getSignedEvidenceUrl = async (objectName?: string) => {
-  if (!objectName) return "";
-  const [url] = await bucket.file(objectName).getSignedUrl({
-    action: "read",
-    expires: Date.now() + 15 * 60 * 1000,
-  });
-  return url;
+  return getSignedObjectUrl(objectName, 15 * 60 * 1000);
 };
 
 const getStudentFromRequest = (req: any): { studentId: string; fullName: string } | null => {

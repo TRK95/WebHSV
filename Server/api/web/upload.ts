@@ -1,9 +1,9 @@
 import express from "express";
-import { Storage } from "@google-cloud/storage";
 import Multer from "multer";
 import asyncHandler from "../../utils/asyncHandler";
 import { formatDateYMD, getRandomInt } from "../../utils";
 import dotenv from "../../utils/dotenv";
+import { getPublicObjectUrl, uploadObject } from "../../services/storageService";
 
 dotenv.config();
 
@@ -16,55 +16,28 @@ const multer = Multer({
   },
 });
 
-const storage = new Storage({
-  projectId: process.env.GCLOUD_STORAGE_PROJECT_ID,
-  credentials: {
-    type: "service_account",
-    private_key: process.env.GCLOUD_STORAGE_PRIVATE_KEY,
-    client_id: process.env.GCLOUD_STORAGE_CLIENT_ID,
-    client_email: process.env.GCLOUD_STORAGE_CLIENT_EMAIL,
-  },
-});
+const BASE_FORDER = process.env.STORAGE_BASE_FOLDER || process.env.R2_BASE_FOLDER || process.env.GCLOUD_STORAGE_BASE_FOLDER;
 
-const BUCKET_NAME = process.env.GCLOUD_STORAGE_BUCKET;
-const BASE_FORDER = process.env.GCLOUD_STORAGE_BASE_FOLDER;
-
-const uploadFile = (file: any, _baseFolder = BASE_FORDER): Promise<string> => {
-  const bucket = storage.bucket(BUCKET_NAME || "");
-  return new Promise((resolve, reject) => {
-    const { originalname, buffer } = file;
-    const fileName = `${formatDateYMD()}/${getRandomInt(
-      99999999
-    )}${originalname.substring(
-      originalname.lastIndexOf("."),
-      originalname.length
-    )}`;
-    const baseFolder = _baseFolder?.endsWith("/")
-      ? _baseFolder
-      : `${_baseFolder}/`;
-    const blob = bucket.file(baseFolder + fileName);
-    const blobStream = blob.createWriteStream({
-      metadata: {
-        contentType: file.mimetype,
-        contentDisposition: "attachment",
-        metadata: {
-          originalBytes: file.size,
-        },
-      },
-      resumable: false, // disable resumable for file size < 10MB.
-    });
-
-    blobStream
-      .on("finish", async () => {
-        await blob.makePublic();
-        const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
-        resolve(publicUrl);
-      })
-      .on("error", (err) => {
-        reject(new Error(`Unable to upload file, something went wrong ${err}`));
-      })
-      .end(buffer);
+const uploadFile = async (file: any, _baseFolder = BASE_FORDER): Promise<string> => {
+  const { originalname, buffer } = file;
+  const fileName = `${formatDateYMD()}/${getRandomInt(
+    99999999
+  )}${originalname.substring(
+    originalname.lastIndexOf("."),
+    originalname.length
+  )}`;
+  const baseFolder = _baseFolder
+    ? (_baseFolder.endsWith("/") ? _baseFolder : `${_baseFolder}/`)
+    : "";
+  const objectName = `${baseFolder}${fileName}`;
+  await uploadObject({
+    objectName,
+    buffer,
+    contentType: file.mimetype,
+    contentDisposition: "attachment",
+    publicRead: true,
   });
+  return getPublicObjectUrl(objectName);
 };
 
 Router.post(
