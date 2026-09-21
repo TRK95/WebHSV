@@ -25,7 +25,7 @@ const normalizeCriterionGroups = (rawCriteria: any): Sv5tCriterionGroup[] => {
   const source = Array.isArray(rawCriteria) && rawCriteria.length ? rawCriteria : DEFAULT_SV5T_CRITERIA;
 
   return source.map((group: any) => {
-    const isNewShape = Array.isArray(group.criteria);
+    const isNewShape = Array.isArray(group.criteria) && group.criteria.length > 0;
     const criteria: Sv5tCriterion[] = (isNewShape ? group.criteria : [group]).map((criterion: any, index: number) => ({
       key: String(criterion.key || `${group.key}_${index + 1}`),
       title: String(criterion.title || "Tiêu chí"),
@@ -297,8 +297,9 @@ export default class Sv5tService {
       const childResults = (group.criteria ?? []).map((criterion: any) => criteriaByKey[criterion.key]).filter(Boolean);
       const requiredItems = childResults.filter((criterion: any) => criterion.type !== CRITERION_OPTIONAL);
       const optionalItems = childResults.filter((criterion: any) => criterion.type === CRITERION_OPTIONAL);
-      const requiredPassed = requiredItems.every((criterion: any) => criterion.passed);
-      const requiredPotentiallyPassed = requiredItems.every((criterion: any) => criterion.passed || criterion.potentiallyPassed);
+      const hasCriteria = childResults.length > 0;
+      const requiredPassed = hasCriteria && (requiredItems.length === 0 || requiredItems.every((criterion: any) => criterion.passed));
+      const requiredPotentiallyPassed = hasCriteria && (requiredItems.length === 0 || requiredItems.every((criterion: any) => criterion.passed || criterion.potentiallyPassed));
       const optionalRequired = Math.min(optionalItems.length, Math.max(0, Number(group.requiredOptionalCount) || 0));
       const optionalPassedCount = optionalItems.filter((criterion: any) => criterion.passed).length;
       const optionalPotentialCount = optionalItems.filter((criterion: any) => criterion.passed || criterion.potentiallyPassed).length;
@@ -314,8 +315,8 @@ export default class Sv5tService {
         requiredPassed,
         optionalPassedCount,
         optionalTotal: optionalItems.length,
-        passed: requiredPassed && optionalPassed,
-        potentiallyPassed: requiredPotentiallyPassed && optionalPotentiallyPassed,
+        passed: hasCriteria && requiredPassed && optionalPassed,
+        potentiallyPassed: hasCriteria && requiredPotentiallyPassed && optionalPotentiallyPassed,
       };
     });
 
@@ -334,7 +335,13 @@ export default class Sv5tService {
     const calculated = await this.calculateResult(String(campaign._id), studentId);
     const manualActivities = await Sv5tActivityModel.find({ campaignId: campaign._id, status: 1, verificationMode: "MANUAL" })
       .sort({ activityDate: -1 }).exec();
-    const application = await Sv5tApplicationModel.findOne({ campaignId: campaign._id, studentId: normalizeStudentId(studentId) });
+    let application: any = await Sv5tApplicationModel.findOne({ campaignId: campaign._id, studentId: normalizeStudentId(studentId) });
+    if (application && calculated && application.resultStatus !== calculated.resultStatus) {
+      application = await Sv5tApplicationModel.findByIdAndUpdate(application._id, {
+        resultStatus: calculated.resultStatus,
+        lastCalculatedAt: Date.now(),
+      }, { new: true });
+    }
     return { data: { ...calculated, manualActivities, application }, status: 0 };
   }
 
@@ -374,6 +381,14 @@ export default class Sv5tService {
       Sv5tApplicationModel.find({ campaignId: args.campaignId }).sort({ submittedAt: -1 }).skip(offset).limit(limit).exec(),
       Sv5tApplicationModel.countDocuments({ campaignId: args.campaignId }),
     ]);
-    return { data, total, status: 0 };
+    const recalculated = await Promise.all(data.map(async (application: any) => {
+      const calculated = await this.calculateResult(args.campaignId, application.studentId);
+      if (!calculated || application.resultStatus === calculated.resultStatus) return application;
+      return Sv5tApplicationModel.findByIdAndUpdate(application._id, {
+        resultStatus: calculated.resultStatus,
+        lastCalculatedAt: Date.now(),
+      }, { new: true });
+    }));
+    return { data: recalculated, total, status: 0 };
   }
 }
