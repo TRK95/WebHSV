@@ -19,7 +19,7 @@ type NewsItem = NewsModel & {
 };
 
 const NewsCard = ({ item, featured = false, onOpen }: { item: NewsItem; featured?: boolean; onOpen: (item: NewsItem) => void }) => (
-  <article className={featured ? "news-card news-card-featured" : "news-card"} onClick={() => onOpen(item)}>
+  <article className={featured ? "news-card news-card-featured" : "news-card news-card-compact"} onClick={() => onOpen(item)}>
     <div className="news-card-image">
       <Image objectFit="cover" src={getDisplayImage(item?.avatar)} layout="fill" />
     </div>
@@ -76,9 +76,9 @@ function News({ title }: { title?: string }) {
               </Grid>
             )}
             <Grid item xs={12} md={6}>
-              <Grid container spacing={2.5}>
+              <Grid container spacing={2.5} className="news-secondary-list">
                 {secondaryNews.slice(0, 4).map((item) => (
-                  <Grid item xs={12} sm={6} key={item._id || item.slug}>
+                  <Grid item xs={12} key={item._id || item.slug}>
                     <NewsCard item={item} onOpen={openNews} />
                   </Grid>
                 ))}

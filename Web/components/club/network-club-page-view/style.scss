@@ -1,8 +1,8 @@
 @import "../../../styles/mixins.scss";
 
 #network-club-page-view {
-    padding-top: 20px;
-    padding-bottom: 40px;
+    padding-top: 28px;
+    padding-bottom: 56px;
 
     .network-club-page-view-layout {
         padding-top: 24px;
@@ -24,8 +24,10 @@
                 top: 18%;
                 width: 220px;
                 background-color: #fff;
-                border-radius: 20px;
+                border-radius: 16px;
                 overflow: hidden;
+                border: 1px solid rgba(21, 73, 116, 0.08);
+                box-shadow: 0 14px 34px rgba(12, 45, 77, 0.06);
 
                 @media (max-width: 992px) {
                     width: unset;
@@ -76,7 +78,7 @@
                         }
 
                         &.active {
-                            background-color: rgb(235, 227, 227);
+                            background-color: rgba(23, 136, 202, 0.1);
 
                             .side-bar-options-name {
                                 color: var(--primary-color-main);
@@ -94,7 +96,7 @@
                         &:hover {
                             .side-bar-options-name {
                                 color: var(--primary-color-main);
-                                transform: translateY(-4px);
+                                transform: none;
                             }
                         }
 
@@ -135,12 +137,17 @@
                 justify-content: space-between;
                 align-items: center;
                 margin-bottom: 20px;
+                padding: 18px 20px;
+                border-radius: 16px;
+                background: #fff;
+                border: 1px solid rgba(21, 73, 116, 0.08);
+                box-shadow: 0 14px 34px rgba(12, 45, 77, 0.06);
 
                 &-title {
                     display: flex;
                     align-items: center;
-                    color: var(--secondaryColor);
-                    font-weight: 600;
+                    color: #13243a;
+                    font-weight: 800;
                 }
 
                 &-actions {
@@ -148,8 +155,8 @@
                         outline: none;
                         border: 1px solid #d3dcec;
                         padding: 6px 12px;
-                        background-color: transparent;
-                        border-radius: 10px;
+                        background-color: #f8fbfd;
+                        border-radius: 999px;
                         font-weight: 600;
 
                         @media (max-width: 1367px) {
@@ -161,9 +168,11 @@
 
             .network-club-category-description {
                 margin-bottom: 24px;
-                padding: 16px 18px;
+                padding: 20px 22px;
                 background-color: #fff;
-                border-radius: 10px;
+                border-radius: 16px;
+                border: 1px solid rgba(21, 73, 116, 0.08);
+                box-shadow: 0 14px 34px rgba(12, 45, 77, 0.06);
                 color: var(--textColor);
                 line-height: 1.7;
 
@@ -185,16 +194,28 @@
 
             &-body {
                 &-item {
-                    transition: 0.5s;
+                    overflow: hidden;
+                    border-radius: 16px;
+                    background: #fff;
+                    border: 1px solid rgba(21, 73, 116, 0.08);
+                    box-shadow: 0 14px 34px rgba(12, 45, 77, 0.06);
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
                     cursor: pointer;
+
+                    &-images {
+                        overflow: hidden;
+                        background: #edf5fa;
+
+                        img {
+                            transition: transform 0.28s ease;
+                        }
+                    }
 
                     &-content {
                         background-color: #fff;
-                        padding: 8px;
+                        padding: 14px;
                         font-size: 12px;
                         color: var(--textColor);
-                        border-bottom-left-radius: 10px;
-                        border-bottom-right-radius: 10px;
 
                         .item-content-name {
                             font-size: 12px;
@@ -240,7 +261,12 @@
                     }
 
                     &:hover {
-                        transform: translateY(-6px);
+                        transform: translateY(-4px);
+                        box-shadow: 0 22px 54px rgba(12, 45, 77, 0.1);
+
+                        img {
+                            transform: scale(1.04);
+                        }
                     }
                 }
             }
