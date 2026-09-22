@@ -103,7 +103,7 @@ export const EventComponent = ({ title, eventsData, isProfile }: { title?: strin
                               }
                               <p className='event-comming-slider-item-content-info' style={{ alignItems: "flex-start" }}>
                                 <LocationOn style={{ color: 'var(--primary-color-main)' }} />
-                                Sân C9 - Trường Đại học Bách Khoa Hà Nội
+                                Sân C9 - Trường Đại học Bách khoa Hà Nội
                               </p>
                             </div>
                           </div>

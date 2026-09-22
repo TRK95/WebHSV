@@ -142,7 +142,7 @@ function EventsPageView({
             { label: path?.label, slug: path?.slug },
           ]}
         />
-        <Grid container>
+        <Grid container spacing={3} alignItems="flex-start">
           <Grid item xs={12} sm={4} md={3}>
             <div className="event-page-view-side-bar-wrapper">
               <div className="event-page-view-side-bar">

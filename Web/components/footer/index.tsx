@@ -30,7 +30,7 @@ const Footer = ({ bgImage }: { bgImage?: string }) => {
           <Grid item md={4} sm={6} xs={12} sx={{ zIndex: 100 }} className='center-footer'>
             <div className="center-footer-text">
               <div className="footer-title" >GIỚI THIỆU</div>
-              Hội Sinh viên Đại học Bách Khoa Hà Nội <br />
+              Hội Sinh viên Đại học Bách khoa Hà Nội <br />
               Địa chỉ: P101, KTX B8, Trường ĐH Bách khoa Hà Nội · Hà Nội, Hanoi, Vietnam<br />
               Email: hsv@hust.edu.vn
             </div>
