@@ -8,6 +8,7 @@ import { META_ROBOT_INDEX_FOLLOW } from "../../modules/share/constraint";
 import { RESPONSE_SUCCESS, STATUS_PUBLIC } from "../../utils/constraint";
 import { getWebSEOProps } from "../../utils/getSEOProps";
 import { apiGetNewsCategories } from "../../utils/api/newsApi";
+import { setPublicPageCache } from "../../utils/pageCache";
 
 const flattenCategories = (categories: IntroduceCategory[] = []) => {
     return categories.reduce<NewsCategory[]>((result, item) => {
@@ -47,6 +48,7 @@ function IntroducePage({
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+    setPublicPageCache(context.res);
     const introduceSlug = context.query?.introduceSlug;
     const rootCategoriesRes = await apiGetNewsCategories({
         reqQuery: {

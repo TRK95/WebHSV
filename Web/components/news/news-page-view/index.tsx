@@ -17,8 +17,11 @@ import Image from 'next/image';
 import NonAccentVietnamese from '../../../utils/checkNonVietNameseAccent';
 import { getDisplayImage } from '../../../utils/image';
 
-function NewsPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], newsCategories?: Array<NewsCategory>, pageQuery }) {
+function NewsPageView({ slugs = [], newsCategories = [], pageQuery = 1 }: { slugs?: string[], newsCategories?: Array<NewsCategory>, pageQuery }) {
     const router = useRouter()
+    const routeSlugs = router.query.newsDetailSlug
+    const activeSlug = Array.isArray(routeSlugs) ? routeSlugs[0] : slugs?.[0]
+    const activePage = Number(router.query.page ?? pageQuery ?? 1)
     const [newsData, setNewsData] = useState<Array<NewsModel>>([])
     const [searchValue, setSearchValue] = useState<string>('')
     const [loading, setLoading] = useState(true)
@@ -28,27 +31,34 @@ function NewsPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
     const [page, setPage] = useState(Number(pageQuery))
     const [newsInCategory, setNewsIncategory] = useState<Array<NewsInCategory & { news: NewsModel }>>([])
     const [categoryId, setCategoryId] = useState<number>(
-        newsCategories.filter(item => item.slug === slugs[0])[0]?._id
-            ? newsCategories.filter(item => item.slug === slugs[0])[0]?._id
+        newsCategories.filter(item => item.slug === activeSlug)[0]?._id
+            ? newsCategories.filter(item => item.slug === activeSlug)[0]?._id
             : null
     )
     const [path, setPath] = useState<{
         label?: string,
         slug?: string
     }>({
-        label: newsCategories?.filter(item => item?.slug === slugs?.[0])[0]?.title ? newsCategories?.filter(item => item?.slug === slugs?.[0])[0]?.title : 'Tất cả tin tức',
-        slug: newsCategories?.filter(item => item?.slug === slugs?.[0])[0]?.slug ? `tin-tuc/${newsCategories?.filter(item => item?.slug === slugs?.[0])[0]?.slug}?page=${Number(pageQuery)}` : `tin-tuc/tat-ca-tin-tuc?page=${Number(pageQuery)}`
+        label: newsCategories?.filter(item => item?.slug === activeSlug)[0]?.title ? newsCategories?.filter(item => item?.slug === activeSlug)[0]?.title : 'Tất cả tin tức',
+        slug: newsCategories?.filter(item => item?.slug === activeSlug)[0]?.slug ? `tin-tuc/${newsCategories?.filter(item => item?.slug === activeSlug)[0]?.slug}?page=${activePage}` : `tin-tuc/tat-ca-tin-tuc?page=${activePage}`
     })
 
     useEffect(() => {
-        if (slugs[0]) {
+        if (activeSlug) {
             setLoading(true)
-            const newsCategory = newsCategories.filter(item => item?.slug === slugs[0])
-            if (newsCategory) {
-                setCategoryId(newsCategory[0]?._id)
-            }
+            const newsCategory = newsCategories.find(item => item?.slug === activeSlug)
+            setCategoryId(newsCategory?._id ?? null)
+            setPath({
+                label: newsCategory?.title ?? 'Tất cả tin tức',
+                slug: newsCategory?.slug ? `tin-tuc/${newsCategory.slug}?page=${activePage}` : `tin-tuc/tat-ca-tin-tuc?page=${activePage}`
+            })
         }
-    }, [slugs[0]])
+    }, [activeSlug, newsCategories])
+
+    useEffect(() => {
+        setPage(activePage)
+        setOffset((activePage - 1) * MAX_DATA_DISPLAY)
+    }, [activePage])
 
     const getNewsByDate = async () => {
         setLoading(true)
@@ -98,7 +108,7 @@ function NewsPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
 
     const changePageAllNews = (event: React.ChangeEvent<unknown>, value: number) => {
         setLoading(true)
-        router.push(`/tin-tuc/tat-ca-tin-tuc?page=${value}`)
+        router.push(`/tin-tuc/tat-ca-tin-tuc?page=${value}`, undefined, { shallow: true, scroll: false })
         setPage(value)
         setOffset((value - 1) * 5)
         window.scrollTo({
@@ -108,7 +118,7 @@ function NewsPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
     }
 
     const changePageCateNews = (event: React.ChangeEvent<unknown>, value: number) => {
-        router.push(`/tin-tuc/${slugs?.[0] ?? 'tat-ca-tin-tuc'}?page=${value}`)
+        router.push(`/tin-tuc/${activeSlug ?? 'tat-ca-tin-tuc'}?page=${value}`, undefined, { shallow: true, scroll: false })
         setPage(value)
         setOffset((value - 1) * 5)
         setLoading(true)
@@ -119,7 +129,7 @@ function NewsPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
     }
 
     const handleChangeCate = (item: NewsCategory) => {
-        router.push(`/tin-tuc/${item.slug}`)
+        router.push(`/tin-tuc/${item.slug}`, undefined, { shallow: true, scroll: false })
         setPage(1)
         setOffset(0)
         window.scrollTo(0, 0);
@@ -128,7 +138,7 @@ function NewsPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
             label: item?.title ?? '',
             slug: `tin-tuc/${item?.slug}`
         })
-        if (slugs[0] === item.slug) {
+        if (activeSlug === item.slug) {
             setLoading(false)
         } else {
             setLoading(true)
@@ -146,8 +156,8 @@ function NewsPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
                                 <div className="news-page-view-side-bar-wrapper">
                                     <div className="news-page-view-side-bar">
                                         <ul>
-                                            <li className={slugs?.length > 0 && slugs[0] === 'tat-ca-tin-tuc' ? 'active' : ''} onClick={() => {
-                                                router.push(`/tin-tuc/tat-ca-tin-tuc`)
+                                            <li className={activeSlug === 'tat-ca-tin-tuc' ? 'active' : ''} onClick={() => {
+                                                router.push(`/tin-tuc/tat-ca-tin-tuc`, undefined, { shallow: true, scroll: false })
                                                 setNewsIncategory([])
                                                 setCategoryId(null)
                                                 setPage(1)
@@ -160,7 +170,7 @@ function NewsPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
                                                 )
                                             }}><p>Tất cả tin tức</p></li>
                                             {newsCategories.map((item, index) => (
-                                                <li onClick={() => handleChangeCate(item)} className={slugs?.length > 0 && slugs[0] === item.slug ? 'active' : ''} key={index}>
+                                                <li onClick={() => handleChangeCate(item)} className={activeSlug === item.slug ? 'active' : ''} key={index}>
                                                     <p>{item?.title}</p>
                                                 </li>
                                             ))}
@@ -175,7 +185,7 @@ function NewsPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
                                         <div className="title-h1-icon">
                                             <Image src='/images/icon-head-subject.svg' layout='responsive' width={20} height={20} />
                                         </div>
-                                        {newsCategories?.filter(item => item?.slug === slugs?.[0])[0]?.title ? newsCategories?.filter(item => item?.slug === slugs?.[0])[0]?.title : 'Tất cả tin tức'}
+                                        {newsCategories?.find(item => item?.slug === activeSlug)?.title ?? 'Tất cả tin tức'}
                                     </div>
                                     <div className="news-page-view-header-actions">
                                         <input type="search" onChange={(e) => setSearchValue(e.target.value)} placeholder="Tìm kiếm" />

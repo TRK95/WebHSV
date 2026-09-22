@@ -39,7 +39,10 @@ function IntroducePageView({
     introduceCategories: IntroduceCategory[],
 }) {
     const router = useRouter();
-    const currentSlug = Array.isArray(introduceSlug) ? introduceSlug[0] : introduceSlug;
+    const routeSlug = router.query.introduceSlug;
+    const currentSlug = typeof routeSlug === "string"
+        ? routeSlug
+        : (Array.isArray(introduceSlug) ? introduceSlug[0] : introduceSlug);
     const allCategories = useMemo(() => flattenCategories(introduceCategories), [introduceCategories]);
     const initialCategory = allCategories.find(item => item.slug === currentSlug) ?? allCategories[0];
     const [loading, setLoading] = useState(true);
@@ -100,7 +103,7 @@ function IntroducePageView({
     }, [selectedCategoryId]);
 
     const handleChangeCate = (item: NewsCategory) => {
-        router.push(`/gioi-thieu/${item.slug}`);
+        router.push(`/gioi-thieu/${item.slug}`, undefined, { shallow: true, scroll: false });
         window.scrollTo(0, 0);
         setSelectedCategoryId(item?._id ?? null);
         setPath({

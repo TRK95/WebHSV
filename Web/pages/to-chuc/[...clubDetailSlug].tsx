@@ -12,6 +12,7 @@ import 'antd/dist/antd.css';
 import { getWebSEOProps } from "../../utils/getSEOProps";
 import { useRouter } from "next/router";
 import { META_ROBOT_INDEX_FOLLOW } from "../../modules/share/constraint";
+import { setPublicPageCache } from "../../utils/pageCache";
 
 function ClubDetailSlugPage({ slugs, clubCategories, clubDetail, memberClubs }: {
     slugs: string[],
@@ -53,6 +54,7 @@ function ClubDetailSlugPage({ slugs, clubCategories, clubDetail, memberClubs }: 
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+    setPublicPageCache(context.res);
     const slugs = context.query?.clubDetailSlug as string[]
 
     const clubCategoriesRes = await apiGetClubCategories({
@@ -62,38 +64,41 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
         }
     })
 
-    const detailClubRes = await apiGetClubBySlug({
-        reqQuery: {
-            slug: slugs?.length ? slugs?.[slugs?.length - 1] : ''
-        }
-    })
-
-    const memberClubsRes = await apiGetMemberClubs({
-        reqQuery: {
-            limit: 100,
-            offset: 0,
-            clubId: detailClubRes?.data?._id ?? ''
-        }
-    })
-
-    if (clubCategoriesRes.status === RESPONSE_SUCCESS && detailClubRes.status === RESPONSE_SUCCESS) {
-        if (memberClubsRes?.status === RESPONSE_SUCCESS) {
-            return {
-                props: {
-                    slugs: slugs ?? [],
-                    clubCategories: clubCategoriesRes.data,
-                    clubDetail: detailClubRes.data,
-                    memberClubs: memberClubsRes.data ?? [],
-                }
-            }
-        }
-    } else {
+    if (slugs?.length === 1) {
         return {
             props: {
-                slugs: slugs ?? []
+                slugs: slugs ?? [],
+                clubCategories: clubCategoriesRes.status === RESPONSE_SUCCESS ? clubCategoriesRes.data : [],
+                clubDetail: null,
+                memberClubs: [],
             }
-        }
+        };
     }
+
+    const detailClubRes = await apiGetClubBySlug({
+        reqQuery: {
+            slug: slugs?.[slugs.length - 1] ?? ''
+        }
+    });
+
+    const memberClubsRes = detailClubRes.status === RESPONSE_SUCCESS
+        ? await apiGetMemberClubs({
+            reqQuery: {
+                limit: 100,
+                offset: 0,
+                clubId: detailClubRes?.data?._id ?? ''
+            }
+        })
+        : null;
+
+    return {
+        props: {
+            slugs: slugs ?? [],
+            clubCategories: clubCategoriesRes.status === RESPONSE_SUCCESS ? clubCategoriesRes.data : [],
+            clubDetail: detailClubRes.status === RESPONSE_SUCCESS ? detailClubRes.data : null,
+            memberClubs: memberClubsRes?.status === RESPONSE_SUCCESS ? memberClubsRes.data ?? [] : [],
+        }
+    };
 })
 
 export default ClubDetailSlugPage;

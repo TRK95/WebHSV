@@ -8,6 +8,7 @@ import { META_ROBOT_INDEX_FOLLOW } from "../../../modules/share/constraint";
 import { apiGetClubFeatureChildByClubSlug } from "../../../utils/api/clubFeatureApi";
 import { RESPONSE_SUCCESS, STATUS_PUBLIC } from "../../../utils/constraint";
 import { getWebSEOProps } from "../../../utils/getSEOProps";
+import { setPublicPageCache } from "../../../utils/pageCache";
 
 function YourClubIndexPage({ clubSlug }: { clubSlug: string }) {
   const router = useRouter();
@@ -31,6 +32,7 @@ function YourClubIndexPage({ clubSlug }: { clubSlug: string }) {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+  setPublicPageCache(context.res);
   const clubSlug = context.query.yourClub as string;
   const featureCateRes = await apiGetClubFeatureChildByClubSlug({
     slug: clubSlug || "",

@@ -1,11 +1,15 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "../app/hooks";
-import { checkLogin, fetchUserByToken, setAuthLoading } from "../features/auth/auth.slice";
+import { checkLogin, setAuthLoading } from "../features/auth/auth.slice";
 import { useRouter } from "next/router";
+
+const AUTH_RECHECK_INTERVAL = 5 * 60 * 1000;
+let lastCheckedToken: string | null = null;
+let lastCheckedAt = 0;
 
 const usePageAuth = (redirectAuth?: string) => {
   const router = useRouter()
-  const { token, loading, user, student } = useSelector((state) => state.authState);
+  const { loading, student } = useSelector((state) => state.authState);
   const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -23,8 +27,27 @@ const usePageAuth = (redirectAuth?: string) => {
   }, [router, student]);
 
   useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+
+    if (!storedToken) {
+      dispatch(setAuthLoading(false));
+      return;
+    }
+
+    if (student) {
+      if (loading) dispatch(setAuthLoading(false));
+      return;
+    }
+
+    if (lastCheckedToken === storedToken && Date.now() - lastCheckedAt < AUTH_RECHECK_INTERVAL) {
+      dispatch(setAuthLoading(false));
+      return;
+    }
+
+    lastCheckedToken = storedToken;
+    lastCheckedAt = Date.now();
     dispatch(setAuthLoading(true));
-    dispatch(checkLogin({ token: localStorage.getItem("token") }))
+    dispatch(checkLogin({ token: storedToken }));
   }, [])
 
   useEffect(() => {

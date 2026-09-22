@@ -5,6 +5,7 @@ import customMaxWidthContainer from '../../../features/common/CustomMaxWidth';
 import EventModel from '../../../models/eventModel';
 import './style.scss';
 import "swiper/swiper.min.css";
+import { Autoplay, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { STATUS_NO_REGISTER } from '../../../utils/constraint';
 import _ from 'lodash';
@@ -60,6 +61,7 @@ export const EventComponent = ({ title, eventsData = [], isProfile }: { title?: 
             ? <>
               <Swiper
                 key={1}
+                modules={[Autoplay, Navigation, Pagination]}
                 autoplay={{ delay: 15000, disableOnInteraction: false }}
                 navigation={{
                   nextEl: '.swiper-button-next',
@@ -69,7 +71,6 @@ export const EventComponent = ({ title, eventsData = [], isProfile }: { title?: 
                 slidesPerView={isSmallTabletUI ? 1 : 4}
                 slidesPerGroup={isSmallTabletUI ? 1 : 4}
                 spaceBetween={15}
-                // modules={[Pagination]}
                 className="swiper-achievement"
                 pagination={{
                   clickable: true,

@@ -3,16 +3,14 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { Autoplay, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { SwiperModule } from "swiper/types";
 import './style.scss';
 
 const PaginationHome = (props: {
-  modules?: SwiperModule[],
-  pagination?: any,
   data: Array<any>
 }) => {
-  const { modules: modulesProps, pagination, data } = props
+  const { data } = props
   const theme = useTheme();
   const isMobileUI = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -42,9 +40,9 @@ const PaginationHome = (props: {
               </div>
               <Swiper
                 className="mySwiperCustomBanners"
+                modules={[Autoplay, Navigation, Pagination]}
                 loop
                 autoplay={{ delay: 3000, disableOnInteraction: true }}
-                // modules={modulesProps ? modulesProps : []}
                 data-aos="fade-down"
                 navigation={{
                   nextEl: ".image-swiper-button-next",

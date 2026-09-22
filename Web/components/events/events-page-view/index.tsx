@@ -44,6 +44,11 @@ function EventsPageView({
   end: number
 }) {
   const router = useRouter(); ``
+  const routeSlugs = router.query.eventDetailSlug;
+  const activeSlug = Array.isArray(routeSlugs) ? routeSlugs[0] : slug;
+  const activePage = Number(router.query.page ?? pageQuery ?? 1);
+  const activeStart = (activePage - 1) * MAX_DATA_DISPLAY;
+  const activeEnd = activeStart + MAX_DATA_DISPLAY;
   // const [eventsData, setEventsData] = useState<Array<EventModel>>([])
   const [loading, setLoading] = useState(true);
   const [offset, setOffset] = useState(0);
@@ -51,12 +56,12 @@ function EventsPageView({
   const [searchValue, setSearchValue] = useState<string>('')
   const [page, setPage] = useState(1);
   const [path, setPath] = useState({
-    label: dataEventCategories?.filter((item) => item.slug === slug)?.[0]?.name,
-    slug: dataEventCategories?.filter((item) => item.slug === slug)?.[0]?.slug,
+    label: dataEventCategories?.filter((item) => item.slug === activeSlug)?.[0]?.name,
+    slug: dataEventCategories?.filter((item) => item.slug === activeSlug)?.[0]?.slug,
   });
   const [eventsByDate, setEventsByDate] = useState<Array<EventModel>>([]);
   const [type, setType] = useState(
-    dataEventCategories?.filter((item) => item.slug === slug)?.[0]?.type
+    dataEventCategories?.filter((item) => item.slug === activeSlug)?.[0]?.type
   );
   const miliSecondsNow = moment().valueOf();
 
@@ -65,11 +70,11 @@ function EventsPageView({
     value: number
   ) => {
     router.push({
-      pathname: `/su-kien/${slug}`,
+      pathname: `/su-kien/${activeSlug}`,
       query: {
         page: value,
       }
-    });
+    }, undefined, { shallow: true, scroll: false });
     setPage(value);
     setOffset((value - 1) * PAGE_SIZE);
   };
@@ -101,24 +106,28 @@ function EventsPageView({
       }
     }
 
-    setEventsByDate((prev) => prev.slice(start, end))
-  }, [type, slug, pageQuery]);
+    setEventsByDate((prev) => prev.slice(activeStart, activeEnd))
+  }, [type, activeSlug, activePage]);
 
   useEffect(() => {
-    const eventCategory = dataEventCategories.filter(item => item?.slug === slug)
-    if (eventCategory) {
-      setType(eventCategory[0]?.type)
-    }
+    const eventCategory = dataEventCategories.find(item => item?.slug === activeSlug)
+    setType(eventCategory?.type ?? EventStatus.ALL)
+    setPath({
+      label: eventCategory?.name ?? "Tất cả sự kiện",
+      slug: eventCategory?.slug ? `su-kien/${eventCategory.slug}` : "su-kien/tat-ca-su-kien"
+    })
+    setPage(activePage)
+    setOffset((activePage - 1) * PAGE_SIZE)
     setLoading(true)
     setLoading(false);
-  }, [slug]);
+  }, [activeSlug, activePage]);
 
   const handleChangeCate = (item: {
     name: string;
     slug: string;
     type: number;
   }) => {
-    router.push(`/su-kien/${item.slug}`);
+    router.push(`/su-kien/${item.slug}`, undefined, { shallow: true, scroll: false });
     setPath({
       label: item.name ?? "",
       slug: `su-kien/${item.slug ?? ""}`,
@@ -126,7 +135,7 @@ function EventsPageView({
     window.scrollTo(0, 0);
     setType(item.type);
 
-    if (slug === item.slug) {
+    if (activeSlug === item.slug) {
       setLoading(false);
     } else {
       setLoading(true);
@@ -151,7 +160,7 @@ function EventsPageView({
                     <li
                       key={item.name}
                       onClick={() => handleChangeCate(item)}
-                      className={slug && slug === item.slug ? "active" : ""}
+                      className={activeSlug && activeSlug === item.slug ? "active" : ""}
                     >
                       <p>{item.name}</p>
                     </li>
@@ -166,7 +175,7 @@ function EventsPageView({
                 <div className="title-h1-icon">
                   <Image src='/images/icon-head-subject.svg' layout='responsive' width={20} height={20} />
                 </div>
-                {dataEventCategories.find(item => item?.slug === slug) ? dataEventCategories.find(item => item?.slug === slug)?.name : "Tất cả sự kiện"}
+                {dataEventCategories.find(item => item?.slug === activeSlug)?.name ?? "Tất cả sự kiện"}
               </div>
               <div className="event-page-view-header-actions">
                 <input type="search" onChange={(e) => setSearchValue(e.target.value)} placeholder="Tìm kiếm" />
@@ -179,7 +188,7 @@ function EventsPageView({
                   const eventName = NonAccentVietnamese(item.title)
                   if (eventName.includes(searchValueNoAccent)) {
                     return <Grid key={index} item xs={12} sm={12} md={12}>
-                      <NextLink href={`/su-kien/${slug}/${item.slug}`}>
+                      <NextLink href={`/su-kien/${activeSlug}/${item.slug}`}>
                         <div className="event-page-view-item">
                           <div className="event-page-view-item-image">
                             <img

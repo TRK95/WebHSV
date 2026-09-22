@@ -9,6 +9,7 @@ import { apiGetClubFeatureChildByClubSlug } from '../../../../utils/api/clubFeat
 import { RESPONSE_SUCCESS, STATUS_PUBLIC } from '../../../../utils/constraint';
 import ClubFeatureChild from '../../../../models/ClubFeatureChild';
 import FeaturePageView from '../../../../components/clubFeature/clubFeature-page-view';
+import { setPublicPageCache } from '../../../../utils/pageCache';
 
 function YourClubFeature({ clubSlug, featureSlug, featureId, featureCategories, page }: { clubSlug: string, featureSlug: string, featureId: string, featureCategories: Array<ClubFeatureChild>, page: Number }) {
     usePageAuth()
@@ -31,6 +32,7 @@ function YourClubFeature({ clubSlug, featureSlug, featureId, featureCategories, 
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+    setPublicPageCache(context.res);
     const clubSlug = context.query.yourClub as string
     const featureSlug = context.query.yourClubFeature as string
     const featureSlugArr = featureSlug?.split('-')

@@ -14,6 +14,7 @@ import { apiGetClubBySlug } from '../../../../utils/api/clubsApi';
 import Club from '../../../../models/clubsModel';
 import ClubFeatureChild from '../../../../models/ClubFeatureChild';
 import DocFeaturePageView from '../../../../components/clubFeature/doc-feature-page-view';
+import { setPublicPageCache } from '../../../../utils/pageCache';
 
 function YourClubFeatureDetail({ club, featureSlug, featureId, featureDetail, featureCategories, membersEvent }: { club: Club, featureSlug: string, featureId: string, featureDetail: ClubFeatureDetail, featureCategories: Array<ClubFeatureChild>, membersEvent: any }) {
     usePageAuth();
@@ -51,26 +52,27 @@ function YourClubFeatureDetail({ club, featureSlug, featureId, featureDetail, fe
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+    setPublicPageCache(context.res);
     const clubSlug = context.query.yourClub as string;
     const featureSlug = context.query.yourClubFeature as string;
     const featureDetailSlug = context.query.yourClubFeatureDetail as string;
     const featureSlugArr = featureSlug?.split('-');
 
-    const featureCateRes = await apiGetClubFeatureChildByClubSlug({
-        slug: clubSlug ? clubSlug : '',
-        status: STATUS_PUBLIC
-    })
-
-    const featureDetailRes = await apiGetClubFeatureDetailBySlug({
-        slug: featureDetailSlug ?? "",
-        featureId: featureSlugArr[featureSlugArr.length - 1]
-    });
-
-    const clubRes = await apiGetClubBySlug({
-        reqQuery: {
-            slug: clubSlug
-        }
-    })
+    const [featureCateRes, featureDetailRes, clubRes] = await Promise.all([
+        apiGetClubFeatureChildByClubSlug({
+            slug: clubSlug ? clubSlug : '',
+            status: STATUS_PUBLIC
+        }),
+        apiGetClubFeatureDetailBySlug({
+            slug: featureDetailSlug ?? "",
+            featureId: featureSlugArr[featureSlugArr.length - 1]
+        }),
+        apiGetClubBySlug({
+            reqQuery: {
+                slug: clubSlug
+            }
+        })
+    ]);
 
     let membersEventRes
     if (featureDetailRes?.data.contentType === 3) {

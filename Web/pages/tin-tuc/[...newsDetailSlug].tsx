@@ -1,19 +1,17 @@
 
 import { useRouter } from "next/router";
 import { wrapper } from "../../app/store";
-import DetailNewsPageView from "../../components/news/detail-news-page-view";
 import Layout from "../../features/common/Layout";
 import usePageAuth from "../../hooks/usePageAuth";
-import Club from "../../models/clubsModel";
-import NewsModel from "../../models/newsModel";
-import { DOMAIN_ID_ALUMNI, RESPONSE_SUCCESS } from "../../utils/constraint";
+import { RESPONSE_SUCCESS } from "../../utils/constraint";
 import NewsPageView from "../../components/news/news-page-view";
 import NewsCategory from "../../models/newsCategoryModel";
-import { apiGetNewsBySlug, apiGetNewsCategories } from "../../utils/api/newsApi";
+import { apiGetNewsCategories } from "../../utils/api/newsApi";
 import { getWebSEOProps } from "../../utils/getSEOProps";
 import { META_ROBOT_INDEX_FOLLOW } from "../../modules/share/constraint";
+import { setPublicPageCache } from "../../utils/pageCache";
 
-function NewsDetailSlugPage({ newsDetail, slugs, newsCategories, page }: { newsDetail: NewsModel, slugs: string[], newsCategories: Array<NewsCategory>, page: Number }) {
+function NewsDetailSlugPage({ slugs, newsCategories, page }: { slugs: string[], newsCategories: Array<NewsCategory>, page: Number }) {
     const router = useRouter();
 
     usePageAuth()
@@ -39,24 +37,18 @@ function NewsDetailSlugPage({ newsDetail, slugs, newsCategories, page }: { newsD
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+    setPublicPageCache(context.res);
     const slugs = context.query?.newsDetailSlug as string[]
     const page = context.query?.page
-    const newsDetailRes = await apiGetNewsBySlug({
-        reqQuery: {
-            slug: slugs?.length ? slugs?.[slugs?.length - 1] : ''
-        }
-    })
-
     const newsCateRes = await apiGetNewsCategories({
         reqQuery: {
             parentId: -1
         }
     })
-    if (newsDetailRes.status === RESPONSE_SUCCESS && newsCateRes.status === RESPONSE_SUCCESS) {
+    if (newsCateRes.status === RESPONSE_SUCCESS) {
         return {
             props: {
                 slugs: slugs ?? [],
-                newsDetail: newsDetailRes.data,
                 newsCategories: newsCateRes.data,
                 page: page ?? 1
             }
@@ -65,6 +57,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
         return {
             props: {
                 slugs: slugs ?? [],
+                newsCategories: [],
                 page: page ?? 1
             }
         }

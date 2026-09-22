@@ -16,8 +16,14 @@ import Club from '../../../models/clubsModel';
 import { apiGetClubBySlug } from '../../../utils/api/clubsApi';
 import { getDisplayImage } from '../../../utils/image';
 
-function FeaturePageView({ clubSlug, featureSlug, featureId, featureCategories, pageQuery }: { clubSlug?: string, featureSlug?: string, featureId?: string, featureCategories?: Array<ClubFeatureChild>, pageQuery }) {
+function FeaturePageView({ clubSlug, featureSlug, featureId, featureCategories = [], pageQuery = 1 }: { clubSlug?: string, featureSlug?: string, featureId?: string, featureCategories?: Array<ClubFeatureChild>, pageQuery }) {
     const router = useRouter()
+    const routeFeature = router.query.yourClubFeature
+    const activeFeatureSegment = typeof routeFeature === 'string' ? routeFeature : featureSlug
+    const activeFeatureParts = activeFeatureSegment?.split('-') ?? []
+    const activeFeatureId = activeFeatureParts[activeFeatureParts.length - 1] ?? featureId
+    const activeFeatureSlug = activeFeatureParts.slice(0, -1).join('-') || featureSlug
+    const activePage = Number(router.query.page ?? pageQuery ?? 1)
     const [loading, setLoading] = useState(true)
     const [offset, setOffset] = useState((Number(pageQuery) - 1) * 5)
     const [totalNewsInCate, setTotalNewsInCate] = useState(0)
@@ -29,8 +35,8 @@ function FeaturePageView({ clubSlug, featureSlug, featureId, featureCategories, 
         label?: string,
         slug?: string
     }>({
-        label: featureCategories?.filter(item => item?._id === featureId)[0]?.title && featureCategories?.filter(item => item?._id === featureId)[0]?.title,
-        slug: featureCategories?.filter(item => item?._id === featureId)[0]?.slug && `to-chuc-cua-ban/${clubSlug}/${featureCategories?.filter(item => item?._id === featureId)[0]?.slug}?page=${Number(pageQuery)}`
+        label: featureCategories?.find(item => item?._id === activeFeatureId)?.title,
+        slug: activeFeatureSlug ? `to-chuc-cua-ban/${clubSlug}/${activeFeatureSegment}?page=${activePage}` : undefined
     })
 
     useEffect(() => {
@@ -50,14 +56,21 @@ function FeaturePageView({ clubSlug, featureSlug, featureId, featureCategories, 
     }, [clubSlug])
 
     useEffect(() => {
-        setFirstFeature(featureCategories?.filter(item => item?._id === featureId)[0])
-    }, [featureCategories, featureId])
+        const selectedFeature = featureCategories?.find(item => item?._id === activeFeatureId)
+        setFirstFeature(selectedFeature)
+        setPath({
+            label: selectedFeature?.title ?? '',
+            slug: selectedFeature ? `to-chuc-cua-ban/${clubSlug}/${selectedFeature.slug}-${selectedFeature._id}?page=${activePage}` : ''
+        })
+        setPage(activePage)
+        setOffset((activePage - 1) * MAX_DATA_DISPLAY)
+    }, [featureCategories, activeFeatureId, activePage, clubSlug])
 
     const getNewsInCategory = async () => {
         const response = await apiGetClubFeatureDetailByFeatureId({
             limit: MAX_DATA_DISPLAY,
             offset: offset,
-            featureId: featureId,
+            featureId: activeFeatureId,
             status: STATUS_PUBLIC
         })
 
@@ -69,19 +82,19 @@ function FeaturePageView({ clubSlug, featureSlug, featureId, featureCategories, 
     }
 
     useEffect(() => {
-        if (featureId) {
+        if (activeFeatureId) {
             getNewsInCategory()
         }
-    }, [offset, page, featureId])
+    }, [offset, page, activeFeatureId])
 
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
         }, 1000)
-    }, [clubSlug, page, featureId])
+    }, [clubSlug, page, activeFeatureId])
 
     const changePageCateNews = (event: React.ChangeEvent<unknown>, value: number) => {
-        router.push(`/to-chuc-cua-ban/${clubSlug}/${featureSlug}-${featureId}/?page=${value}`)
+        router.push(`/to-chuc-cua-ban/${clubSlug}/${activeFeatureSegment}/?page=${value}`, undefined, { shallow: true, scroll: false })
         setPage(value)
         setOffset((value - 1) * 5)
         setLoading(true)
@@ -92,7 +105,7 @@ function FeaturePageView({ clubSlug, featureSlug, featureId, featureCategories, 
     }
 
     const handleChangeCate = (item: ClubFeatureChild) => {
-        router.push(`/to-chuc-cua-ban/${clubSlug}/${item.slug}-${item._id}`)
+        router.push(`/to-chuc-cua-ban/${clubSlug}/${item.slug}-${item._id}`, undefined, { shallow: true, scroll: false })
         setPage(1)
         setOffset(0)
         window.scrollTo(0, 0);
@@ -100,7 +113,7 @@ function FeaturePageView({ clubSlug, featureSlug, featureId, featureCategories, 
             label: item?.title ?? '',
             slug: `to-chuc-cua-ban/${clubSlug}/${item.slug}-${item._id}`
         })
-        if (featureId === item._id) {
+        if (activeFeatureId === item._id) {
             setLoading(false)
         } else {
             setLoading(true)
@@ -121,7 +134,7 @@ function FeaturePageView({ clubSlug, featureSlug, featureId, featureCategories, 
                                     <div className="news-page-view-side-bar">
                                         <ul>
                                             {featureCategories.map((item, index) => (
-                                                <li onClick={() => handleChangeCate(item)} className={featureId && featureId === item._id ? 'active' : ''} key={index}>
+                                                <li onClick={() => handleChangeCate(item)} className={activeFeatureId && activeFeatureId === item._id ? 'active' : ''} key={index}>
                                                     <p>{item?.title}</p>
                                                 </li>
                                             ))}
@@ -134,10 +147,10 @@ function FeaturePageView({ clubSlug, featureSlug, featureId, featureCategories, 
                                 {!loading
                                     ? <>
                                         {
-                                            featureId && <>
+                                            activeFeatureId && <>
                                                 {newsInCategory.map((item, index) => (
                                                     <Grid key={index} item xs={12} sm={12} md={12}>
-                                                        <NextLink href={`/to-chuc-cua-ban/${clubSlug}/${featureSlug}/${item?.slug}`}>
+                                                        <NextLink href={`/to-chuc-cua-ban/${clubSlug}/${activeFeatureSegment}/${item?.slug}`}>
                                                             <div className="news-page-view-item">
                                                                 <div className="news-page-view-item-image">
                                                                     <img

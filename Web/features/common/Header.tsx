@@ -1,5 +1,6 @@
 import { Button, CircularProgress, Container, Popover, Theme, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { useRouter } from "next/router";
 import { ForwardedRef, forwardRef, PropsWithoutRef, useEffect, useState } from "react";
 import appConfigs from "../../config/appConfigs.json";
@@ -12,18 +13,19 @@ import { setCheckLoginCode, setLoginCode, setShowLoginPopup, setShowSignupPopup,
 import { SxProps } from "@mui/system";
 import PersonIcon from '@mui/icons-material/Person';
 import { Logout as LogoutIcon } from "@mui/icons-material";
-import LoginForm from "../../components/auth/LoginForm";
-import RegisterForm from "../../components/auth/RegisterForm";
 import { useSnackbar } from "notistack";
-import ForgotPassForm from "../../components/auth/ForgotPassForm";
-import ChangePassword from "../../components/auth/ChangePassword";
 import customMaxWidthContainer from "./CustomMaxWidth";
 import { RESPONSE_SUCCESS, STATUS_PUBLIC, USER_LOGIN_FAILED } from "../../utils/constraint";
 import NavItem from "../../components/navigation/NavItem";
 import { apiGetNewsCategories } from "../../utils/api/newsApi";
 import { apiGetClubById, apiGetClubCategories } from "../../utils/api/clubsApi";
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import NotifyPopup from "../../components/NotifyPopup/NotifyPopup";
+
+const LoginForm = dynamic(() => import("../../components/auth/LoginForm"), { ssr: false });
+const RegisterForm = dynamic(() => import("../../components/auth/RegisterForm"), { ssr: false });
+const ForgotPassForm = dynamic(() => import("../../components/auth/ForgotPassForm"), { ssr: false });
+const ChangePassword = dynamic(() => import("../../components/auth/ChangePassword"), { ssr: false });
+const NotifyPopup = dynamic(() => import("../../components/NotifyPopup/NotifyPopup"), { ssr: false });
 
 const headerNavCache: {
   introduce?: NavItem[];
@@ -32,6 +34,7 @@ const headerNavCache: {
   sv5t?: NavItem[];
   docs?: NavItem[];
 } = {};
+const prefetchedPublicRoutes = new Set<string>();
 
 const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) => {
   const theme = useTheme();
@@ -125,6 +128,32 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
       mounted = false;
     }
   }, [])
+
+  useEffect(() => {
+    const routes = [
+      dataIntroduceNav[0]?.slug,
+      dataNetworkNav[0]?.slug,
+      dataNewsNav[0]?.slug,
+      dataSv5tNav[0]?.slug,
+      dataDocsNav[0]?.childs?.[0]?.slug,
+    ].filter((route): route is string => !!route && route !== "/");
+
+    if (!routes.length) return;
+
+    const timer = window.setTimeout(async () => {
+      for (const route of routes) {
+        if (prefetchedPublicRoutes.has(route)) continue;
+        prefetchedPublicRoutes.add(route);
+        try {
+          await router.prefetch(route);
+        } catch {
+          prefetchedPublicRoutes.delete(route);
+        }
+      }
+    }, 700);
+
+    return () => window.clearTimeout(timer);
+  }, [dataIntroduceNav, dataNetworkNav, dataNewsNav, dataSv5tNav, dataDocsNav, router]);
 
   useEffect(() => {
     if (headerNavCache.network) {

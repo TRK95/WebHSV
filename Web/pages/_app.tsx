@@ -1,9 +1,5 @@
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import { Container, CssBaseline, ThemeProvider } from "@mui/material";
-import {
-  BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title,
-  Tooltip
-} from "chart.js";
 import { AppProps } from "next/app";
 import NextNProgress from "nextjs-progressbar";
 import { SnackbarProvider } from "notistack";
@@ -11,7 +7,6 @@ import { FC } from "react";
 // @ts-ignore
 import { ErrorBoundary } from "react-error-boundary";
 import { PersistGate } from "redux-persist/integration/react";
-import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper/core";
 import {
   persistor, store, wrapper
 } from "../app/store";
@@ -22,16 +17,6 @@ import "../styles/_global.scss";
 import { postTimeOnSite } from "../utils/api/timeOnSiteApi";
 import createEmotionCache from "../utils/createEmotionCache";
 import { clearStoreIndexDB, connectIndexDB, insertDataToIndexDB } from "../utils/indexDB";
-
-SwiperCore.use([Autoplay, Pagination, Navigation]);
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
 const clientSideEmotionCache = createEmotionCache();
 

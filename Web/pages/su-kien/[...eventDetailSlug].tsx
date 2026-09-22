@@ -5,18 +5,16 @@ import EventsPageView from "../../components/events/events-page-view";
 import Layout from "../../features/common/Layout";
 import usePageAuth from "../../hooks/usePageAuth";
 import EventModel from "../../models/eventModel";
-import Student from "../../models/studentModel";
 import { META_ROBOT_INDEX_FOLLOW } from "../../modules/share/constraint";
 import { apiGetMembersEvent } from "../../utils/api/eventsApi";
 import {
     apiGetEventBySlug,
     apiGetEventsByDate,
 } from "../../utils/api/eventsApi";
-import { DOMAIN_ID_ALUMNI, PAGE_SIZE, RESPONSE_SUCCESS } from "../../utils/constraint";
+import { RESPONSE_SUCCESS } from "../../utils/constraint";
 import { getWebSEOProps } from "../../utils/getSEOProps";
 import { MAX_DATA_DISPLAY } from "../../components/news/activity-news";
-import { apiGetClubById } from "../../utils/api/clubsApi";
-import Club from "../../models/clubsModel";
+import { setPublicPageCache } from "../../utils/pageCache";
 
 export const dataEventCategories = [
     {
@@ -109,48 +107,64 @@ function DetailEventSlugPage({
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+    setPublicPageCache(context.res);
     const slugs = context.query?.eventDetailSlug as string[];
     const _pageQuery = context.query.page as string;
     const pageQuery = !!_pageQuery && !isNaN(+_pageQuery) ? +_pageQuery : 1;
     const start = (pageQuery - 1) * MAX_DATA_DISPLAY;
     const end = start + MAX_DATA_DISPLAY;
 
-    const eventDetailRes = await apiGetEventBySlug({
-        reqQuery: {
-            slug: slugs?.length > 1 ? slugs[slugs?.length - 1] : "",
-        },
-    });
+    if (slugs?.length === 1) {
+        const eventsDataRes = await apiGetEventsByDate({
+            reqQuery: {
+                limit: 100,
+                offset: 0,
+            },
+        });
 
-    const evenstDataRes = await apiGetEventsByDate({
-        reqQuery: {
-            limit: 100,
-            offset: 0,
-        },
-    });
-
-    const memberEventRes = await apiGetMembersEvent({
-        reqQuery: {
-            limit: 100,
-            offset: 0,
-            eventId: eventDetailRes?.data?._id ?? ''
-        }
-    })
-
-    if (evenstDataRes.status === RESPONSE_SUCCESS) {
         return {
             props: {
                 slugs,
-                eventsData: evenstDataRes?.data ?? [],
-                totalEvents: evenstDataRes.total ?? 0,
+                eventsData: eventsDataRes.status === RESPONSE_SUCCESS ? eventsDataRes?.data ?? [] : [],
+                totalEvents: eventsDataRes.status === RESPONSE_SUCCESS ? eventsDataRes.total ?? 0 : 0,
                 dataEventCategories: dataEventCategories,
-                detailEvent: eventDetailRes.data ?? {},
-                membersEvent: memberEventRes.data ?? [],
+                detailEvent: null,
+                membersEvent: [],
                 pageQuery: pageQuery ?? 1,
                 start,
                 end
             },
         };
     }
+
+    const eventDetailRes = await apiGetEventBySlug({
+        reqQuery: {
+            slug: slugs?.[slugs.length - 1] ?? "",
+        },
+    });
+    const memberEventRes = eventDetailRes.status === RESPONSE_SUCCESS
+        ? await apiGetMembersEvent({
+            reqQuery: {
+                limit: 100,
+                offset: 0,
+                eventId: eventDetailRes?.data?._id ?? ''
+            }
+        })
+        : null;
+
+    return {
+        props: {
+            slugs,
+            eventsData: [],
+            totalEvents: 0,
+            dataEventCategories,
+            detailEvent: eventDetailRes.status === RESPONSE_SUCCESS ? eventDetailRes.data ?? null : null,
+            membersEvent: memberEventRes?.status === RESPONSE_SUCCESS ? memberEventRes.data ?? [] : [],
+            pageQuery: pageQuery ?? 1,
+            start,
+            end
+        },
+    };
 }
 );
 

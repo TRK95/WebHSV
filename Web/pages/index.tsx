@@ -12,7 +12,6 @@ import EventModel from "../models/eventModel";
 import { META_ROBOT_INDEX_FOLLOW } from "../modules/share/constraint";
 import { useRouter } from "next/router";
 import PaginationHome from "../components/Swiper/PaginationHome";
-import { Pagination } from "swiper";
 import { Container, Grid } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
@@ -27,11 +26,6 @@ type IndexPageProps = {
   // introduceNav: Array<NavItem>
   eventsData: Array<EventModel>
 };
-const pagination = {
-  clickable: true,
-  el: '.pagination-swiper'
-}
-
 const IndexPage = () => {
   const router = useRouter();
   const [eventsData, setEventsData] = useState<EventModel[]>([])
@@ -46,22 +40,25 @@ const IndexPage = () => {
 
   useEffect(() => {
     (async () => {
-      const eventSDataRes = await apiGetEventsByDate({
-        reqQuery: {
-          limit: 20,
-          offset: 0,
-        }
-      })
+      const [eventSDataRes, clubCategoriesRes] = await Promise.all([
+        apiGetEventsByDate({
+          reqQuery: {
+            limit: 20,
+            offset: 0,
+          }
+        }),
+        apiGetClubCategories({
+          reqQuery: {
+            type: 0,
+            parentId: -1,
+          }
+        })
+      ])
+
       if (eventSDataRes.status === RESPONSE_SUCCESS) {
         setEventsData(eventSDataRes.data)
       }
 
-      const clubCategoriesRes = await apiGetClubCategories({
-        reqQuery: {
-          type: 0,
-          parentId: -1,
-        }
-      })
       if (clubCategoriesRes.status === RESPONSE_SUCCESS) {
         setClubCategories(clubCategoriesRes.data)
       }
@@ -101,7 +98,7 @@ const IndexPage = () => {
         layoutBg="full-text-left"
       // ctaElement={ctaHeroSection}
       /> */}
-      <PaginationHome modules={[Pagination]} pagination={pagination} data={dataBanners} />
+      <PaginationHome data={dataBanners} />
       <News title='Tin tức nổi bật' />
       {/* <CategoryCourse title={seoInfo?.titleH1} description={seoInfo?.summary} categories={categories} /> */}
       <EventComponent title="Sự kiện sắp diễn ra" eventsData={eventsData} />

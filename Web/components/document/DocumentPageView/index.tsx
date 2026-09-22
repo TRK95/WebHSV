@@ -21,10 +21,12 @@ function DocumentPageView({ slug }: { slug: string }) {
   const [documentList, setDocumentList] = useState<Array<NewsInCategory>>([]);
   const [filterDocumentCate, setFilterDocumentCate] = useState<NewsCategory>(null);
   const router = useRouter();
+  const routeSlugs = router.query.detailDocumentSlug;
+  const currentSlug = Array.isArray(routeSlugs) ? routeSlugs[0] : slug;
 
   const handleClickCate = (item: NewsCategory) => {
     setLoading(true);
-    router.push(`/tai-lieu/${item.slug}`);
+    router.push(`/tai-lieu/${item.slug}`, undefined, { shallow: true, scroll: false });
   };
 
   useEffect(() => {
@@ -43,9 +45,9 @@ function DocumentPageView({ slug }: { slug: string }) {
 
   useEffect(() => {
     setFilterDocumentCate(
-      documentCategories?.find((item) => item.slug === slug)
+      documentCategories?.find((item) => item.slug === currentSlug)
     );
-  }, [slug, documentCategories]);
+  }, [currentSlug, documentCategories]);
 
   useEffect(() => {
     const getListData = async () => {
@@ -89,7 +91,7 @@ function DocumentPageView({ slug }: { slug: string }) {
                           <li
                             onClick={() => handleClickCate(item)}
                             className={
-                              slug && slug === item.slug ? "active" : ""
+                              currentSlug && currentSlug === item.slug ? "active" : ""
                             }
                             key={item.title}
                           >

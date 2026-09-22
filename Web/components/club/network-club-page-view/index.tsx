@@ -18,13 +18,16 @@ import { getDisplayImage } from '../../../utils/image';
 export const MAX_CLUBS_DATA_DISPLAY = 10
 
 function NetWorkClubPageView({
-    clubCategories,
-    slugs
+    clubCategories = [],
+    slugs = []
 }: {
     clubCategories: Array<ClubCategory>,
     slugs?: string[]
 }) {
-    const currentCategory = clubCategories?.find(item => item?.slug === slugs?.[0])
+    const router = useRouter()
+    const routeSlugs = router.query.clubDetailSlug
+    const activeSlug = Array.isArray(routeSlugs) ? routeSlugs[0] : slugs?.[0]
+    const currentCategory = clubCategories?.find(item => item?.slug === activeSlug)
     const [clubsData, setClubsData] = useState<Array<Club>>([])
     const [categoryId, setCategoryId] = useState<string>(
         currentCategory?._id
@@ -40,7 +43,6 @@ function NetWorkClubPageView({
     const [categoryDescription, setCategoryDescription] = useState<string>(currentCategory?.des ?? '')
     const [searchValue, setSearchValue] = useState<string>('')
     const [loading, setLoading] = useState(true)
-    const router = useRouter()
     const [offset, setOffset] = useState(0)
     const [total, setTotal] = useState(0)
     const [page, setPage] = useState(1)
@@ -74,7 +76,18 @@ function NetWorkClubPageView({
                 }
             })()
         }
-    }, [categoryId, slugs?.[0]])
+    }, [categoryId])
+
+    useEffect(() => {
+        const selectedCategory = clubCategories?.find(item => item.slug === activeSlug)
+        setCategoryId(selectedCategory?._id ?? null)
+        setClubName(selectedCategory?.name)
+        setCategoryDescription(selectedCategory?.des ?? '')
+        setPath({
+            label: selectedCategory?.name ?? 'Tất cả tổ chức',
+            slug: selectedCategory?.slug ? `to-chuc/${selectedCategory.slug}` : 'to-chuc/tat-ca-to-chuc'
+        })
+    }, [activeSlug, clubCategories])
 
     useEffect(() => {
         if (categoryId) return;
@@ -101,7 +114,7 @@ function NetWorkClubPageView({
     }, [offset, page, categoryId])
 
     const handleChangeCate = (item: ClubCategory) => {
-        router.push(`/to-chuc/${item.slug}`)
+        router.push(`/to-chuc/${item.slug}`, undefined, { shallow: true, scroll: false })
         setCategoryId(item._id)
         setClubName(item.name)
         setCategoryDescription(item.des ?? '')
@@ -110,7 +123,7 @@ function NetWorkClubPageView({
             label: item?.name ?? '',
             slug: `to-chuc/${item?.slug ?? ''}`
         })
-        if (item.slug === slugs?.[0]) {
+        if (item.slug === activeSlug) {
             setLoading(false)
         } else {
             setLoading(true)
@@ -139,18 +152,18 @@ function NetWorkClubPageView({
                             </div> */}
                             <ul className="network-club-side-bar-options">
                                 <li onClick={() => {
-                                    router.push('/to-chuc/tat-ca-to-chuc')
+                                    router.push('/to-chuc/tat-ca-to-chuc', undefined, { shallow: true, scroll: false })
                                     setClubsByCategoryId([])
                                     setCategoryId(null)
                                     setLoading(false)
                                     setPath({ label: 'Tất cả tổ chức', slug: 'to-chuc/tat-ca-to-chuc' })
                                     setClubName(undefined)
                                     setCategoryDescription('')
-                                }} className={`network-club-side-bar-options-item ${slugs?.length > 0 && slugs[0] === 'tat-ca-to-chuc' ? 'active' : ''}`}>
+                                }} className={`network-club-side-bar-options-item ${activeSlug === 'tat-ca-to-chuc' ? 'active' : ''}`}>
                                     <div className="side-bar-options-name">Tất cả tổ chức</div>
                                 </li>
                                 {clubCategories.map((item, index) => (
-                                    <li onClick={() => handleChangeCate(item)} key={index} className={`network-club-side-bar-options-item ${slugs?.length && slugs?.[0] === item.slug ? 'active' : ''}`}>
+                                    <li onClick={() => handleChangeCate(item)} key={index} className={`network-club-side-bar-options-item ${activeSlug === item.slug ? 'active' : ''}`}>
                                         {/* <div className="side-bar-options-icon">
                                             {item.icon}
                                         </div> */}
@@ -235,7 +248,7 @@ function NetWorkClubPageView({
                                                     if (clubName.includes(searchValueNoAccent)) {
                                                         return (
                                                             <Grid item key={index} md={4} sm={4} xs={6}>
-                                                                <NextLink href={`/to-chuc/${slugs?.[0]}/${item.slug ?? ''}`}>
+                                                                <NextLink href={`/to-chuc/${activeSlug}/${item.slug ?? ''}`}>
                                                                     <div className="network-club-main-body-item">
                                                                         <div className="network-club-main-body-item-images">
                                                                             <Image objectFit='cover' src={getDisplayImage(item?.avatar, '/images/e-hust-clubs.jpg')} layout="responsive" width={280} height={146} />
@@ -257,7 +270,7 @@ function NetWorkClubPageView({
                                                                                 <button onClick={(event) => {
                                                                                     event.preventDefault()
                                                                                     event.stopPropagation()
-                                                                                    router.push(`/to-chuc/${slugs?.[0]}/${item.slug ?? ''}`)
+                                                                                    router.push(`/to-chuc/${activeSlug}/${item.slug ?? ''}`)
                                                                                 }}>
                                                                                     <div style={{ marginRight: '6px', display: 'flex', alignItems: 'center' }}>
                                                                                         <IconButtonStart />

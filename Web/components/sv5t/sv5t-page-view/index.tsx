@@ -14,9 +14,11 @@ import { getPurifiedContent } from '../../../utils/format';
 
 type CategoryId = string | number;
 
-function Sv5tPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], newsCategories?: Array<NewsCategory>, pageQuery }) {
+function Sv5tPageView({ slugs = [], newsCategories = [], pageQuery = 1 }: { slugs?: string[], newsCategories?: Array<NewsCategory>, pageQuery }) {
     const router = useRouter()
-    const initialCategory = newsCategories?.find(item => item?.slug === slugs?.[0])
+    const routeSlugs = router.query.sv5tDetailSlug
+    const activeSlug = Array.isArray(routeSlugs) ? routeSlugs[0] : slugs?.[0]
+    const initialCategory = newsCategories?.find(item => item?.slug === activeSlug)
     const [loading, setLoading] = useState(true)
     const [newsInCategory, setNewsIncategory] = useState<Array<NewsInCategory & { news: NewsModel }>>([])
     const [categoryId, setCategoryId] = useState<CategoryId | null>(initialCategory?._id ?? null)
@@ -29,12 +31,16 @@ function Sv5tPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
     })
 
     useEffect(() => {
-        if (slugs?.[0]) {
+        if (activeSlug) {
             setLoading(true)
-            const newsCategory = newsCategories?.find(item => item?.slug === slugs[0])
+            const newsCategory = newsCategories?.find(item => item?.slug === activeSlug)
             setCategoryId(newsCategory?._id ?? null)
+            setPath({
+                label: newsCategory?.title ?? 'Giới thiệu',
+                slug: newsCategory?.slug ? `sinh-vien-5-tot/${newsCategory.slug}` : 'sinh-vien-5-tot/gioi-thieu'
+            })
         }
-    }, [slugs?.[0], newsCategories])
+    }, [activeSlug, newsCategories])
 
     const getNewsInCategory = async (categoryId) => {
         const responseNewsInCate = await apiGetNewsInCategory({
@@ -63,14 +69,14 @@ function Sv5tPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
     }, [categoryId])
 
     const handleChangeCate = (item: NewsCategory) => {
-        router.push(`/sinh-vien-5-tot/${item.slug}`)
+        router.push(`/sinh-vien-5-tot/${item.slug}`, undefined, { shallow: true, scroll: false })
         window.scrollTo(0, 0);
         setCategoryId(item?._id)
         setPath({
             label: item?.title ?? '',
             slug: `sinh-vien-5-tot/${item?.slug}`
         })
-        if (slugs[0] === item.slug) {
+        if (activeSlug === item.slug) {
             setLoading(false)
         } else {
             setLoading(true)
@@ -90,7 +96,7 @@ function Sv5tPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
                                     <div className="news-page-view-side-bar">
                                         <ul>
                                             {newsCategories?.map((item, index) => (
-                                                <li onClick={() => handleChangeCate(item)} className={slugs?.length > 0 && slugs[0] === item.slug ? 'active' : ''} key={index}>
+                                                <li onClick={() => handleChangeCate(item)} className={activeSlug === item.slug ? 'active' : ''} key={index}>
                                                     <p>{item?.title}</p>
                                                 </li>
                                             ))}

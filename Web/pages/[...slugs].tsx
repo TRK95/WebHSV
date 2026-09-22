@@ -9,6 +9,7 @@ import DetailNewsPageView from "../components/news/detail-news-page-view";
 import Layout from "../features/common/Layout";
 import usePageAuth from "../hooks/usePageAuth";
 import ErrorView from "../features/error/ErrorView";
+import { setPublicPageCache } from "../utils/pageCache";
 
 function DynamicPage({ newsDetail }: { newsDetail: { data: NewsModel, slug: string } }) {
     const router = useRouter();
@@ -34,6 +35,7 @@ function DynamicPage({ newsDetail }: { newsDetail: { data: NewsModel, slug: stri
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+    setPublicPageCache(context.res);
     const slugs = context.query?.slugs as string[]
     const dynamicSlug = slugs[0]
     let newsDetail = {}
