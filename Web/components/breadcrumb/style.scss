@@ -1,4 +1,13 @@
 .breadcrumb-component {
   display: flex;
-  margin-bottom: 10px;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 18px;
+  color: #66778a;
+  font-size: 15px;
+  font-weight: 600;
+
+  a {
+    color: var(--primary-color-main, #1788ca);
+  }
 }

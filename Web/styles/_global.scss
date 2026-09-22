@@ -11,11 +11,14 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 130px;
+  background: #f4f8fb;
 }
 
 body {
   margin: 0;
   padding: 0;
+  color: #243447;
+  background: #f4f8fb;
   @include custom-scroll();
 
   mjx-container[jax="CHTML"][display="true"] {
@@ -68,7 +71,7 @@ body {
 
   button {
     line-height: 1.7 !important;
-    transition: 0.5s !important;
+    transition: 0.2s !important;
     cursor: pointer;
     outline: none;
     border: none;
@@ -78,6 +81,21 @@ body {
     &:hover {
       background-color: var(--hoverSecondaryColor) !important;
       color: #fff !important;
+    }
+  }
+
+  a {
+    color: inherit;
+  }
+
+  #main {
+    overflow-x: hidden;
+  }
+
+  .MuiContainer-root {
+    @media (max-width: 768px) {
+      padding-left: 16px;
+      padding-right: 16px;
     }
   }
 }

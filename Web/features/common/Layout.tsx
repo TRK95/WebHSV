@@ -121,7 +121,7 @@ const Layout = (props: PropsWithChildren<LayoutProps>) => {
       {!disableDefaultHeader && (
         <Header ref={headerRef} disableAuth={disableAuth} />
       )}
-      <div id="main" style={{ marginTop: -1, backgroundColor: "#F3F7F9", minHeight: '700px' }}>
+      <div id="main" style={{ marginTop: -1, backgroundColor: "#f4f8fb", minHeight: '700px' }}>
         {addMathJax ? (
           <MathJaxContext
             version={3}

@@ -1,0 +1,59 @@
+.sv5t-application-view {
+  h1 {
+    color: #13243a;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  h2 {
+    color: #13243a;
+    font-size: 24px;
+    font-weight: 800;
+  }
+
+  .ant-alert,
+  .ant-card,
+  .ant-descriptions-view {
+    border-radius: 8px;
+    border-color: rgba(21, 73, 116, 0.08);
+    box-shadow: 0 16px 42px rgba(12, 45, 77, 0.07);
+  }
+
+  .ant-card-head {
+    border-bottom-color: rgba(21, 73, 116, 0.08);
+  }
+
+  .ant-card-head-title {
+    color: #13243a;
+    font-weight: 800;
+  }
+
+  .ant-btn-primary {
+    border-color: var(--primary-color-main, #1788ca);
+    background: var(--primary-color-main, #1788ca);
+    border-radius: 10px;
+    font-weight: 700;
+    box-shadow: 0 10px 22px rgba(23, 136, 202, 0.18);
+  }
+
+  .ant-table {
+    color: #243447;
+  }
+
+  .ant-table-thead > tr > th {
+    background: #f5f9fc;
+    color: #13243a;
+    font-weight: 800;
+  }
+
+  .ant-progress-bg {
+    background-color: var(--primary-color-main, #1788ca);
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 26px;
+    }
+  }
+}

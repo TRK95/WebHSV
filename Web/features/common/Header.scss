@@ -18,13 +18,16 @@
 
 .app-bar-header {
   width: 100%;
-  height: 86px;
+  min-height: 92px;
   display: flex;
   align-items: center;
-  background-color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.96);
+  border-top: 4px solid var(--primary-color-main, #1788ca);
+  border-bottom: 1px solid rgba(21, 73, 116, 0.08);
+  box-shadow: 0 12px 36px rgba(20, 57, 86, 0.06);
 
   @media (max-width: 1367px) {
-    height: 60px;
+    min-height: 70px;
   }
 
   &-nav {
@@ -36,10 +39,12 @@
       a {
         display: flex;
         align-items: center;
+        gap: 12px;
 
         .logo {
-          width: 76px;
-          height: 100%;
+          width: 78px;
+          height: 78px;
+          flex: 0 0 auto;
 
           @media (max-width: 1367px) {
             width: 60px;
@@ -68,14 +73,18 @@
         }
 
         p {
-          color: var(--primary-color-main);
-          width: 345px;
-          font-weight: 700;
-          font-size: 20px;
+          color: var(--primary-color-main, #1788ca);
+          width: min(520px, 46vw);
+          font-weight: 800;
+          font-size: 22px;
+          line-height: 1.28;
+          letter-spacing: 0;
+          margin: 0;
+          text-transform: uppercase;
 
           @media (max-width: 1367px) {
-            font-size: 16px !important;
-            width: 310px !important;
+            font-size: 17px !important;
+            width: 360px !important;
           }
 
           @media (max-width: 576px) {
@@ -191,14 +200,19 @@
       .app-bar-header-auth {
         display: flex;
         align-items: center;
+        gap: 8px;
 
         button {
-          max-height: 34px;
-          margin-left: 10px;
+          min-height: 42px;
+          max-height: unset;
+          margin-left: 0;
           color: #fff !important;
           background-color: var(--primary-color-main, #1788ca) !important;
-          border-radius: 10px;
-          transition: 0.5s;
+          border-radius: 12px;
+          padding: 8px 18px !important;
+          font-weight: 800;
+          box-shadow: 0 10px 24px rgba(23, 136, 202, 0.22);
+          transition: 0.2s;
 
           @media (max-width: 1367px) {
             font-size: 12px;
@@ -213,7 +227,7 @@
           &:hover {
             background-color: var(--hoverSecondaryColor, #20447d) !important;
             color: #fff !important;
-            transform: translateY(-4px);
+            transform: translateY(-2px);
           }
         }
 
@@ -252,12 +266,15 @@
   width: 100%;
   display: flex;
   align-items: center;
-  background-color: #ebf4fb;
+  background-color: rgba(235, 244, 251, 0.9);
+  border-bottom: 1px solid rgba(21, 73, 116, 0.08);
+  backdrop-filter: blur(12px);
 
   .main-menu-wrap {
     display: flex;
     color: #000;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 6px;
   }
 }
 

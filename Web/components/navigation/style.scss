@@ -3,24 +3,26 @@
 #web-nav {
   .main-menu-item-desktop {
     position: relative;
-    transition: transform 0.4s ease;
+    transition: transform 0.2s ease;
     font-weight: 600;
 
     a {
-      color: white !important;
-      font-weight: 500;
+      color: #12243a !important;
+      font-weight: 700;
       display: block;
-      transition: 0.5s;
+      transition: 0.2s;
     }
   }
 
   .menu-item-desktop-title {
     display: flex;
     align-items: center;
-    transition: 0.5s;
+    min-height: 56px;
+    border-radius: 12px;
+    transition: 0.2s;
 
     * {
-      transition: 0.5s;
+      transition: 0.2s;
 
       @media (max-width: 1367px) {
         font-size: 13px;
@@ -30,7 +32,7 @@
     // span:hover {
     //   transform: translateY(-6px);
     // }
-    padding: 16px 12px;
+    padding: 14px 16px;
 
     @media (max-width: 1367px) {
       padding: 17px 10px;
@@ -86,8 +88,11 @@
   }
 
   .menu-item-desktop-title:hover {
+    background-color: rgba(23, 136, 202, 0.1);
+    color: var(--primary-color-main, #1788ca);
+
     span {
-      transform: translateY(-6px);
+      transform: none;
 
       @media (max-width: 1367px) {
         transform: translateY(-4px);
@@ -95,7 +100,7 @@
     }
 
     svg {
-      transform: translateY(-5px);
+      transform: none;
 
       @media (max-width: 1367px) {
         transform: translateY(-4px);
@@ -127,20 +132,22 @@
 
     .sub-menu-desktop {
       background: #fff;
-      padding: 8px 0;
-      border-radius: 5px;
+      padding: 8px;
+      border-radius: 14px;
       position: absolute;
       z-index: 15;
       margin: 0;
       list-style: none;
       left: 0%;
-      top: 42px;
-      min-width: 140px;
+      top: 52px;
+      min-width: 220px;
       max-width: 500px;
       transition: all .15s;
       visibility: hidden;
       opacity: 0;
       transform: translateY(15px);
+      border: 1px solid rgba(21, 73, 116, 0.08);
+      box-shadow: 0 18px 44px rgba(12, 45, 77, 0.14);
     }
 
     a {
@@ -156,12 +163,14 @@
     }
 
     .sub-menu-desktop-title {
-      color: #212121;
-      padding: 8px 16px;
+      color: #12243a;
+      padding: 10px 12px;
       white-space: nowrap;
       position: relative;
       max-width: 500px;
       cursor: pointer;
+      border-radius: 10px;
+      font-weight: 600;
 
       &-main {
         display: flex;
@@ -195,7 +204,8 @@
       }
 
       &:hover {
-        background-color: #e9eef5;
+        background-color: rgba(23, 136, 202, 0.1);
+        color: var(--primary-color-main, #1788ca);
       }
 
       &:active {
@@ -328,7 +338,9 @@
 }
 
 #mobile-nav {
-  border-bottom-right-radius: 70px;
+  border-bottom-right-radius: 22px;
+  background: #fff !important;
+  color: #12243a !important;
   @include custom-scroll();
 
   .select-lang-tablet {
@@ -395,6 +407,7 @@
         width: 444px;
         font-weight: 700;
         font-size: 20px;
+        line-height: 1.25;
       }
     }
   }
@@ -405,12 +418,13 @@
   align-items: center;
 
   button {
-    max-height: 34px;
+    min-height: 40px;
+    max-height: unset;
     margin-left: 10px;
     color: #fff !important;
     background-color: var(--primary-color-main, #1788ca) !important;
-    border-radius: 10px;
-    transition: 0.5s;
+    border-radius: 12px;
+    transition: 0.2s;
 
     @media (max-width: 1367px) {
       font-size: 12px;
@@ -423,7 +437,7 @@
     &:hover {
       background-color: var(--hoverSecondaryColor, #20447d) !important;
       color: #fff !important;
-      transform: translateY(-4px);
+      transform: translateY(-2px);
     }
   }
 

@@ -1,7 +1,7 @@
 @import "../../../styles/mixins.scss";
 
 #news-page-view {
-    padding: 20px 0;
+    padding: 28px 0 52px;
 
     .news-page-view {
         &-side-bar-wrapper {
@@ -14,7 +14,7 @@
 
         &-side-bar {
             position: sticky;
-            top: 18%;
+            top: 120px;
             width: 100%;
             margin-top: 20px;
 
@@ -22,20 +22,24 @@
                 padding-left: unset;
                 margin: unset;
                 list-style: none;
-                background-color: #f8f8f8;
-                border-radius: 10px;
+                background-color: #fff;
+                border-radius: 8px;
                 overflow: hidden;
+                border: 1px solid rgba(21, 73, 116, 0.08);
+                box-shadow: 0 18px 44px rgba(12, 45, 77, 0.08);
 
                 li {
                     cursor: pointer;
-                    padding-left: 10px;
-                    border-bottom: 2px solid #eee;
+                    padding-left: 0;
+                    border-bottom: 1px solid rgba(21, 73, 116, 0.08);
 
                     p {
                         transition: 0.25s;
-                        padding: 10px 8px;
+                        padding: 16px 18px;
                         margin: unset;
-                        font-weight: 500;
+                        font-weight: 700;
+                        color: #13243a;
+                        line-height: 1.45;
 
                         @media (max-width: 1367px) {
                             font-size: 14px;
@@ -44,11 +48,15 @@
 
                     &.active {
                         color: var(--primary-color-main);
-                        background-color: #eee;
+                        background-color: rgba(23, 136, 202, 0.1);
+
+                        p {
+                            color: var(--primary-color-main, #1788ca);
+                        }
                     }
 
                     &:hover {
-                        background-color: #eee;
+                        background-color: rgba(23, 136, 202, 0.08);
                     }
 
                     &:hover {
@@ -110,25 +118,33 @@
         }
 
         &-detail {
-            padding: 12px 0 40px 20px;
+            padding: 28px;
+            margin-top: 20px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid rgba(21, 73, 116, 0.08);
+            box-shadow: 0 18px 44px rgba(12, 45, 77, 0.08);
 
             @media (max-width: 768px) {
-                padding-left: 0;
+                padding: 18px;
             }
 
             &-title {
                 margin-top: 0;
                 margin-bottom: 18px;
-                color: var(--primary-color-main);
-                font-weight: 700;
+                color: #13243a;
+                font-weight: 800;
+                line-height: 1.35;
             }
 
             &-content {
-                line-height: 1.7;
+                line-height: 1.75;
+                color: #243447;
 
                 img {
                     max-width: 100%;
                     height: auto;
+                    border-radius: 8px;
                 }
 
                 table {
@@ -144,11 +160,15 @@
         }
 
         &-empty {
-            padding: 20px 0 40px 20px;
+            padding: 28px;
+            margin-top: 20px;
             color: var(--subTextColor);
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid rgba(21, 73, 116, 0.08);
 
             @media (max-width: 768px) {
-                padding-left: 0;
+                padding: 18px;
             }
         }
     }

@@ -13,6 +13,7 @@ import {
   apiCreateSv5tClaim, apiGetMySv5tDashboard, apiSubmitSv5tApplication,
   apiUploadSv5tEvidence, SV5T_CRITERIA,
 } from "../../../utils/api/sv5tApi";
+import "./style.scss";
 
 const normalizeCriteriaGroups = (criteria?: any[]) => {
   const source = criteria?.length ? criteria : SV5T_CRITERIA;
@@ -106,7 +107,7 @@ export default function Sv5tApplicationPageView() {
     } else message.error("Không nộp được hồ sơ");
   };
 
-  if (!student || !token) return <Container maxWidth={customMaxWidthContainer()} style={{ paddingTop: 40, paddingBottom: 60 }}>
+  if (!student || !token) return <Container className="sv5t-application-view" maxWidth={customMaxWidthContainer()} style={{ paddingTop: 40, paddingBottom: 60 }}>
     <Alert
       type="info"
       showIcon
@@ -114,7 +115,7 @@ export default function Sv5tApplicationPageView() {
       action={<Button type="primary" onClick={() => dispatch(setShowLoginPopup(true))}>Đăng nhập</Button>}
     />
   </Container>;
-  if (!data?.campaign) return <Container maxWidth={customMaxWidthContainer()} style={{ paddingTop: 40, paddingBottom: 60 }}><Empty description="Hiện chưa có đợt xét Sinh viên 5 tốt đang mở" /></Container>;
+  if (!data?.campaign) return <Container className="sv5t-application-view" maxWidth={customMaxWidthContainer()} style={{ paddingTop: 40, paddingBottom: 60 }}><Empty description="Hiện chưa có đợt xét Sinh viên 5 tốt đang mở" /></Container>;
 
   const criterionOptions = flattenCriteriaOptions(data.campaign?.criteria);
   const verifiedRows = (data.criteria || []).flatMap((group) => (group.criteria || []).flatMap((c) => (c.verifiedItems || []).map((item, i) => ({
@@ -128,7 +129,7 @@ export default function Sv5tApplicationPageView() {
   const pendingClaims = (data.claims || []).filter((c) => c.status === 0);
   const availableManual = (data.manualActivities || []).filter((a) => !claimByActivity[String(a._id)]);
 
-  return <Container maxWidth={customMaxWidthContainer()} style={{ paddingTop: 28, paddingBottom: 60 }}>
+  return <Container className="sv5t-application-view" maxWidth={customMaxWidthContainer()} style={{ paddingTop: 28, paddingBottom: 60 }}>
     <Row gutter={[16, 16]} align="middle" justify="space-between">
       <Col><h1 style={{ marginBottom: 4 }}>Hồ sơ Sinh viên 5 tốt</h1><div>{data.campaign.title} · {data.campaign.academicYear}</div></Col>
       <Col><Button size="large" type="primary" onClick={submit}>Nộp / cập nhật hồ sơ</Button></Col>

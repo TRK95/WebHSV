@@ -5,6 +5,24 @@
   transform: translateY(-50%);
   z-index: 10;
   cursor: pointer;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 30px rgba(12, 45, 77, 0.14);
+
+  span,
+  img {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  @media (max-width: 768px) {
+    width: 38px;
+    height: 38px;
+  }
 }
 
 .image-swiper-button-prev {
@@ -23,47 +41,65 @@
 .banner-panel {
   width: 100%;
   overflow: hidden;
+  background: linear-gradient(180deg, #ffffff 0%, #f4f8fb 100%);
+  padding: 18px 0 12px;
 
   .mySwiperCustomBanners {
-    width: 100%;
+    width: min(1280px, calc(100% - 48px));
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(12, 45, 77, 0.12);
+
+    @media (max-width: 768px) {
+      width: calc(100% - 24px);
+    }
   }
 
   .banner-image-frame {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 6;
-    min-height: 220px;
-    max-height: 620px;
+    aspect-ratio: 16 / 7;
+    min-height: 280px;
+    max-height: 560px;
     background-color: #eef6fb;
     overflow: hidden;
 
     @media (max-width: 900px) {
-      aspect-ratio: 16 / 8;
-      min-height: 180px;
+      aspect-ratio: 16 / 9;
+      min-height: 220px;
     }
 
     @media (max-width: 600px) {
       aspect-ratio: 4 / 3;
-      min-height: 240px;
+      min-height: 260px;
+    }
+
+    span,
+    img {
+      width: 100% !important;
+      height: 100% !important;
     }
   }
 }
 
 .pagination-swiper {
-  margin-top: 15px;
+  margin-top: 12px;
   bottom: unset !important;
   display: flex;
   justify-content: center;
 
   span {
     display: block;
-    width: 15px;
-    height: 15px;
+    width: 8px;
+    height: 8px;
     border-radius: 10px;
-    background-color: #bcc6c6;
+    background-color: #c6d5df;
+    opacity: 1;
 
     &.swiper-pagination-bullet-active {
       background-color: var(--extend-primary-color);
+      width: 24px;
     }
   }
 }
