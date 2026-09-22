@@ -91,7 +91,16 @@ const NavItemLink = (props: PropsWithoutRef<NavItem & {
 
   return type === "nav"
     ? <>
-      <Box className="main-menu-item-desktop" onClick={handleClickFunction} sx={desktopMenuItemStyle}>
+      <Box
+        className="main-menu-item-desktop"
+        onClick={handleClickFunction}
+        onMouseEnter={() => {
+          if (slug && !slug.startsWith("#")) {
+            router.prefetch(slug).catch(() => undefined);
+          }
+        }}
+        sx={desktopMenuItemStyle}
+      >
         <div className="menu-item-desktop-title">
           <span>{name}</span>
         </div>

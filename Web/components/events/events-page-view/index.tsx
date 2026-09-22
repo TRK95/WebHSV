@@ -110,9 +110,7 @@ function EventsPageView({
       setType(eventCategory[0]?.type)
     }
     setLoading(true)
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
+    setLoading(false);
   }, [slug]);
 
   const handleChangeCate = (item: {

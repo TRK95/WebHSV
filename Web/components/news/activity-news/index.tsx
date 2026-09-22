@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
 import { Container } from "@mui/system";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import customMaxWidthContainer from "../../../features/common/CustomMaxWidth";
 import NewsModel from "../../../models/newsModel";
@@ -17,13 +18,8 @@ type NewsItem = NewsModel & {
   inCategories?: NewsInCategory[];
 };
 
-const openNews = (item?: NewsItem) => {
-  if (!item?.slug) return;
-  window.location.href = `/${item.slug}`;
-};
-
-const NewsCard = ({ item, featured = false }: { item: NewsItem; featured?: boolean }) => (
-  <article className={featured ? "news-card news-card-featured" : "news-card"} onClick={() => openNews(item)}>
+const NewsCard = ({ item, featured = false, onOpen }: { item: NewsItem; featured?: boolean; onOpen: (item: NewsItem) => void }) => (
+  <article className={featured ? "news-card news-card-featured" : "news-card"} onClick={() => onOpen(item)}>
     <div className="news-card-image">
       <Image objectFit="cover" src={getDisplayImage(item?.avatar)} layout="fill" />
     </div>
@@ -36,6 +32,7 @@ const NewsCard = ({ item, featured = false }: { item: NewsItem; featured?: boole
 );
 
 function News({ title }: { title?: string }) {
+  const router = useRouter();
   const [newsArrayData, setNewsArrayData] = useState<NewsItem[]>([]);
 
   useEffect(() => {
@@ -55,6 +52,10 @@ function News({ title }: { title?: string }) {
 
   const featured = newsArrayData[0];
   const secondaryNews = useMemo(() => newsArrayData.slice(1, MAX_DATA_DISPLAY), [newsArrayData]);
+  const openNews = (item?: NewsItem) => {
+    if (!item?.slug) return;
+    router.push(`/${item.slug}`);
+  };
 
   return (
     <section id="activity-and-news">
@@ -64,21 +65,21 @@ function News({ title }: { title?: string }) {
             <span>Tin mới</span>
             <h2>{title}</h2>
           </div>
-          <button onClick={() => window.location.href = "/tin-tuc/tat-ca-tin-tuc"}>Xem tất cả</button>
+          <button onClick={() => router.push("/tin-tuc/tat-ca-tin-tuc")}>Xem tất cả</button>
         </div>
 
         {newsArrayData.length > 0 && (
           <Grid container spacing={2.5} className="news-grid">
             {featured && (
               <Grid item xs={12} md={6}>
-                <NewsCard item={featured} featured />
+                <NewsCard item={featured} featured onOpen={openNews} />
               </Grid>
             )}
             <Grid item xs={12} md={6}>
               <Grid container spacing={2.5}>
                 {secondaryNews.slice(0, 4).map((item) => (
                   <Grid item xs={12} sm={6} key={item._id || item.slug}>
-                    <NewsCard item={item} />
+                    <NewsCard item={item} onOpen={openNews} />
                   </Grid>
                 ))}
               </Grid>

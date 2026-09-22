@@ -25,6 +25,14 @@ import { apiGetClubById, apiGetClubCategories } from "../../utils/api/clubsApi";
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import NotifyPopup from "../../components/NotifyPopup/NotifyPopup";
 
+const headerNavCache: {
+  introduce?: NavItem[];
+  network?: NavItem[];
+  news?: NavItem[];
+  sv5t?: NavItem[];
+  docs?: NavItem[];
+} = {};
+
 const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) => {
   const theme = useTheme();
   const router = useRouter();
@@ -56,6 +64,13 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
   const [clubNav, setClubNav] = useState<Array<NavItem>>([])
 
   useEffect(() => {
+    if (headerNavCache.introduce) {
+      setDataIntroduceNav(headerNavCache.introduce);
+      return;
+    }
+
+    let mounted = true;
+
     (async () => {
       const introduceNavRes = await apiGetNewsCategories({
         reqQuery: {
@@ -93,18 +108,32 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
         )
         const introduceNavItems = introduceCategories.reduce((result, items) => [...result, ...items], [])
 
-        setDataIntroduceNav([
+        const navItems = [
           {
             name: 'Giới thiệu',
             slug: introduceNavItems[0]?.slug ?? '/gioi-thieu',
             childs: introduceNavItems
           }
-        ])
+        ];
+
+        headerNavCache.introduce = navItems;
+        if (mounted) setDataIntroduceNav(navItems);
       }
     })()
+
+    return () => {
+      mounted = false;
+    }
   }, [])
 
   useEffect(() => {
+    if (headerNavCache.network) {
+      setDataNetworkNav(headerNavCache.network);
+      return;
+    }
+
+    let mounted = true;
+
     (async () => {
       const networkContactGroupRes = await apiGetClubCategories({
         reqQuery: {
@@ -114,7 +143,7 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
       })
 
       if (networkContactGroupRes.status === RESPONSE_SUCCESS) {
-        setDataNetworkNav([
+        const navItems = [
           {
             name: 'Tổ chức trực thuộc',
             slug: '/to-chuc/tat-ca-to-chuc',
@@ -127,9 +156,16 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
               })
 
           }
-        ])
+        ];
+
+        headerNavCache.network = navItems;
+        if (mounted) setDataNetworkNav(navItems);
       }
     })()
+
+    return () => {
+      mounted = false;
+    }
   }, [])
 
   useEffect(() => {
@@ -167,6 +203,13 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
   }, [userClub]);
 
   useEffect(() => {
+    if (headerNavCache.news) {
+      setDataNewsNav(headerNavCache.news);
+      return;
+    }
+
+    let mounted = true;
+
     (async () => {
       const newsCategoriesRes = await apiGetNewsCategories({
         reqQuery: {
@@ -175,7 +218,7 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
       })
 
       if (newsCategoriesRes.status === RESPONSE_SUCCESS) {
-        setDataNewsNav([
+        const navItems = [
           {
             name: 'Tin tức',
             slug: '/tin-tuc/tat-ca-tin-tuc',
@@ -186,12 +229,26 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
               }
             })
           }
-        ])
+        ];
+
+        headerNavCache.news = navItems;
+        if (mounted) setDataNewsNav(navItems);
       }
     })()
+
+    return () => {
+      mounted = false;
+    }
   }, [])
 
   useEffect(() => {
+    if (headerNavCache.sv5t) {
+      setDataSv5tNav(headerNavCache.sv5t);
+      return;
+    }
+
+    let mounted = true;
+
     (async () => {
       const sv5tCategoriesRes = await apiGetNewsCategories({
         reqQuery: {
@@ -201,7 +258,7 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
       })
 
       if (sv5tCategoriesRes.status === RESPONSE_SUCCESS) {
-        setDataSv5tNav([
+        const navItems = [
           {
             name: 'Phong trào sinh viên 5 tốt',
             slug: '/sinh-vien-5-tot/gioi-thieu',
@@ -215,12 +272,26 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
               }) ?? [])
             ]
           }
-        ])
+        ];
+
+        headerNavCache.sv5t = navItems;
+        if (mounted) setDataSv5tNav(navItems);
       }
     })()
+
+    return () => {
+      mounted = false;
+    }
   }, [])
 
   useEffect(() => {
+    if (headerNavCache.docs) {
+      setDataDocsNav(headerNavCache.docs);
+      return;
+    }
+
+    let mounted = true;
+
     (async () => {
       const docCategoriesRes = await apiGetNewsCategories({
         reqQuery: {
@@ -230,7 +301,7 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
       })
 
       if (docCategoriesRes.status === RESPONSE_SUCCESS) {
-        setDataDocsNav([
+        const navItems = [
           {
             name: 'Văn bản',
             slug: '/',
@@ -241,9 +312,16 @@ const Header = forwardRef((props: PropsWithoutRef<{ disableAuth?: boolean }>) =>
               }
             })
           }
-        ])
+        ];
+
+        headerNavCache.docs = navItems;
+        if (mounted) setDataDocsNav(navItems);
       }
     })()
+
+    return () => {
+      mounted = false;
+    }
   }, [])
 
   // useEffect(() => {

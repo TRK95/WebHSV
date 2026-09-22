@@ -62,12 +62,6 @@ function Sv5tPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
         }
     }, [categoryId])
 
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 1000)
-    }, [slugs[0], categoryId])
-
     const handleChangeCate = (item: NewsCategory) => {
         router.push(`/sinh-vien-5-tot/${item.slug}`)
         window.scrollTo(0, 0);

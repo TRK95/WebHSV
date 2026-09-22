@@ -15,6 +15,7 @@ import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper/core";
 import {
   persistor, store, wrapper
 } from "../app/store";
+import RouteLoading from "../components/RouteLoading";
 import ErrorView from "../features/error/ErrorView";
 import lightTheme from "../styles/themes/lightTheme";
 import "../styles/_global.scss";
@@ -105,7 +106,8 @@ const App: FC<AppProps & { emotionCache: EmotionCache }> = ({ Component, pagePro
         <SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: "center", vertical: "top" }} autoHideDuration={5000}>
           {typeof window !== "undefined"
             ? <PersistGate loading={null} persistor={persistor}>
-              <NextNProgress color="#007aff" height={2} options={{ showSpinner: false }} />
+              <NextNProgress color="#1788ca" height={3} options={{ showSpinner: false }} />
+              <RouteLoading />
               <Component {...pageProps} />
             </PersistGate>
             : <Component {...pageProps} />}

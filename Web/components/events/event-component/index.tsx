@@ -18,7 +18,7 @@ export const EventComponent = ({ title, eventsData, isProfile }: { title?: strin
   const isTabletUI = useMediaQuery(theme.breakpoints.down('lg'))
   const isSmallTabletUI = useMediaQuery(theme.breakpoints.down('md'))
   const handleDetailEvent = (slug) => {
-    window.location.href = `/su-kien/tat-ca-su-kien/${slug}`
+    router.push(`/su-kien/tat-ca-su-kien/${slug}`)
   }
   const [_eventsData, set_EventsData] = useState(eventsData)
   const miliSecondsNow = moment().valueOf();

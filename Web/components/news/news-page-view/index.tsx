@@ -51,34 +51,40 @@ function NewsPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
     }, [slugs[0]])
 
     const getNewsByDate = async () => {
-        const response = await apiGetNewsByDate({
-            reqQuery: {
-                limit: MAX_DATA_DISPLAY,
-                offset: offset,
-            }
-        })
+        setLoading(true)
+        try {
+            const response = await apiGetNewsByDate({
+                reqQuery: {
+                    limit: MAX_DATA_DISPLAY,
+                    offset: offset,
+                }
+            })
 
-        if (response.status === RESPONSE_SUCCESS) {
-            if (response.data.length !== totalAllNews) {
-                setLoading(false)
+            if (response.status === RESPONSE_SUCCESS) {
                 setNewsData(response.data)
+                setTotalAllNews(response.total)
             }
-            setTotalAllNews(response.total)
+        } finally {
+            setLoading(false)
         }
     }
 
     const getNewsInCategory = async (categoryId) => {
-        const responseNewsInCate = await apiGetNewsInCategory({
-            reqQuery: {
-                offset: offset,
-                limit: MAX_DATA_DISPLAY,
-                categoryId: categoryId
+        setLoading(true)
+        try {
+            const responseNewsInCate = await apiGetNewsInCategory({
+                reqQuery: {
+                    offset: offset,
+                    limit: MAX_DATA_DISPLAY,
+                    categoryId: categoryId
+                }
+            })
+            if (responseNewsInCate.status === RESPONSE_SUCCESS) {
+                setNewsIncategory(responseNewsInCate.data)
+                setTotalNewsInCate(responseNewsInCate.total)
             }
-        })
-        if (responseNewsInCate.status === RESPONSE_SUCCESS) {
+        } finally {
             setLoading(false)
-            setNewsIncategory(responseNewsInCate.data)
-            setTotalNewsInCate(responseNewsInCate.total)
         }
     }
 
@@ -89,12 +95,6 @@ function NewsPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
             getNewsInCategory(categoryId)
         }
     }, [offset, page, categoryId])
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 1000)
-    }, [slugs[0], page, categoryId])
 
     const changePageAllNews = (event: React.ChangeEvent<unknown>, value: number) => {
         setLoading(true)
@@ -108,7 +108,7 @@ function NewsPageView({ slugs, newsCategories, pageQuery }: { slugs?: string[], 
     }
 
     const changePageCateNews = (event: React.ChangeEvent<unknown>, value: number) => {
-        router.push(`/tin-tuc/${slugs}/?page=${value}`)
+        router.push(`/tin-tuc/${slugs?.[0] ?? 'tat-ca-tin-tuc'}?page=${value}`)
         setPage(value)
         setOffset((value - 1) * 5)
         setLoading(true)

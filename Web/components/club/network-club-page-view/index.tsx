@@ -58,37 +58,47 @@ function NetWorkClubPageView({
     useEffect(() => {
         if (categoryId) {
             (async function () {
-                const clubsResponse = await apiGetClubsByCategoryId({
-                    reqQuery: {
-                        categoryId: categoryId
-                    }
-                })
+                setLoading(true)
+                try {
+                    const clubsResponse = await apiGetClubsByCategoryId({
+                        reqQuery: {
+                            categoryId: categoryId
+                        }
+                    })
 
-                if (clubsResponse.status === RESPONSE_SUCCESS) {
-                    setClubsByCategoryId(clubsResponse.data)
+                    if (clubsResponse.status === RESPONSE_SUCCESS) {
+                        setClubsByCategoryId(clubsResponse.data)
+                    }
+                } finally {
+                    setLoading(false)
                 }
             })()
         }
     }, [categoryId, slugs?.[0]])
 
     useEffect(() => {
-        (async function () {
-            const clubsRes = await apiGetClubsByDate({
-                reqQuery: {
-                    limit: MAX_CLUBS_DATA_DISPLAY,
-                    offset: offset,
-                    type: CLUB_TYPE,
-                }
-            })
+        if (categoryId) return;
 
-            if (clubsRes.status === RESPONSE_SUCCESS) {
-                if (clubsRes.data.length !== total) {
+        (async function () {
+            setLoading(true)
+            try {
+                const clubsRes = await apiGetClubsByDate({
+                    reqQuery: {
+                        limit: MAX_CLUBS_DATA_DISPLAY,
+                        offset: offset,
+                        type: CLUB_TYPE,
+                    }
+                })
+
+                if (clubsRes.status === RESPONSE_SUCCESS) {
                     setClubsData(clubsRes.data)
+                    setTotal(clubsRes.total)
                 }
-                setTotal(clubsRes.total)
+            } finally {
+                setLoading(false)
             }
         })()
-    }, [offset, page])
+    }, [offset, page, categoryId])
 
     const handleChangeCate = (item: ClubCategory) => {
         router.push(`/to-chuc/${item.slug}`)
@@ -107,17 +117,12 @@ function NetWorkClubPageView({
         }
     }
 
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 500)
-    }, [clubName, slugs?.[0]])
-
     const handleChangePagination = (event: React.ChangeEvent<unknown>, value: number) => {
         // router.push({
         //     pathname: router?.pathname,
         //     query: { 'page': `${value}` }
         // })
+        setLoading(true)
         setPage(value)
         setOffset((value - 1) * 5)
     }
@@ -204,7 +209,11 @@ function NetWorkClubPageView({
                                                                                 {`Mô tả ngắn: ${item?.shortDes?.length > 0 ? item?.shortDes : 'Chưa có'}`}
                                                                             </div>
                                                                             <div className="item-content-actions">
-                                                                                <button onClick={() => window.location.href = `/to-chuc/tat-ca/${item.slug ?? ''}`}>
+                                                                                <button onClick={(event) => {
+                                                                                    event.preventDefault()
+                                                                                    event.stopPropagation()
+                                                                                    router.push(`/to-chuc/tat-ca/${item.slug ?? ''}`)
+                                                                                }}>
                                                                                     <div style={{ marginRight: '6px', display: 'flex', alignItems: 'center' }}>
                                                                                         <IconButtonStart />
                                                                                     </div>
@@ -245,7 +254,11 @@ function NetWorkClubPageView({
                                                                                 {`Mô tả ngắn: ${item?.shortDes?.length > 0 ? item?.shortDes : 'Chưa có'}`}
                                                                             </div>
                                                                             <div className="item-content-actions">
-                                                                                <button onClick={() => window.location.href = `/to-chuc/${slugs?.[0]}/${item.slug ?? ''}`}>
+                                                                                <button onClick={(event) => {
+                                                                                    event.preventDefault()
+                                                                                    event.stopPropagation()
+                                                                                    router.push(`/to-chuc/${slugs?.[0]}/${item.slug ?? ''}`)
+                                                                                }}>
                                                                                     <div style={{ marginRight: '6px', display: 'flex', alignItems: 'center' }}>
                                                                                         <IconButtonStart />
                                                                                     </div>

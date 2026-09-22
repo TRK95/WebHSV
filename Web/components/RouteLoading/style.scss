@@ -1,0 +1,45 @@
+.route-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 112px;
+  background: linear-gradient(180deg, rgba(244, 248, 251, 0.55), rgba(244, 248, 251, 0));
+
+  &-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 42px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.96);
+    color: #13243a;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 18px 44px rgba(12, 45, 77, 0.14);
+    border: 1px solid rgba(21, 73, 116, 0.08);
+  }
+
+  &-spinner {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid rgba(23, 136, 202, 0.2);
+    border-top-color: var(--primary-color-main, #1788ca);
+    animation: route-loading-spin 0.7s linear infinite;
+  }
+
+  @media (max-width: 768px) {
+    padding-top: 82px;
+  }
+}
+
+@keyframes route-loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
