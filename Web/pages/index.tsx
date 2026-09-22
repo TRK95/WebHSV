@@ -34,8 +34,9 @@ const pagination = {
 
 const IndexPage = () => {
   const router = useRouter();
-  const [eventsData, setEventsData] = useState([])
+  const [eventsData, setEventsData] = useState<EventModel[]>([])
   const [clubCategories, setClubCategories] = useState<ClubCategory[]>([])
+  usePageAuth();
 
   useEffect(() => {
     Aos.init({ duration: 1500 });
@@ -66,7 +67,6 @@ const IndexPage = () => {
       }
     })()
   }, [])
-  usePageAuth();
 
   const dataBanners = [
     {
@@ -104,42 +104,40 @@ const IndexPage = () => {
       <PaginationHome modules={[Pagination]} pagination={pagination} data={dataBanners} />
       <News title='Tin tức nổi bật' />
       {/* <CategoryCourse title={seoInfo?.titleH1} description={seoInfo?.summary} categories={categories} /> */}
-      {eventsData.length > 0 && <EventComponent title="Sự kiện sắp diễn ra" eventsData={eventsData} />}
-      {clubCategories.length > 0 && (
-        <section className="home-org-section">
-          <Container maxWidth={customMaxWidthContainer()}>
-            <div className="home-section-heading">
-              <div>
-                <span>Mạng lưới tổ chức</span>
-                <h2>Tổ chức trực thuộc</h2>
-                <p>Các Liên chi Hội, câu lạc bộ và đội nhóm trực thuộc Hội Sinh viên Đại học Bách khoa Hà Nội.</p>
-              </div>
-              <button onClick={() => router.push("/to-chuc/tat-ca-to-chuc")}>
-                Xem toàn bộ đơn vị <ArrowForwardIcon />
-              </button>
+      <EventComponent title="Sự kiện sắp diễn ra" eventsData={eventsData} />
+      <section className="home-org-section">
+        <Container maxWidth={customMaxWidthContainer()}>
+          <div className="home-section-heading">
+            <div>
+              <span>Mạng lưới tổ chức</span>
+              <h2>Tổ chức trực thuộc</h2>
+              <p>Các Liên chi Hội, câu lạc bộ và đội nhóm trực thuộc Hội Sinh viên Đại học Bách khoa Hà Nội.</p>
             </div>
-            <Grid container spacing={2.5}>
-              {clubCategories.slice(0, 4).map((item) => {
-                const description = (item.des || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
-                return (
-                  <Grid item xs={12} sm={6} md={3} key={item._id || item.slug}>
-                    <article className="home-org-card" onClick={() => router.push(`/to-chuc/${item.slug}`)}>
-                      <div className="home-org-card-icon">{item.name?.slice(0, 1) || "T"}</div>
-                      <div className="home-org-card-label">Danh mục tổ chức</div>
-                      <h3>{item.name}</h3>
-                      <p>{description || "Các đơn vị trực thuộc cùng xây dựng phong trào sinh viên năng động, sáng tạo và trách nhiệm."}</p>
-                      <div className="home-org-card-footer">
-                        <span>{item.clubNum ? `${item.clubNum}+ đơn vị` : "Xem danh mục"}</span>
-                        <ArrowForwardIcon />
-                      </div>
-                    </article>
-                  </Grid>
-                )
-              })}
-            </Grid>
-          </Container>
-        </section>
-      )}
+            <button onClick={() => router.push("/to-chuc/tat-ca-to-chuc")}>
+              Xem toàn bộ đơn vị <ArrowForwardIcon />
+            </button>
+          </div>
+          <Grid container spacing={2.5}>
+            {clubCategories.slice(0, 4).map((item) => {
+              const description = (item.des || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+              return (
+                <Grid item xs={12} sm={6} md={3} key={item._id || item.slug}>
+                  <article className="home-org-card" onClick={() => router.push(`/to-chuc/${item.slug}`)}>
+                    <div className="home-org-card-icon">{item.name?.slice(0, 1) || "T"}</div>
+                    <div className="home-org-card-label">Danh mục tổ chức</div>
+                    <h3>{item.name}</h3>
+                    <p>{description || "Các đơn vị trực thuộc cùng xây dựng phong trào sinh viên năng động, sáng tạo và trách nhiệm."}</p>
+                    <div className="home-org-card-footer">
+                      <span>{item.clubNum ? `${item.clubNum}+ đơn vị` : "Xem danh mục"}</span>
+                      <ArrowForwardIcon />
+                    </div>
+                  </article>
+                </Grid>
+              )
+            })}
+          </Grid>
+        </Container>
+      </section>
       <section className="home-sv5t-cta">
         <Container maxWidth={customMaxWidthContainer()}>
           <div className="home-sv5t-panel">

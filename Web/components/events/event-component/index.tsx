@@ -12,7 +12,7 @@ import { useMemo, useEffect, useState } from 'react';
 import { AccessTime, CalendarViewMonth, DateRange, LocationOn, NavigateBefore, NavigateNext } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
-export const EventComponent = ({ title, eventsData, isProfile }: { title?: string, eventsData?: Array<EventModel>, isProfile?: boolean }) => {
+export const EventComponent = ({ title, eventsData = [], isProfile }: { title?: string, eventsData?: Array<EventModel>, isProfile?: boolean }) => {
   const theme = useTheme()
   const router = useRouter()
   const isTabletUI = useMediaQuery(theme.breakpoints.down('lg'))
@@ -20,17 +20,17 @@ export const EventComponent = ({ title, eventsData, isProfile }: { title?: strin
   const handleDetailEvent = (slug) => {
     router.push(`/su-kien/tat-ca-su-kien/${slug}`)
   }
-  const [_eventsData, set_EventsData] = useState(eventsData)
-  const miliSecondsNow = moment().valueOf();
+  const [_eventsData, set_EventsData] = useState<EventModel[]>(eventsData)
+  const miliSecondsNow = useMemo(() => moment().valueOf(), []);
   const _eventsDataHappening = useMemo(() => {
     return _.sampleSize(eventsData.filter(item => miliSecondsNow >= item.fromDate && miliSecondsNow <= item.toDate), 4)
-  }, [])
+  }, [eventsData, miliSecondsNow])
   const _eventsCommingUp = useMemo(() => {
     return _.sampleSize(eventsData.filter((item) => item.fromDate > miliSecondsNow), 2)
-  }, [])
+  }, [eventsData, miliSecondsNow])
   const _eventsOver = useMemo(() => {
     return _.sampleSize(eventsData.filter((item) => item.toDate < miliSecondsNow), 6)
-  }, [])
+  }, [eventsData, miliSecondsNow])
 
   useEffect(() => {
     if (!isProfile) {
