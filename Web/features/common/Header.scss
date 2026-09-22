@@ -7,7 +7,7 @@
     // height: 90px;
     background-color: #FFFFFF;
     color: white;
-    z-index: 15;
+    z-index: 1500;
     // div {
     //   &:first-child {
     //     padding-left: 0;
@@ -17,6 +17,8 @@
 }
 
 .app-bar-header {
+  position: relative;
+  z-index: 1500;
   width: 100%;
   min-height: 92px;
   display: flex;
@@ -263,6 +265,8 @@
 }
 
 .app-bar-header-bottom {
+  position: relative;
+  z-index: 1490;
   width: 100%;
   display: flex;
   align-items: center;

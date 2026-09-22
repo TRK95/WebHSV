@@ -89,10 +89,18 @@ body {
   }
 
   #main {
+    position: relative;
+    z-index: 0;
     overflow-x: hidden;
   }
 
   .MuiContainer-root {
+    width: min(100%, calc(100vw - 64px));
+
+    @media (max-width: 992px) {
+      width: 100%;
+    }
+
     @media (max-width: 768px) {
       padding-left: 16px;
       padding-right: 16px;
