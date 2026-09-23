@@ -40,9 +40,10 @@
   button {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     min-width: 168px;
-    padding: 10px 18px;
+    padding: 11px 18px;
     border-radius: 12px;
     background: #e8f3ff;
     color: var(--primary-color-main, #1788ca);
@@ -72,8 +73,8 @@
 }
 
 .home-org-section {
-  padding: 58px 0 42px;
-  background: #fbf9ff;
+  padding: 58px 0 46px;
+  background: #f4f8fb;
 }
 
 .home-org-card {
@@ -83,7 +84,7 @@
   flex-direction: column;
   cursor: pointer;
   padding: 24px;
-  border-radius: 16px;
+  border-radius: 18px;
   background: #fff;
   border: 1px solid rgba(21, 73, 116, 0.08);
   box-shadow: 0 18px 46px rgba(12, 45, 77, 0.08);
@@ -105,7 +106,9 @@
     color: var(--primary-color-main, #1788ca);
     font-size: 22px;
     font-weight: 900;
+    font-family: Arial, sans-serif;
     margin-bottom: 18px;
+    text-transform: uppercase;
   }
 
   &-label {
@@ -118,9 +121,10 @@
   h3 {
     margin: 10px 0 12px;
     color: #13243a;
-    font-size: 20px;
+    font-size: 19px;
     line-height: 1.4;
     font-weight: 800;
+    letter-spacing: 0;
   }
 
   p {
@@ -150,9 +154,62 @@
   }
 }
 
+.home-org-card-loading {
+  cursor: default;
+  pointer-events: none;
+
+  .home-org-card-icon,
+  .home-org-card-label,
+  h3,
+  p,
+  .home-org-card-footer span {
+    background: linear-gradient(90deg, #edf4fa 0%, #f8fbfd 48%, #edf4fa 100%);
+    background-size: 220% 100%;
+    animation: homeLoading 1.4s ease-in-out infinite;
+  }
+
+  .home-org-card-icon {
+    color: transparent;
+  }
+
+  .home-org-card-label {
+    width: 132px;
+    height: 15px;
+    border-radius: 999px;
+  }
+
+  h3 {
+    width: 88%;
+    height: 56px;
+    border-radius: 12px;
+  }
+
+  p {
+    width: 100%;
+    height: 94px;
+    border-radius: 12px;
+  }
+
+  .home-org-card-footer span {
+    width: 92px;
+    height: 20px;
+    border-radius: 999px;
+  }
+}
+
+.home-empty-state {
+  padding: 28px;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid rgba(21, 73, 116, 0.08);
+  color: #526173;
+  font-weight: 700;
+  text-align: center;
+}
+
 .home-sv5t-cta {
   padding: 40px 0 72px;
-  background: #fbf9ff;
+  background: #f4f8fb;
 }
 
 .home-sv5t-panel {
@@ -254,5 +311,15 @@
   &:hover {
     transform: translateY(-2px);
     background: #cf1748;
+  }
+}
+
+@keyframes homeLoading {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
   }
 }

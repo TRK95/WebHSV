@@ -44,6 +44,79 @@ export const getFormattedContentWithImg = (content: string) => {
 }
 
 export const getPurifiedContent = (html: string | Node) => DOMPurify.sanitize(html);
+
+const htmlEntityMap: Record<string, string> = {
+  amp: "&",
+  apos: "'",
+  copy: "(c)",
+  gt: ">",
+  lt: "<",
+  nbsp: " ",
+  ndash: "-",
+  mdash: "-",
+  quot: '"',
+  Aacute: "A",
+  aacute: "a",
+  Agrave: "A",
+  agrave: "a",
+  Acirc: "A",
+  acirc: "a",
+  Atilde: "A",
+  atilde: "a",
+  Eacute: "E",
+  eacute: "e",
+  Egrave: "E",
+  egrave: "e",
+  Ecirc: "E",
+  ecirc: "e",
+  Iacute: "I",
+  iacute: "i",
+  Igrave: "I",
+  igrave: "i",
+  Oacute: "O",
+  oacute: "o",
+  Ograve: "O",
+  ograve: "o",
+  Ocirc: "O",
+  ocirc: "o",
+  Otilde: "O",
+  otilde: "o",
+  Uacute: "U",
+  uacute: "u",
+  Ugrave: "U",
+  ugrave: "u",
+  Yacute: "Y",
+  yacute: "y",
+};
+
+export const decodeHtmlEntities = (value = "") => {
+  if (!value) return "";
+  if (typeof document !== "undefined") {
+    const textarea = document.createElement("textarea");
+    textarea.innerHTML = value;
+    return textarea.value;
+  }
+
+  return value.replace(/&(#x?[0-9a-fA-F]+|[a-zA-Z]+);/g, (match, entity) => {
+    if (entity[0] === "#") {
+      const codePoint = entity[1]?.toLowerCase() === "x"
+        ? parseInt(entity.slice(2), 16)
+        : parseInt(entity.slice(1), 10);
+      return Number.isFinite(codePoint) ? String.fromCodePoint(codePoint) : match;
+    }
+
+    return htmlEntityMap[entity] ?? match;
+  });
+};
+
+export const stripHtmlToText = (html = "") => decodeHtmlEntities(
+  html
+    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?>[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+);
 export const isValidEmail = (email: string) =>
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 export const isValidatePhoneNumber = (phoneNumber: string) =>

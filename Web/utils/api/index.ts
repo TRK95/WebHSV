@@ -24,6 +24,8 @@ const PUBLIC_READ_ENDPOINTS = new Set([
 ]);
 
 const PUBLIC_CACHE_TTL = 60 * 1000;
+const PUBLIC_REQUEST_TIMEOUT = 20000;
+const PUBLIC_REQUEST_RETRIES = 4;
 const responseCache = new Map<string, { expiresAt: number, value: any }>();
 const pendingRequests = new Map<string, Promise<any>>();
 
@@ -55,6 +57,56 @@ const withPublicCache = async <T,>(url: string, key: string, request: () => Prom
 
   pendingRequests.set(key, requestPromise);
   return requestPromise;
+};
+
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+const isRetryableStatus = (status: number) => status === 408 || status === 429 || status >= 500;
+
+const fetchWithTimeout = async (href: string, init: RequestInit, timeoutMs: number) => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    return await fetch(href, {
+      ...init,
+      signal: controller.signal,
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
+};
+
+const fetchJsonWithRetry = async (url: string, href: string, init: RequestInit) => {
+  const canRetry = PUBLIC_READ_ENDPOINTS.has(url);
+  const maxAttempts = canRetry ? PUBLIC_REQUEST_RETRIES : 1;
+  let lastError: unknown = null;
+
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    try {
+      const res = await fetchWithTimeout(href, init, canRetry ? PUBLIC_REQUEST_TIMEOUT : 15000);
+      const data = await res.json();
+      const status = res.status;
+
+      if (!canRetry || status === 200 || !isRetryableStatus(status) || attempt === maxAttempts - 1) {
+        if (status !== 200) {
+          console.error(url, "status", status, " error ", data);
+        }
+        return { status, data };
+      }
+    } catch (error) {
+      lastError = error;
+      if (!canRetry || attempt === maxAttempts - 1) {
+        console.error(url, "network error", error);
+        return { status: 500, data: null };
+      }
+    }
+
+    await wait(1500 * (attempt + 1));
+  }
+
+  console.error(url, "network error", lastError);
+  return { status: 500, data: null };
 };
 
 export type responseLoad = {
@@ -94,8 +146,7 @@ export const GET_API = async ({ url, reqQuery }: { url: string, reqQuery?: any }
   Object.keys(dataQuery).forEach(key => dataUrl.searchParams.append(key, dataQuery[key]))
   const cacheKey = `GET:${dataUrl.href}`;
   return withPublicCache(url, cacheKey, async () => {
-    try {
-      const res: Response = await fetch(dataUrl.href, {
+    return fetchJsonWithRetry(url, dataUrl.href, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -103,16 +154,6 @@ export const GET_API = async ({ url, reqQuery }: { url: string, reqQuery?: any }
         } as HeadersInit,
         cache: "no-store",
       });
-      const data = await res.json();
-      const status = res.status;
-      if (status != 200) {
-        console.error(url, "status", status, " error ", data);
-      }
-      return { status, data };
-    } catch (error) {
-      console.error(url, "network error", error);
-      return { status: 500, data: null };
-    }
   });
 };
 
@@ -129,8 +170,7 @@ export const POST_API = async ({ url, reqQuery, reqBody }: { url: string, reqQue
   // const res: Response = await fetch(decodeURIComponent(dataUrl.href), {
   const cacheKey = `POST:${dataUrl.href}:${stableSerialize(reqBody)}`;
   return withPublicCache(url, cacheKey, async () => {
-    try {
-      const res: Response = await fetch(dataUrl.href, {
+    return fetchJsonWithRetry(url, dataUrl.href, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -139,15 +179,5 @@ export const POST_API = async ({ url, reqQuery, reqBody }: { url: string, reqQue
         body: JSON.stringify(reqBody),
         cache: "no-store",
       });
-      const data = await res.json();
-      const status = res.status;
-      if (status != 200) {
-        console.error(url, "status", status, " error ", data);
-      }
-      return { status, data };
-    } catch (error) {
-      console.error(url, "network error", error);
-      return { status: 500, data: null };
-    }
   });
 };

@@ -13,7 +13,7 @@ import { useMemo, useEffect, useState } from 'react';
 import { AccessTime, CalendarViewMonth, DateRange, LocationOn, NavigateBefore, NavigateNext } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
-export const EventComponent = ({ title, eventsData = [], isProfile }: { title?: string, eventsData?: Array<EventModel>, isProfile?: boolean }) => {
+export const EventComponent = ({ title, eventsData = [], isProfile, isLoading = false }: { title?: string, eventsData?: Array<EventModel>, isProfile?: boolean, isLoading?: boolean }) => {
   const theme = useTheme()
   const router = useRouter()
   const isTabletUI = useMediaQuery(theme.breakpoints.down('lg'))
@@ -47,17 +47,32 @@ export const EventComponent = ({ title, eventsData = [], isProfile }: { title?: 
     } else {
       set_EventsData(eventsData)
     }
-  }, [isProfile, eventsData])
+  }, [isProfile, eventsData, _eventsDataHappening, _eventsCommingUp, _eventsOver])
 
   return (
     <>
       <div data-aos="fade-up" className="event-comming">
         <Container maxWidth={customMaxWidthContainer()}>
           <div className="event-comming-title title-h1">
-            <div className="title-h1-icon"><Image src='/images/icon-head-subject.svg' layout='responsive' width={20} height={20} /></div>
+            {!isProfile && <span>Lịch hoạt động</span>}
             {title}
           </div>
-          {_eventsData.slice(0, 6)?.length > 0
+          {isLoading && _eventsData.slice(0, 6)?.length === 0
+            ? <Grid container spacing={2} className="event-loading-grid">
+              {[0, 1, 2, 3].map((item) => (
+                <Grid item xs={12} sm={6} md={3} key={item}>
+                  <div className="event-comming-slider-item event-comming-slider-item-loading">
+                    <div className="event-comming-slider-item-image" />
+                    <div className="event-comming-slider-item-content">
+                      <p className="event-comming-slider-item-content-title" />
+                      <p className="event-comming-slider-item-content-info" />
+                      <p className="event-comming-slider-item-content-info" />
+                    </div>
+                  </div>
+                </Grid>
+              ))}
+            </Grid>
+            : _eventsData.slice(0, 6)?.length > 0
             ? <>
               <Swiper
                 key={1}

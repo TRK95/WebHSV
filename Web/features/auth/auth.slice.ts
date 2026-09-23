@@ -228,25 +228,34 @@ const authSlice = createSlice({
       //   // if (!!user?._id) window.localStorage.setItem(LOCAL_USER_ID_KEY, user._id);
       // })
       .addCase(login.fulfilled, (state, action) => {
-        if (action.payload?.data?.userId) {
+        if (action.payload?.status === USER_LOGIN_SUCCESS && action.payload?.data?.userId) {
           state.student = action.payload.data.userInfo
-          state.userClub = action.payload.data.clubIds
+          state.userClub = action.payload.data.clubIds ?? []
+          state.token = action.payload.token ?? null
+          if (action.payload.token) {
+            window.localStorage.setItem("token", action.payload.token)
+          }
         }
         state.fetchingAPI = false;
-        state.checkLoginCode = action.payload.status
-        if (action.payload.status === USER_LOGIN_SUCCESS) {
-          action.payload.token = action.payload.token
-          window.localStorage.setItem("token", action.payload.token)
-        }
+        state.checkLoginCode = action.payload?.status ?? USER_LOGIN_FAILED
+      })
+      .addCase(login.rejected, (state) => {
+        state.fetchingAPI = false;
+        state.checkLoginCode = USER_LOGIN_FAILED;
       })
       .addCase(checkLogin.fulfilled, (state, action) => {
-        if (action.payload?.res.data?.userClubs) {
+        if (action.payload?.res?.data?.userClubs) {
           state.student = action.payload.res.data.userClubs.userInfo
-          state.userClub = action.payload.res.data.userClubs.clubIds
+          state.userClub = action.payload.res.data.userClubs.clubIds ?? []
         }
         state.loading = false;
-        state.token = action.payload.token
-        state.checkLoginCode = action.payload.res.status
+        state.token = action.payload?.token ?? null
+        state.checkLoginCode = action.payload?.res?.status ?? USER_LOGIN_FAILED
+      })
+      .addCase(checkLogin.rejected, (state) => {
+        state.loading = false;
+        state.token = null;
+        state.checkLoginCode = USER_LOGIN_FAILED;
       })
       .addCase(fetchUserByToken.fulfilled, (state, action) => {
         const user = action.payload.user;

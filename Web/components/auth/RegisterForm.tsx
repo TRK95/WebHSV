@@ -1,6 +1,5 @@
-import { Button, CircularProgress, Dialog, DialogContent, DialogTitle, Slide, TextField, useMediaQuery } from '@mui/material';
+import { CircularProgress, Dialog, IconButton, useMediaQuery } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
-import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@mui/system';
 import { forwardRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -9,6 +8,17 @@ import { useDispatch, useSelector } from '../../app/hooks';
 import { setShowLoginPopup, setShowSignupPopup } from '../../features/auth/auth.slice';
 import { apiRegister } from '../../features/auth/auth.api';
 import { RESPONSE_MEMBER_EXIST, RESPONSE_SUCCESS, STATUS_PUBLIC } from '../../utils/constraint';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import BadgeIcon from '@mui/icons-material/Badge';
+import CloseIcon from '@mui/icons-material/Close';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
+import QrCodeScannerOutlinedIcon from '@mui/icons-material/QrCodeScannerOutlined';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import './style.scss';
 
 type AuthFormRegister = {
@@ -28,24 +38,16 @@ export const RegisterTransition = forwardRef(function RegisterTransition(
   },
   ref: React.Ref<unknown>
 ) {
-  return (
-    <Slide
-      easing={{
-        enter: "cubic-bezier(0, 1.5, .8, 1)",
-        exit: "linear"
-      }}
-      direction="down"
-      ref={ref}
-      {...props}
-    />
-  );
+  return <div ref={ref as any} {...props} />;
 });
+
+const microsoftLoginUrl = process.env.NEXT_PUBLIC_MICROSOFT_LOGIN_URL || 'https://login.microsoftonline.com/';
 
 const RegisterForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const theme = useTheme();
-  const isMobileUI = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobileUI = useMediaQuery(theme.breakpoints.down('md'));
   const showSignupPopup = useSelector(state => state.authState.showSignupPopup);
   const [submitting, setSubmitting] = useState(false);
 
@@ -94,7 +96,7 @@ const RegisterForm = () => {
       }
 
       if (res?.status === RESPONSE_MEMBER_EXIST) {
-        enqueueSnackbar("Email này đã tồn tại, bạn hãy đăng nhập hoặc dùng email khác.", { variant: "error", autoHideDuration: 2500 });
+        enqueueSnackbar("Email hoặc MSSV này đã tồn tại, bạn hãy đăng nhập hoặc dùng thông tin khác.", { variant: "error", autoHideDuration: 2500 });
         return;
       }
 
@@ -111,143 +113,154 @@ const RegisterForm = () => {
       open={showSignupPopup}
       keepMounted
       onClose={handleClose}
+      fullWidth
+      maxWidth={false}
       sx={{
-        '& .MuiPaper-root': {
-          width: isMobileUI ? 'unset' : '100%',
-          maxWidth: '640px',
-          borderRadius: '20px',
-          position: 'absolute',
-          top: 48,
+        '& .MuiDialog-paper': {
+          width: isMobileUI ? 'calc(100vw - 24px)' : 'min(1180px, calc(100vw - 64px))',
+          maxWidth: '1180px',
+          borderRadius: isMobileUI ? '22px' : '26px',
+          overflow: 'hidden',
+          margin: isMobileUI ? '12px' : '32px',
         },
       }}
     >
-      <div className="auth-form">
-        <DialogTitle>
-          <div style={{ display: 'flex', justifyContent: 'flex-end', color: 'var(--primary-color-main)' }} >
-            <div className="close-box" onClick={handleClose}>
-              <CloseIcon color='inherit' />
+      <div className="auth-portal auth-portal-register">
+        <aside className="auth-portal-hero">
+          <div className="auth-portal-badge"><span /> Cổng dịch vụ Đoàn - Hội Bách Khoa</div>
+          <h2>Kích hoạt tài khoản Hội viên để bắt đầu tham gia phong trào</h2>
+          <p>Tài khoản local dùng cho bản demo và kiểm thử hồ sơ Sinh viên 5 tốt. Khi có OAuth Microsoft, tài khoản trường sẽ là phương thức chính.</p>
+          <div className="auth-portal-benefits">
+            <div><BadgeIcon /><span><strong>Thông tin cá nhân rõ ràng</strong>MSSV, email, lớp và đơn vị đào tạo được lưu để đối soát minh chứng.</span></div>
+            <div><MilitaryTechOutlinedIcon /><span><strong>Hồ sơ 5 tốt đầy đủ dữ liệu</strong>Không còn sinh mã tự động khi đăng ký tài khoản test.</span></div>
+            <div><QrCodeScannerOutlinedIcon /><span><strong>Đồng bộ hoạt động</strong>CSV hoạt động có thể đối chiếu trực tiếp với MSSV bạn nhập.</span></div>
+            <div><GroupsOutlinedIcon /><span><strong>Thử nghiệm vai trò sinh viên</strong>Dùng tài khoản local để kiểm tra nộp hồ sơ, minh chứng và tiến độ.</span></div>
+          </div>
+        </aside>
+
+        <main className="auth-portal-main">
+          <div className="auth-portal-topbar">
+            <button type="button" onClick={handleClose}><ArrowBackIcon /> Trang chủ Hội Sinh viên</button>
+            <div className="auth-lang-switch"><span>VI</span><span>EN</span></div>
+            <IconButton className="auth-close" onClick={handleClose}><CloseIcon /></IconButton>
+          </div>
+
+          <div className="auth-portal-title">
+            <span />
+            <h1>Đăng ký tài khoản Hội viên</h1>
+          </div>
+          <p className="auth-portal-subtitle">
+            Ưu tiên dùng email sinh viên Bách Khoa (<code>@sis.hust.edu.vn</code>). Tài khoản này phục vụ demo local và kiểm thử hồ sơ.
+          </p>
+
+          <a className="auth-microsoft-button" href={microsoftLoginUrl} target="_blank" rel="noreferrer">
+            <span className="microsoft-logo"><i /><i /><i /><i /></span>
+            Tiếp tục bằng Office 365 HUST
+            <strong>Khi có SSO</strong>
+          </a>
+
+          <div className="auth-divider"><span />Hoặc tạo tài khoản local để test<span /></div>
+
+          <form className="auth-portal-form auth-register-form" onSubmit={handleSubmit(handleRegister)}>
+            <label className="auth-field">
+              <span>Họ và tên</span>
+              <div className={errors.fullName ? 'auth-input is-error' : 'auth-input'}>
+                <PersonOutlineOutlinedIcon />
+                <input {...register("fullName", { required: true })} placeholder="Nguyễn Văn A" autoComplete="name" />
+              </div>
+              {errors.fullName && <small>Vui lòng nhập họ và tên.</small>}
+            </label>
+
+            <label className="auth-field">
+              <span>Mã số sinh viên</span>
+              <div className={errors.studentId ? 'auth-input is-error' : 'auth-input'}>
+                <BadgeIcon />
+                <input
+                  {...register("studentId", { required: true, pattern: /^[A-Za-z0-9._-]+$/ })}
+                  placeholder="20224567"
+                  autoComplete="off"
+                />
+              </div>
+              {errors.studentId?.type === "required" && <small>Vui lòng nhập MSSV.</small>}
+              {errors.studentId?.type === "pattern" && <small>MSSV chỉ gồm chữ, số, dấu chấm, gạch ngang hoặc gạch dưới.</small>}
+            </label>
+
+            <label className="auth-field">
+              <span>Email Bách Khoa</span>
+              <div className={errors.email ? 'auth-input is-error' : 'auth-input'}>
+                <EmailOutlinedIcon />
+                <input
+                  {...register("email", { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ })}
+                  placeholder="nam.th224567@sis.hust.edu.vn"
+                  autoComplete="email"
+                />
+              </div>
+              {errors.email?.type === "required" && <small>Vui lòng nhập email.</small>}
+              {errors.email?.type === "pattern" && <small>Email chưa đúng định dạng.</small>}
+            </label>
+
+            <label className="auth-field">
+              <span>Số điện thoại</span>
+              <div className="auth-input">
+                <PhoneOutlinedIcon />
+                <input {...register("phoneNumber")} placeholder="0123456789" autoComplete="tel" />
+              </div>
+            </label>
+
+            <label className="auth-field">
+              <span>Lớp</span>
+              <div className="auth-input">
+                <SchoolOutlinedIcon />
+                <input {...register("className")} placeholder="K66-CNTT" />
+              </div>
+            </label>
+
+            <label className="auth-field">
+              <span>Trường/Viện</span>
+              <div className="auth-input">
+                <SchoolOutlinedIcon />
+                <input {...register("schoolName")} placeholder="Trường CNTT&TT" />
+              </div>
+            </label>
+
+            <label className="auth-field">
+              <span>Mật khẩu</span>
+              <div className={errors.password ? 'auth-input is-error' : 'auth-input'}>
+                <LockOutlinedIcon />
+                <input {...register("password", { required: true, minLength: 6 })} type="password" placeholder="Tối thiểu 6 ký tự" autoComplete="new-password" />
+              </div>
+              {errors.password?.type === "required" && <small>Vui lòng nhập mật khẩu.</small>}
+              {errors.password?.type === "minLength" && <small>Mật khẩu tối thiểu 6 ký tự.</small>}
+            </label>
+
+            <label className="auth-field">
+              <span>Nhập lại mật khẩu</span>
+              <div className={errors.confirmPassword ? 'auth-input is-error' : 'auth-input'}>
+                <LockOutlinedIcon />
+                <input
+                  {...register("confirmPassword", { required: true, validate: value => value === watch("password") })}
+                  type="password"
+                  placeholder="Nhập lại mật khẩu"
+                  autoComplete="new-password"
+                />
+              </div>
+              {errors.confirmPassword?.type === "required" && <small>Vui lòng nhập lại mật khẩu.</small>}
+              {errors.confirmPassword?.type === "validate" && <small>Mật khẩu nhập lại chưa khớp.</small>}
+            </label>
+
+            <button className="auth-submit auth-register-submit" type="submit" disabled={submitting}>
+              {submitting ? <CircularProgress size={24} color="inherit" /> : 'Tạo tài khoản local'}
+            </button>
+          </form>
+
+          <div className="auth-note">
+            <SchoolOutlinedIcon />
+            <div>
+              <strong>Đã có tài khoản?</strong>
+              <p>Quay lại form đăng nhập để thử nộp hồ sơ Sinh viên 5 tốt. <button type="button" onClick={openLogin}>Đăng nhập ngay</button></p>
             </div>
           </div>
-          <div className="title">Đăng ký</div>
-        </DialogTitle>
-        <DialogContent>
-          <form className="auth-form-body" onSubmit={handleSubmit(values => handleRegister(values))} >
-            <div className="auth-form-item">
-              <div className="input-item">
-                <TextField
-                  {...register("fullName", { required: true })}
-                  sx={{ width: '100%' }}
-                  label="Họ và tên" placeholder="Nhập họ và tên"
-                />
-              </div>
-              {errors.fullName?.type === "required" && <div className='error-message'>Vui lòng nhập họ và tên!</div>}
-            </div>
-
-            <div className="auth-form-item">
-              <div className="input-item">
-                <TextField
-                  {...register("studentId", {
-                    required: true,
-                    pattern: /^[A-Za-z0-9._-]+$/
-                  })}
-                  sx={{ width: '100%' }}
-                  label="Mã số sinh viên" placeholder="Ví dụ: 20230001"
-                />
-              </div>
-              {errors.studentId?.type === "required" && <div className='error-message'>Vui lòng nhập mã số sinh viên!</div>}
-              {errors.studentId?.type === "pattern" && <div className='error-message'>Mã số sinh viên chỉ nên gồm chữ, số, dấu chấm, gạch ngang hoặc gạch dưới.</div>}
-            </div>
-
-            <div className="auth-form-item">
-              <div className="input-item">
-                <TextField
-                  {...register("email", {
-                    required: true,
-                    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-                  })}
-                  sx={{ width: '100%' }}
-                  label="Email" placeholder="Nhập email"
-                />
-              </div>
-              {errors.email?.type === "required" && <div className='error-message'>Vui lòng nhập email!</div>}
-              {errors.email?.type === "pattern" && <div className='error-message'>Email chưa đúng định dạng!</div>}
-            </div>
-
-            <div className="auth-form-item">
-              <div className="input-item">
-                <TextField
-                  {...register("password", { required: true, minLength: 6 })}
-                  type="password"
-                  sx={{ width: '100%' }}
-                  label="Mật khẩu" placeholder="Nhập mật khẩu"
-                />
-              </div>
-              {errors.password?.type === "required" && <div className='error-message'>Vui lòng nhập mật khẩu!</div>}
-              {errors.password?.type === "minLength" && <div className='error-message'>Mật khẩu tối thiểu 6 ký tự!</div>}
-            </div>
-
-            <div className="auth-form-item">
-              <div className="input-item">
-                <TextField
-                  {...register("confirmPassword", {
-                    required: true,
-                    validate: value => value === watch("password")
-                  })}
-                  type="password"
-                  sx={{ width: '100%' }}
-                  label="Nhập lại mật khẩu" placeholder="Nhập lại mật khẩu"
-                />
-              </div>
-              {errors.confirmPassword?.type === "required" && <div className='error-message'>Vui lòng nhập lại mật khẩu!</div>}
-              {errors.confirmPassword?.type === "validate" && <div className='error-message'>Mật khẩu nhập lại chưa khớp!</div>}
-            </div>
-
-            <div className="auth-form-item">
-              <div className="input-item">
-                <TextField
-                  {...register("phoneNumber")}
-                  sx={{ width: '100%' }}
-                  label="Số điện thoại" placeholder="Nhập số điện thoại"
-                />
-              </div>
-            </div>
-
-            <div className="auth-form-item">
-              <div className="input-item">
-                <TextField
-                  {...register("className")}
-                  sx={{ width: '100%' }}
-                  label="Lớp" placeholder="Ví dụ: K66-CNTT"
-                />
-              </div>
-            </div>
-
-            <div className="auth-form-item">
-              <div className="input-item">
-                <TextField
-                  {...register("schoolName")}
-                  sx={{ width: '100%' }}
-                  label="Trường/Viện" placeholder="Ví dụ: Trường CNTT&TT"
-                />
-              </div>
-            </div>
-
-            <div className="auth-form-btn">
-              <Button
-                type='submit'
-                variant="outlined"
-                className="btn-submit"
-                disabled={submitting}
-              >
-                {submitting ? <CircularProgress style={{ color: "white", width: '30px', height: '30px' }} /> : "Đăng ký"}
-              </Button>
-            </div>
-
-            <div className="auth-form-switch">
-              Đã có tài khoản? <span onClick={openLogin}>Đăng nhập</span>
-            </div>
-          </form>
-        </DialogContent>
+        </main>
       </div>
     </Dialog>
   )

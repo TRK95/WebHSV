@@ -18,6 +18,7 @@ import FactCheckIcon from "@mui/icons-material/FactCheck";
 import { apiGetClubCategories } from "../utils/api/clubsApi";
 import ClubCategory from "../models/clubsCategoryModel";
 import customMaxWidthContainer from "../features/common/CustomMaxWidth";
+import { stripHtmlToText } from "../utils/format";
 import "../styles/home.scss";
 type IndexPageProps = {
   // seoInfo: WebSeo;
@@ -30,6 +31,7 @@ const IndexPage = () => {
   const router = useRouter();
   const [eventsData, setEventsData] = useState<EventModel[]>([])
   const [clubCategories, setClubCategories] = useState<ClubCategory[]>([])
+  const [isHomeDataLoading, setIsHomeDataLoading] = useState(true)
   usePageAuth();
 
   useEffect(() => {
@@ -39,7 +41,10 @@ const IndexPage = () => {
   // const seoInfo = useSelector((state) => state.appInfos.seoInfo);
 
   useEffect(() => {
+    let isMounted = true;
+
     (async () => {
+      setIsHomeDataLoading(true)
       const [eventSDataRes, clubCategoriesRes] = await Promise.all([
         apiGetEventsByDate({
           reqQuery: {
@@ -55,14 +60,20 @@ const IndexPage = () => {
         })
       ])
 
-      if (eventSDataRes.status === RESPONSE_SUCCESS) {
+      if (isMounted && eventSDataRes.status === RESPONSE_SUCCESS) {
         setEventsData(eventSDataRes.data)
       }
 
-      if (clubCategoriesRes.status === RESPONSE_SUCCESS) {
+      if (isMounted && clubCategoriesRes.status === RESPONSE_SUCCESS) {
         setClubCategories(clubCategoriesRes.data)
       }
+
+      if (isMounted) setIsHomeDataLoading(false)
     })()
+
+    return () => {
+      isMounted = false
+    }
   }, [])
 
   const dataBanners = [
@@ -101,7 +112,7 @@ const IndexPage = () => {
       <PaginationHome data={dataBanners} />
       <News title='Tin tức nổi bật' />
       {/* <CategoryCourse title={seoInfo?.titleH1} description={seoInfo?.summary} categories={categories} /> */}
-      <EventComponent title="Sự kiện sắp diễn ra" eventsData={eventsData} />
+      <EventComponent title="Sự kiện sắp diễn ra" eventsData={eventsData} isLoading={isHomeDataLoading} />
       <section className="home-org-section">
         <Container maxWidth={customMaxWidthContainer()}>
           <div className="home-section-heading">
@@ -115,8 +126,26 @@ const IndexPage = () => {
             </button>
           </div>
           <Grid container spacing={2.5}>
+            {isHomeDataLoading && clubCategories.length === 0 && [0, 1, 2, 3].map((item) => (
+              <Grid item xs={12} sm={6} md={3} key={item}>
+                <article className="home-org-card home-org-card-loading">
+                  <div className="home-org-card-icon" />
+                  <div className="home-org-card-label" />
+                  <h3 />
+                  <p />
+                  <div className="home-org-card-footer">
+                    <span />
+                  </div>
+                </article>
+              </Grid>
+            ))}
+            {!isHomeDataLoading && clubCategories.length === 0 && (
+              <Grid item xs={12}>
+                <div className="home-empty-state">Danh mục tổ chức đang được cập nhật, vui lòng thử lại sau ít phút.</div>
+              </Grid>
+            )}
             {clubCategories.slice(0, 4).map((item) => {
-              const description = (item.des || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+              const description = stripHtmlToText(item.des || "");
               return (
                 <Grid item xs={12} sm={6} md={3} key={item._id || item.slug}>
                   <article className="home-org-card" onClick={() => router.push(`/to-chuc/${item.slug}`)}>
