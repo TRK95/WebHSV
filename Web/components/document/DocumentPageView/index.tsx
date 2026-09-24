@@ -8,6 +8,7 @@ import NewsInCategory from "../../../models/newsIncategory";
 import { apiGetNewsCategories, apiGetNewsInCategory } from "../../../utils/api/newsApi";
 import BreadCrumb from '../../breadcrumb/BreadCrumb';
 import NextLink from "../../NextLink";
+import ContentSidebar from "../../common/ContentSidebar";
 
 import "./style.scss";
 import SkeletonView from "./skeleton";
@@ -83,25 +84,14 @@ function DocumentPageView({ slug }: { slug: string }) {
           <div>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4} md={3}>
-                <div className="document-page-view-side-bar-wrapper">
-                  <div className="document-page-view-side-bar">
-                    <ul>
-                      {sortBy(documentCategories, ["createDate"]).map(
-                        (item) => (
-                          <li
-                            onClick={() => handleClickCate(item)}
-                            className={
-                              currentSlug && currentSlug === item.slug ? "active" : ""
-                            }
-                            key={item.title}
-                          >
-                            <p>{item.title}</p>
-                          </li>
-                        )
-                      )}
-                    </ul>
-                  </div>
-                </div>
+                <ContentSidebar
+                  items={sortBy(documentCategories, ["createDate"]).map((item) => ({
+                    key: item._id || item.slug,
+                    label: item.title,
+                    active: currentSlug === item.slug,
+                    onClick: () => handleClickCate(item),
+                  }))}
+                />
               </Grid>
               <Grid item xs={12} sm={8} md={9}>
                 <div className="document-page-view-body">

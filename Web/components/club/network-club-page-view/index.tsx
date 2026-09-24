@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import NextLink from '../../NextLink';
 import { getPurifiedContent } from '../../../utils/format';
 import { getDisplayImage } from '../../../utils/image';
+import ContentSidebar from '../../common/ContentSidebar';
 
 export const MAX_CLUBS_DATA_DISPLAY = 10
 
@@ -145,13 +146,14 @@ function NetWorkClubPageView({
             <div id="network-club-page-view">
                 <BreadCrumb path={[{ label: 'Tổ chức', slug: 'to-chuc/tat-ca-to-chuc' }, { label: path?.label, slug: path?.slug }]} />
                 <div className="network-club-page-view-layout">
-                    <div className="network-club-side-bar-wrapper">
-                        <div className="network-club-side-bar">
-                            {/* <div className="network-club-side-bar-title title-h1">
-                                Các tổ chức
-                            </div> */}
-                            <ul className="network-club-side-bar-options">
-                                <li onClick={() => {
+                    <ContentSidebar
+                        className="network-club-sidebar"
+                        items={[
+                            {
+                                key: 'tat-ca-to-chuc',
+                                label: 'Tất cả tổ chức',
+                                active: activeSlug === 'tat-ca-to-chuc',
+                                onClick: () => {
                                     router.push('/to-chuc/tat-ca-to-chuc', undefined, { shallow: true, scroll: false })
                                     setClubsByCategoryId([])
                                     setCategoryId(null)
@@ -159,20 +161,16 @@ function NetWorkClubPageView({
                                     setPath({ label: 'Tất cả tổ chức', slug: 'to-chuc/tat-ca-to-chuc' })
                                     setClubName(undefined)
                                     setCategoryDescription('')
-                                }} className={`network-club-side-bar-options-item ${activeSlug === 'tat-ca-to-chuc' ? 'active' : ''}`}>
-                                    <div className="side-bar-options-name">Tất cả tổ chức</div>
-                                </li>
-                                {clubCategories.map((item, index) => (
-                                    <li onClick={() => handleChangeCate(item)} key={index} className={`network-club-side-bar-options-item ${activeSlug === item.slug ? 'active' : ''}`}>
-                                        {/* <div className="side-bar-options-icon">
-                                            {item.icon}
-                                        </div> */}
-                                        <div className="side-bar-options-name">{item.name}</div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
+                                },
+                            },
+                            ...clubCategories.map((item) => ({
+                                key: item._id || item.slug,
+                                label: item.name,
+                                active: activeSlug === item.slug,
+                                onClick: () => handleChangeCate(item),
+                            })),
+                        ]}
+                    />
                     <div className="network-club-main">
                         <div className="network-club-main-header">
                             <div className="network-club-main-header-title title-h1">

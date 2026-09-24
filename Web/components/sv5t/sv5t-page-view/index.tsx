@@ -11,6 +11,7 @@ import { apiGetNewsInCategory } from '../../../utils/api/newsApi';
 import BreadCrumb from '../../breadcrumb/BreadCrumb';
 import NewsInCategory from '../../../models/newsIncategory';
 import { getPurifiedContent } from '../../../utils/format';
+import ContentSidebar from '../../common/ContentSidebar';
 
 type CategoryId = string | number;
 
@@ -92,17 +93,14 @@ function Sv5tPageView({ slugs = [], newsCategories = [], pageQuery = 1 }: { slug
                     <div>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={4} md={3}>
-                                <div className="news-page-view-side-bar-wrapper">
-                                    <div className="news-page-view-side-bar">
-                                        <ul>
-                                            {newsCategories?.map((item, index) => (
-                                                <li onClick={() => handleChangeCate(item)} className={activeSlug === item.slug ? 'active' : ''} key={index}>
-                                                    <p>{item?.title}</p>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
+                                <ContentSidebar
+                                    items={newsCategories?.map((item) => ({
+                                        key: item._id || item.slug,
+                                        label: item?.title,
+                                        active: activeSlug === item.slug,
+                                        onClick: () => handleChangeCate(item),
+                                    }))}
+                                />
                             </Grid>
 
                             <Grid item xs={12} sm={8} md={9}>

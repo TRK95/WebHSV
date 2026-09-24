@@ -15,6 +15,7 @@ import { apiGetClubFeatureDetailByFeatureId } from '../../../utils/api/clubFeatu
 import Club from '../../../models/clubsModel';
 import { apiGetClubBySlug } from '../../../utils/api/clubsApi';
 import { getDisplayImage } from '../../../utils/image';
+import ContentSidebar from '../../common/ContentSidebar';
 
 function FeaturePageView({ clubSlug, featureSlug, featureId, featureCategories = [], pageQuery = 1 }: { clubSlug?: string, featureSlug?: string, featureId?: string, featureCategories?: Array<ClubFeatureChild>, pageQuery }) {
     const router = useRouter()
@@ -130,17 +131,14 @@ function FeaturePageView({ clubSlug, featureSlug, featureId, featureCategories =
                     <div>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={4} md={3}>
-                                <div className="news-page-view-side-bar-wrapper">
-                                    <div className="news-page-view-side-bar">
-                                        <ul>
-                                            {featureCategories.map((item, index) => (
-                                                <li onClick={() => handleChangeCate(item)} className={activeFeatureId && activeFeatureId === item._id ? 'active' : ''} key={index}>
-                                                    <p>{item?.title}</p>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
+                                <ContentSidebar
+                                    items={featureCategories.map((item) => ({
+                                        key: item._id,
+                                        label: item?.title,
+                                        active: activeFeatureId === item._id,
+                                        onClick: () => handleChangeCate(item),
+                                    }))}
+                                />
                             </Grid>
 
                             <Grid item xs={12} sm={8} md={9}>

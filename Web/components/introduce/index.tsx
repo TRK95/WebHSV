@@ -9,6 +9,7 @@ import { RESPONSE_SUCCESS, STATUS_PUBLIC } from "../../utils/constraint";
 import { apiGetNewsInCategory } from "../../utils/api/newsApi";
 import { getPurifiedContent } from "../../utils/format";
 import BreadCrumb from "../breadcrumb/BreadCrumb";
+import ContentSidebar from "../common/ContentSidebar";
 import "./style.scss";
 
 export type IntroduceCategory = NewsCategory & {
@@ -129,34 +130,25 @@ function IntroducePageView({
                 <BreadCrumb path={[{ label: "Giới thiệu", slug: "gioi-thieu" }, { label: path?.label, slug: path?.slug }]} />
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={4} md={3}>
-                        <div className="introduce-page-view-side-bar">
-                            <ul>
-                                {introduceCategories?.map(item => {
-                                    const isExpanded = expandedIds.includes(item._id);
-                                    const hasChildren = !!item.children?.length;
-                                    const isActive = selectedCategoryId === item._id;
-                                    const hasActiveChild = item.children?.some(child => child._id === selectedCategoryId);
+                        <ContentSidebar
+                            items={introduceCategories?.map(item => {
+                                const hasActiveChild = item.children?.some(child => child._id === selectedCategoryId);
 
-                                    return (
-                                        <li key={item._id} className={`${isActive || hasActiveChild ? "active" : ""} ${hasChildren ? "has-children" : ""}`}>
-                                            <div className="introduce-page-view-side-bar-row" onClick={() => toggleCategory(item)}>
-                                                <p>{item.title}</p>
-                                                {hasChildren && <span>{isExpanded ? "-" : "+"}</span>}
-                                            </div>
-                                            {hasChildren && isExpanded &&
-                                                <ul className="introduce-page-view-sub-list">
-                                                    {item.children.map(child => (
-                                                        <li key={child._id} className={selectedCategoryId === child._id ? "active" : ""} onClick={() => handleChangeCate(child)}>
-                                                            <p>{child.title}</p>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            }
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                        </div>
+                                return {
+                                    key: item._id,
+                                    label: item.title,
+                                    active: selectedCategoryId === item._id || hasActiveChild,
+                                    expanded: expandedIds.includes(item._id),
+                                    onClick: () => toggleCategory(item),
+                                    children: item.children?.map(child => ({
+                                        key: child._id,
+                                        label: child.title,
+                                        active: selectedCategoryId === child._id,
+                                        onClick: () => handleChangeCate(child),
+                                    })),
+                                };
+                            })}
+                        />
                     </Grid>
 
                     <Grid item xs={12} sm={8} md={9}>

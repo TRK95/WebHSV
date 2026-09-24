@@ -16,6 +16,7 @@ import NewsInCategory from '../../../models/newsIncategory';
 import Image from 'next/image';
 import NonAccentVietnamese from '../../../utils/checkNonVietNameseAccent';
 import { getDisplayImage } from '../../../utils/image';
+import ContentSidebar from '../../common/ContentSidebar';
 
 function NewsPageView({ slugs = [], newsCategories = [], pageQuery = 1 }: { slugs?: string[], newsCategories?: Array<NewsCategory>, pageQuery }) {
     const router = useRouter()
@@ -153,10 +154,13 @@ function NewsPageView({ slugs = [], newsCategories = [], pageQuery = 1 }: { slug
                     <div>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={4} md={3}>
-                                <div className="news-page-view-side-bar-wrapper">
-                                    <div className="news-page-view-side-bar">
-                                        <ul>
-                                            <li className={activeSlug === 'tat-ca-tin-tuc' ? 'active' : ''} onClick={() => {
+                                <ContentSidebar
+                                    items={[
+                                        {
+                                            key: 'tat-ca-tin-tuc',
+                                            label: 'Tất cả tin tức',
+                                            active: activeSlug === 'tat-ca-tin-tuc',
+                                            onClick: () => {
                                                 router.push(`/tin-tuc/tat-ca-tin-tuc`, undefined, { shallow: true, scroll: false })
                                                 setNewsIncategory([])
                                                 setCategoryId(null)
@@ -168,15 +172,16 @@ function NewsPageView({ slugs = [], newsCategories = [], pageQuery = 1 }: { slug
                                                 } else (
                                                     setLoading(true)
                                                 )
-                                            }}><p>Tất cả tin tức</p></li>
-                                            {newsCategories.map((item, index) => (
-                                                <li onClick={() => handleChangeCate(item)} className={activeSlug === item.slug ? 'active' : ''} key={index}>
-                                                    <p>{item?.title}</p>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
+                                            },
+                                        },
+                                        ...newsCategories.map((item) => ({
+                                            key: item._id || item.slug,
+                                            label: item?.title,
+                                            active: activeSlug === item.slug,
+                                            onClick: () => handleChangeCate(item),
+                                        })),
+                                    ]}
+                                />
                             </Grid>
 
                             <Grid item xs={12} sm={8} md={9}>

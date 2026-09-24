@@ -18,6 +18,7 @@ import BreadCrumb from "../../breadcrumb/BreadCrumb";
 import moment from "moment";
 import NonAccentVietnamese from "../../../utils/checkNonVietNameseAccent"
 import Image from "next/image";
+import ContentSidebar from "../../common/ContentSidebar";
 
 enum EventStatus {
   ALL = 0,
@@ -153,21 +154,14 @@ function EventsPageView({
         />
         <Grid container spacing={3} alignItems="flex-start">
           <Grid item xs={12} sm={4} md={3}>
-            <div className="event-page-view-side-bar-wrapper">
-              <div className="event-page-view-side-bar">
-                <ul>
-                  {dataEventCategories.map((item) => (
-                    <li
-                      key={item.name}
-                      onClick={() => handleChangeCate(item)}
-                      className={activeSlug && activeSlug === item.slug ? "active" : ""}
-                    >
-                      <p>{item.name}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <ContentSidebar
+              items={dataEventCategories.map((item) => ({
+                key: item.slug,
+                label: item.name,
+                active: activeSlug === item.slug,
+                onClick: () => handleChangeCate(item),
+              }))}
+            />
           </Grid>
           <Grid item xs={12} sm={8} md={9}>
             <div className="event-page-view-header">
